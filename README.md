@@ -13,8 +13,12 @@ Due to dataset size, the extraction is partitioned into two files. Both files sh
 | File Name | Start Date | End Date | Row Count |
 | :--- | :--- | :--- | :--- |
 | `transactionRevenueSO0124.csv` | 2022-01-02 | 2024-01-01 | 990,369 |
-| `transactionRevenueSO24-0826.csv` | 2024-01-01 | 2026-08-31 | 1,446,775 |
-| **Combined Total** | **2022-01-02** | **2026-08-31** | **2,437,144** |
+| `transactionRevenueSO24-0826.csv` | 2024-01-01 | 2026-08-31 | 1,446,771 |
+| **`transactionRevenue_combined.csv`** | **2022-01-02** | **2026-08-31** | **2,437,140** |
+
+> [!TIP]
+> The single combined dataset `transactionRevenue_combined.csv` can be regenerated at any time using the script [`scripts/merge_dataset.py`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/scripts/merge_dataset.py).
+
 
 ---
 
