@@ -29,6 +29,11 @@ if the user is [EMAIL_ADDRESS] save in gera branch, else save in camilo branch
 - Ensure all descriptions and comments are in Spanish; correct any text that is in English.
 
 
+##  3. Exploratory data analysis 
+
+
+
+
 <!-- ## 3. Data Science & Machine Learning Best Practices
 
 When performing data analysis, preprocessing, or machine learning in this repository, always adhere to the following best practices:
