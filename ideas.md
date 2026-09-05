@@ -1,7 +1,9 @@
 
 
+Author: Gerardo Gonzalez
 1. Análisis de Temporalidad y Estacionalidad (Time Series)
 ⚬	Distribución de ventas por mes y hora: Puedes agrupar las ventas netas (net_sales) utilizando las columnas del calendario minorista 4-5-4 (retail_year, retail_month, retail_week).
+
 ⚬	Hipótesis a validar: El documento menciona que noviembre y diciembre concentran el 32% de las ventas del año. Puedes visualizar esto con un gráfico de barras por mes.
 ⚬	Franjas horarias: Analiza la columna hour para descubrir los picos de tráfico en las tiendas físicas versus las compras online a lo largo del día.
 2. Rendimiento por Canal y Ubicación (Location & Channel Performance)
