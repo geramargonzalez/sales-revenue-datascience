@@ -43,6 +43,7 @@ Este documento registra el avance, control de tareas, resolución de incidencias
   - Mediana: conservada en **19.0 días**.
   - Máximo: acotado a **90.0 días**.
   - Registros topados al límite de 90 días: **49,842**.
+- [x] **Incorporación de Tabla Comparativa al Notebook:** Se agregaron las celdas `outlier_comparison_md` y `outlier_comparison_code` con la tabla comparativa detallada de métricas e impacto antes vs. después.
 
 ---
 
