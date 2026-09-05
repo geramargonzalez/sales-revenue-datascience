@@ -32,7 +32,17 @@ Este documento registra el avance, control de tareas, resolución de incidencias
   - Total de filas originales: 2,437,140.
   - Total de filas excluidas: 28,967.
   - Total de filas resultantes conservadas en `df`: 2,408,173.
-  - Transacciones resultantes compuestas únicamente por `'Sale'`, `'Mixed'` y `'Return'`.
+
+### Fase 2: Corrección de Valores Atípicos (Outliers) en `return_lag_days`
+- [x] **Diagnóstico de Outliers:** Identificación de valores extremos de hasta **3,225 días** (~9 años) en `return_lag_days`, generando una media distorsionada de **120.59 días** frente a una mediana real de **19 días** (el 75% ocurre en <= 98 días).
+- [x] **Estrategia Seleccionada:** Recorte (*Capping / Winsorizing*) a un umbral máximo de **90 días**, correspondiente a la política comercial extendida de devoluciones y garantías en joyería.
+- [x] **Justificación Contable:** Se evitó la eliminación de filas para no restar devoluciones reales ni descuadrar el cálculo acumulado de ventas netas (`net_sales`), preservando las 2,408,173 filas del dataset.
+- [x] **Resultados tras el Capping:**
+  - Registros de devolución procesados: 193,955 (100% conservados).
+  - Media saneada: se redujo de **120.59 días** a **35.91 días**.
+  - Mediana: conservada en **19.0 días**.
+  - Máximo: acotado a **90.0 días**.
+  - Registros topados al límite de 90 días: **49,842**.
 
 ---
 
@@ -43,22 +53,22 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 | `ModuleNotFoundError: No module named 'pandas'` | El notebook se ejecutaba sobre el Python global del sistema (`/usr/bin/python3` v3.9.6) sin entorno virtual ni librerías de ciencia de datos instaladas. | Se creó el entorno virtual `.venv` con Python 3.11, se instalaron las librerías necesarias (`pandas`, `ipykernel`, etc.), se generó `requirements.txt` y se registró el kernel `sales-revenue-env` en Jupyter. |
 | Inconsistencia de nombre de notebook (`exploration.ipynb` vs `sales-revenue-jewery.ipynb`) | El archivo fue renombrado en el commit `fff8244` pero la pestaña previa permanecía abierta en el editor. | Se verificó la referencia al archivo canónico [`sales-revenue-jewery.ipynb`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/sales-revenue-jewery.ipynb). |
 | Presencia de texto y comentarios en inglés en el notebook | Celdas iniciales contenían comentarios y encabezados en inglés no alineados con la regla 2 de `Gemini.md`. | Se tradujeron todas las descripciones y comentarios al español respetando la regla de no alterar la estructura de las celdas preexistentes. |
+| Outliers ilógicos en `return_lag_days` (hasta 3,225 días) | Registros vinculados a ventas históricas anteriores a la migración del sistema POS (2014-2017) o fechas dummy de origen. | Se aplicó recorte (*capping*) a 90 días con `.clip(upper=90)`, protegiendo el cuadre de ventas netas (`net_sales`) sin distorsionar las métricas de tiempo. |
 
 ---
 
 ## 4. Próximos Pasos y Acciones Pendientes
 
-- [ ] **Fase 2 : Preparación y Tratamiento de Valores Faltantes**
-  - Identificar la frecuencia y porcentaje de valores nulos/missing values por columna en el dataset limpio.
-  - Documentar y aplicar la estrategia para cada campo relevante (drop, imputación o conservación documentada).
-  - Verificar conversiones de tipo requeridas (fechas, booleanos, numéricos).
-- [ ] **Fase 3 : Análisis Exploratorio de Datos (EDA)**
+- [ ] **Fase 3 : Tratamiento de Valores Faltantes y Tipos de Datos**
+  - Evaluar la frecuencia de nulos por columna en el dataset limpio y definir estrategia (imputación o mantenimiento documentado).
+  - Comprobar tipos de datos de fechas (`date`) y numéricos.
+- [ ] **Fase 4 : Análisis Exploratorio de Datos (EDA)**
   - **a. Análisis Univariado:**
-    - Distribución de métricas financieras clave (`gross_sales`, `net_sales`, `discount_total`, `cogs`, `margin`, `qty`) con histogramas y estadísticas descriptivas.
+    - Distribución de variables financieras clave (`gross_sales`, `net_sales`, `discount_total`, `cogs`, `margin`, `qty`) mediante histogramas y boxplots.
     - Distribución de frecuencias de variables categóricas (`department`, `class`, `brand`, `location_name`, `is_web`).
   - **b. Análisis Bivariado:**
     - Comportamiento de ingresos por canal (`is_web` vs tiendas físicas).
     - Patrones temporales y estacionales según el calendario 4-5-4 (`retail_year`, `retail_quarter`, `retail_month`).
-    - Matriz de correlación entre variables de precios, costos, márgenes y descuentos.
+    - Matriz de correlación entre variables de ingresos, costos y descuentos.
 - [ ] **Control Git:**
-  - Mantener los commits en la rama `gera` siguiendo el formato `Fase <n> : <descripción>`.
+  - Mantener commits en la rama `gera` siguiendo el formato `Fase <n> : <descripción>`.
