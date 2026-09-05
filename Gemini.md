@@ -7,7 +7,7 @@ This document outlines the workflow guidelines, rules, and best practices that m
 
 ## 1. Git Workflow & Commit Guidelines
 
-* En el primer commit del dia revisa las diferencias con main y si hay diferencia primero actualiza tu rama con main y luego continua con el trabajo diario
+* when you are in a branch other than main update the branch with the latest changes from main
 
 ### Commit & Push Nomenclature
 When completing a task, commit and push changes to the repository using the following strict nomenclature:
@@ -20,6 +20,7 @@ Fase <number_of_task> : <description_of_the_task>
 For every task executed, you must create or update a tracking file named `process.md` in the root of the workspace. This file should detail:
 * Current progress and completed steps.
 * Issues encountered and their resolutions.
+* Add the user appied the changes, for example from gera, camilo
 * Next steps or pending actions.
 
 if the user is [EMAIL_ADDRESS] save in gera branch, else save in camilo branch
