@@ -7,6 +7,8 @@ This document outlines the workflow guidelines, rules, and best practices that m
 
 ## 1. Git Workflow & Commit Guidelines
 
+* En el primer commit del dia revisa las diferencias con main y si hay diferencia primero actualiza tu rama con main y luego continua con el trabajo diario
+
 ### Commit & Push Nomenclature
 When completing a task, commit and push changes to the repository using the following strict nomenclature:
 ```text
