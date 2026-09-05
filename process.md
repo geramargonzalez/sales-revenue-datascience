@@ -6,6 +6,9 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 
 ## 1. Configuración del Entorno y Control de Versiones
 
+
+* En el primer commit del dia revisa las diferencias con main y si hay diferencia primero actualiza tu rama con main y luego continua con el trabajo diario
+
 * **Rama activa de trabajo:** `gera` (según regla: `gerardo.gonzalez@estudiantes.utec.edu.uy` -> rama `gera`).
 * **Nomenclatura obligatoria de commits:** `Fase <number_of_task> : <description_of_the_task>`.
 * **Idioma:** Español estricto en comentarios, documentación y descripciones de celdas.
