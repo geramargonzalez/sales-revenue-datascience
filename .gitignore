@@ -1,6 +1,9 @@
 # Data & Datasets
 dataset/
 
+# Documentation
+documentation/
+
 # Python
 __pycache__/
 *.py[cod]
