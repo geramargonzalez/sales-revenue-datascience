@@ -47,6 +47,28 @@ Este documento registra el avance, control de tareas, resolución de incidencias
   - Registros topados al límite de 90 días: **49,842**.
 - [x] **Incorporación de Tabla Comparativa al Notebook:** Se agregaron las celdas `outlier_comparison_md` y `outlier_comparison_code` con la tabla comparativa detallada de métricas e impacto antes vs. después.
 
+### Fase 3: Análisis y Tratamiento de Valores Faltantes (Aplicado por **gera**)
+- [x] **Diagnóstico Exhaustivo de Nulos:**
+  - Evaluación integral de las 40 columnas en las 2,408,173 filas del dataset limpio.
+  - Identificación de 14 columnas con datos faltantes y clasificación según naturaleza del negocio:
+    - *Vacíos en Origen (100% nulos):* `item_season`, `promo_name`, `promo_amt` (no poblados en extracción POS/BigQuery; documentados para descarte analítico/ML).
+    - *Nulos Estructurales (*Missing by Design*):* `return_reason` (93.56%), `return_lag_days` (91.95%), `orig_location_name` (91.76%). Nulos en ventas normales porque no existió devolución.
+    - *Nulos Condicionales por Canal:* `ship_to_postal` (40.51% global; solo 1.49% nulo en web vs 94.58% nulo en tiendas presenciales).
+    - *Financiero:* `markdown` (23.07% nulos; indica venta a precio de lista completo MSRP sin rebaja).
+    - *Catálogo y Clientes:* `customer_id` (2.97%), `subclass1` (32.22%), `brand` (8.47%), `class` (0.13%), `department` (5 filas), `associate_id` (3 filas).
+- [x] **Visualización del Perfil de Nulos:**
+  - Incorporación de gráficos con `seaborn` y `matplotlib`: ranking porcentual de nulos y evidencia empírica de nulos condicionales/estructurales.
+- [x] **Tratamiento e Imputación sin Pérdida de Datos:**
+  - `markdown`: Imputación con `0.0` (cero descuento por rebaja).
+  - `customer_id`: Imputación con `'CLIENTE_ANONIMO'`.
+  - `brand`, `subclass1`, `class`, `department`: Imputación con etiquetas explícitas (`'Sin Marca / Genérico'`, `'Sin Subclase'`, etc.).
+  - `ship_to_postal`: Imputación condicional según canal (`'COMPRA_EN_TIENDA'` vs `'NO_DISPONIBLE'`).
+  - `return_reason`, `orig_location_name`: Imputación condicional (`'No aplica (Venta)'` en ventas ordinarias; `'No especificado'` / `'No registrada / Misma tienda'` en devoluciones).
+  - `return_lag_days`: Preservado con `NaN` en ventas puras para no inventar días de devolución.
+- [x] **Control y Balance Contable:**
+  - Filas iniciales: **2,408,173** -> Filas finales: **2,408,173** (0 eliminadas, 100% conservadas).
+  - Ventas Netas (`net_sales`): **$283,387,098.70 USD** (0.00 de variación respecto al balance inicial).
+
 ---
 
 ## 3. Problemas Encontrados y Resoluciones
@@ -58,14 +80,12 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 | Presencia de texto y comentarios en inglés en el notebook | Celdas iniciales contenían comentarios y encabezados en inglés no alineados con la regla 2 de `Gemini.md`. | Se tradujeron todas las descripciones y comentarios al español respetando la regla de no alterar la estructura de las celdas preexistentes. |
 | Outliers ilógicos en `return_lag_days` (hasta 3,225 días) | Registros vinculados a ventas históricas anteriores a la migración del sistema POS (2014-2017) o fechas dummy de origen. | Se aplicó recorte (*capping*) a 90 días con `.clip(upper=90)`, protegiendo el cuadre de ventas netas (`net_sales`) sin distorsionar las métricas de tiempo. |
 | `TypeError: 'NoneType' object is not callable` al invocar `display()` en celda 19 | Se ejecutó accidentalmente la asignación `display = None` (procedente de pruebas o autocompletado), sobrescribiendo la función global de IPython en la memoria del kernel. | (Por **gera**) Se eliminó la asignación `display = None`, se ajustó la celda para desplegar directamente el DataFrame `comparativa_outliers` y se añadió explícitamente `from IPython.display import display` en la celda inicial de importaciones para restablecer la referencia. |
+| Elevado volumen aparente de nulos (>90%) en variables de devolución y despacho postal | Confusión potencial entre datos faltantes por error y datos ausentes por diseño operativo (*missing by design*). | (Por **gera**) Se demostró que en ventas no hay devolución ni en tiendas presenciales hay código postal de despacho; se aplicó imputación condicional preservando el 100% de las transacciones sin alterar `net_sales`. |
 
 ---
 
 ## 4. Próximos Pasos y Acciones Pendientes
 
-- [ ] **Fase 3 : Tratamiento de Valores Faltantes y Tipos de Datos**
-  - Evaluar la frecuencia de nulos por columna en el dataset limpio y definir estrategia (imputación o mantenimiento documentado).
-  - Comprobar tipos de datos de fechas (`date`) y numéricos.
 - [ ] **Fase 4 : Análisis Exploratorio de Datos (EDA)**
   - **a. Análisis Univariado:**
     - Distribución de variables financieras clave (`gross_sales`, `net_sales`, `discount_total`, `cogs`, `margin`, `qty`) mediante histogramas y boxplots.
