@@ -70,6 +70,9 @@ Este documento registra el avance, control de tareas, resolución de incidencias
   - Columnas iniciales: **40** -> Columnas finales: **37** (3 descartadas por ausencia absoluta).
   - Ventas Netas (`net_sales`): **$283,387,098.70 USD** (0.00 de variación respecto al balance inicial).
   - Nulos totales restantes en el dataset completo: **0**.
+- [x] **Estandarización y Jerarquía de Encabezados (Enfoque A por Fases, por gera):**
+  - Homogeneización de todas las celdas Markdown desde la portada hasta el EDA bajo la jerarquía de fases del proyecto (`Fase 0`, `Fase 1`, `Fase 2`, `Fase 3` y `Fase 4`).
+  - Incorporación de elementos de diseño visual (bloques `> [!NOTE]`, `> [!IMPORTANT]`, `> [!TIP]`, resúmenes contextuales y tablas comparativas).
 
 ---
 
