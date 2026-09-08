@@ -59,14 +59,15 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 - [x] **Visualización del Perfil de Nulos:**
   - Incorporación de gráficos con `seaborn` y `matplotlib`: ranking porcentual de nulos y evidencia empírica de nulos condicionales/estructurales.
 - [x] **Tratamiento e Imputación sin Pérdida de Datos:**
-  - **Variables Numéricas (`return_lag_days`, `markdown`, `promo_amt`):** Imputación uniforme con `0.0` (por **gera**). En `return_lag_days`, `0.0` representa 0 días de retraso para ventas ordinarias o devoluciones sin demora; en `markdown` y `promo_amt` representa $0.00 de descuento.
+  - **Eliminación de Columnas 100% Nulas:** Se descartaron formalmente las 3 columnas vacías en origen (`item_season`, `promo_name`, `promo_amt`) por carecer de varianza y utilidad analítica, reduciendo el dataset de 40 a **37 columnas** (por **gera**).
+  - **Variables Numéricas Restantes (`return_lag_days`, `markdown`):** Imputación con `0.0`. En `return_lag_days`, `0.0` representa 0 días de retraso para ventas ordinarias o devoluciones inmediatas; en `markdown` representa $0.00 de descuento.
   - `customer_id`: Imputación con `'CLIENTE_ANONIMO'`.
   - `brand`, `subclass1`, `class`, `department`, `associate_id`: Imputación con etiquetas explícitas (`'Sin Marca / Genérico'`, `'Sin Subclase'`, etc.).
-  - `promo_name`, `item_season`: Imputación como `'Sin Promoción'` y `'Sin Temporada'`.
   - `ship_to_postal`: Imputación condicional según canal (`'COMPRA_EN_TIENDA'` vs `'NO_DISPONIBLE'`).
   - `return_reason`, `orig_location_name`: Imputación condicional (`'No aplica (Venta)'` en ventas ordinarias; `'No especificado'` / `'No registrada / Misma tienda'` en devoluciones).
 - [x] **Control y Balance Contable:**
   - Filas iniciales: **2,408,173** -> Filas finales: **2,408,173** (0 eliminadas, 100% conservadas).
+  - Columnas iniciales: **40** -> Columnas finales: **37** (3 descartadas por ausencia absoluta).
   - Ventas Netas (`net_sales`): **$283,387,098.70 USD** (0.00 de variación respecto al balance inicial).
   - Nulos totales restantes en el dataset completo: **0**.
 
