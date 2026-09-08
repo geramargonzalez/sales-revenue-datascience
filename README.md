@@ -1,6 +1,6 @@
 # Jewelry Sales Transactions Dataset
 
-This repository contains sales revenue transaction data extracted from BigQuery (`migrationdatanetsuite.bigQueryToNetsuite.flat_SalesReceipt`, Teamwork Commerce POS system). 
+This repository contains sales revenue transaction data extracted from BigQuery. 
 
 Each record represents an individual receipt item line (item sold or returned) along with store location, product hierarchy, customer attributes, and detailed financial line items. The dataset spans from **January 2022 to August 2026** across physical retail stores and the e-commerce channel.
 
