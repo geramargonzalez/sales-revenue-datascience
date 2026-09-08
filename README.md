@@ -1,4 +1,4 @@
-# Jewelry Sales Transactions Dataset
+# Manufacturing Company Sales Transactions Dataset
 
 This repository contains sales revenue transaction data extracted from BigQuery. 
 
