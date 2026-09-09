@@ -29,7 +29,8 @@ if the user is [EMAIL_ADDRESS] save in gera branch, else save in camilo branch
 
 - All libraries and dependencies must be imported at the beginning of the notebook.
 - Do not modify the structure of the existing cells.
-- Ensure all descriptions and comments are in Spanish; correct any text that is in English.
+- Ensure all descriptions and comments are in Spanish;
+- When you end a sentence on markdown leave blank line on next line
 
 
 ##  3. Exploratory data analysis 
