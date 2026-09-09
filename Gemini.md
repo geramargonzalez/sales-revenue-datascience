@@ -17,6 +17,7 @@ Fase <number_of_task> : <description_of_the_task>
 *Example:* `Fase 1 : Load Assets and clean CSV`
 
 ### Task Tracking
+
 For every task executed, you must create or update a tracking file named `process.md` in the root of the workspace. This file should detail:
 * Current progress and completed steps.
 * Issues encountered and their resolutions.
