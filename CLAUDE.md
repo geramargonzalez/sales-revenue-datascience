@@ -1,0 +1,1 @@
+read Gemini.md and Gemini.txt
