@@ -38,7 +38,6 @@ if the user is [EMAIL_ADDRESS] save in gera branch, else save in camilo branch
 
 
 
-
 <!-- ## 3. Data Science & Machine Learning Best Practices
 
 When performing data analysis, preprocessing, or machine learning in this repository, always adhere to the following best practices:
