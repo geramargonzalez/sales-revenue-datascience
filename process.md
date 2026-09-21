@@ -76,8 +76,8 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 
 ### Fase 3.5: Estandarización de `AGENTS.md` y Especificación Agent Skills (Aplicado por **gera**)
 - [x] **Adopción del Estándar `AGENTS.md`:** Reestructuración integral del archivo raíz conforme al estándar del *Agentic AI Foundation* (visión general, entorno, flujo Git, reglas de notebooks, límites contables, catálogo de habilidades y definición de terminado).
-- [x] **Implementación del Estándar `agentskills.io`:** Creación de la habilidad modular `exploratory-data-analysis` en `.agents/skills/exploratory-data-analysis/` con su manifiesto `SKILL.md` (metadatos YAML y guía metodológica) y referencias de consulta (`visualization_standards.md` y `retail_calendar_guide.md`).
-- [x] **Enlace Simbólico de Compatibilidad:** Creación de enlace simbólico `skills` apuntando a `.agents/skills` para interoperabilidad transparente entre clientes y herramientas de desarrollo.
+- [x] **Implementación del Estándar `agentskills.io`:** Creación de la habilidad modular `exploratory-data-analysis` en `skills/exploratory-data-analysis/` con su manifiesto `SKILL.md` (metadatos YAML y guía metodológica) y referencias de consulta (`visualization_standards.md` y `retail_calendar_guide.md`).
+- [x] **Consolidación Canónica en `skills/`:** Reorganización del repositorio para mantener únicamente la carpeta `skills/` en la raíz sin carpetas intermedias (`.agents/`), logrando una estructura limpia y 100% fiel a la especificación de `agentskills.io`.
 - [x] **Preservación de Reglas de Negocio:** Mantenimiento estricto del flujo de ramas (`gera`), nomenclatura de commits (`Fase <n> : <desc>`), idioma español en comentarios y cuadre contable.
 
 ---

@@ -75,14 +75,14 @@ Este archivo debe detallar:
 
 ## 5. Habilidades Modulares del Agente (Estándar agentskills.io)
 
-El repositorio incorpora el estándar abierto de habilidades modulares [Agent Skills](https://agentskills.io/specification) bajo el directorio [`.agents/skills/`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/.agents/skills) (accesible también mediante el enlace simbólico [`skills/`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/skills)).
+El repositorio incorpora el estándar abierto de habilidades modulares [Agent Skills](https://agentskills.io/specification) bajo el directorio [`skills/`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/skills).
 
 Cada habilidad se estructura con su manifiesto `SKILL.md` (metadatos YAML y guía operativa) y documentación complementaria en `references/`:
 
 ### Habilidades Disponibles:
-- [exploratory-data-analysis](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/.agents/skills/exploratory-data-analysis/SKILL.md): Procedimiento completo de análisis univariado, bivariado, calendario retail 4-5-4 y correlaciones.
-  - [Estándares de Visualización](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/.agents/skills/exploratory-data-analysis/references/visualization_standards.md)
-  - [Guía del Calendario Minorista 4-5-4](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/.agents/skills/exploratory-data-analysis/references/retail_calendar_guide.md)
+- [exploratory-data-analysis](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/skills/exploratory-data-analysis/SKILL.md): Procedimiento completo de análisis univariado, bivariado, calendario retail 4-5-4 y correlaciones.
+  - [Estándares de Visualización](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/skills/exploratory-data-analysis/references/visualization_standards.md)
+  - [Guía del Calendario Minorista 4-5-4](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/skills/exploratory-data-analysis/references/retail_calendar_guide.md)
 
 ---
 
