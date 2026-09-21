@@ -1,1 +1,1 @@
-read Gemini.md and Gemini.txt
+read AGENTS.md file
