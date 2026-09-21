@@ -1,55 +1,95 @@
+# Guía Operativa para Agentes de IA (AGENTS.md)
 
-
-
-This document outlines the workflow guidelines, rules, and best practices that must be followed when working in this repository.
+Este documento define la arquitectura de trabajo, directrices operativas, políticas de control de versiones y estándares de ingeniería para los agentes de IA que operen en este repositorio.
 
 ---
 
-## 1. Git Workflow & Commit Guidelines
+## 1. Descripción del Proyecto y Entorno
 
-* when you are in a branch other than main update the branch with the latest changes from main
+Este repositorio contiene el proyecto de ciencia de datos para el análisis transaccional y predicción de ingresos por ventas en el sector de joyería minorista (*Sales Revenue Data Science*).
 
-### Commit & Push Nomenclature
-When completing a task, commit and push changes to the repository using the following strict nomenclature:
+### Entorno y Comandos Principales
+- **Versión de Python:** Python 3.11 instalado en el entorno virtual aislado `.venv`.
+- **Kernel de Jupyter:** `sales-revenue-env` (`Python (.venv - Sales Revenue)`).
+- **Activación del entorno:**
+  ```bash
+  source .venv/bin/activate
+  ```
+- **Instalación de dependencias:**
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+---
+
+## 2. Flujo de Trabajo Git y Colaboración
+
+### Sincronización de Ramas
+- Al trabajar en una rama distinta de `main`, actualizar siempre la rama activa con los últimos cambios de `main` antes de comenzar una tarea:
+  ```bash
+  git checkout <rama_activa>
+  git merge main
+  ```
+
+### Asignación de Ramas por Usuario
+- Si el usuario activo es `gerardo.gonzalez@estudiantes.utec.edu.uy` o `geramargonzalez@gmail.com`, trabajar y guardar cambios en la rama `gera`.
+- En cualquier otro caso, trabajar y guardar en la rama `camilo`.
+
+### Nomenclatura Estricta de Commits y Push
+Al finalizar una tarea, realizar el commit y push utilizando estrictamente el siguiente formato:
 ```text
 Fase <number_of_task> : <description_of_the_task>
 ```
-*Example:* `Fase 1 : Load Assets and clean CSV`
+*Ejemplo:* `Fase 1 : Load Assets and clean CSV`
 
-### Task Tracking
+### Registro de Progreso en `process.md`
+Para cada tarea ejecutada, es obligatorio crear o actualizar el archivo de seguimiento [`process.md`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/process.md) en la raíz del proyecto.
 
-For every task executed, you must create or update a tracking file named `process.md` in the root of the workspace. This file should detail:
-* Current progress and completed steps.
-* Issues encountered and their resolutions.
-* Add the user appied the changes, for example from gera, camilo
-* Next steps or pending actions.
+Este archivo debe detallar:
+- Progreso actual y pasos completados.
+- Incidencias encontradas y sus resoluciones.
+- Identificación del usuario que aplicó los cambios (ej. `gera`, `camilo`).
+- Próximos pasos y acciones pendientes.
 
-if the user is [EMAIL_ADDRESS] save in gera branch, else save in camilo branch
+---
 
-## 2. General Rules & Best Practices
+## 3. Reglas Generales de Código y Notebooks
 
-- All libraries and dependencies must be imported at the beginning of the notebook.
-- Do not modify the structure of the existing cells.
-- Ensure all descriptions and comments are in Spanish;
-- When you end a sentence on markdown leave blank line on next line
+- **Importación Centralizada:** Todas las librerías y dependencias deben ser importadas exclusivamente al inicio del notebook.
+- **Estructura de Celdas:** No alterar la estructura original ni el orden de las celdas preexistentes.
+- **Idioma Español Obligatorio:** Asegurar que todas las descripciones, encabezados markdown, comentarios en código y etiquetas de gráficos estén redactados en español.
+- **Líneas en Blanco en Markdown:** Al terminar una oración en celdas o archivos markdown, dejar una línea en blanco en la siguiente línea.
 
+---
 
-##  3. Exploratory data analysis 
+## 4. Límites Operativos y Cuadre Contable
 
+- **Protección de Datos Consolidados:** Nunca eliminar filas de transacciones válidas sin justificación contable documentada.
+- **Balance de Ventas Netas:** Las operaciones de limpieza, filtrado o imputación deben preservar intacto el balance consolidado de ingresos netos:
+  ```text
+  net_sales = $283,387,098.70 USD
+  ```
+- **Tratamiento de Nulos:** Distinguir nulos estructurales (*missing by design*) de ausencias accidentales; preferir imputación semántica antes que descarte de registros.
 
+---
 
-<!-- ## 3. Data Science & Machine Learning Best Practices
+## 5. Habilidades Modulares del Agente (Estándar agentskills.io)
 
-When performing data analysis, preprocessing, or machine learning in this repository, always adhere to the following best practices:
+El repositorio incorpora el estándar abierto de habilidades modulares [Agent Skills](https://agentskills.io/specification) bajo el directorio [`.agents/skills/`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/.agents/skills) (accesible también mediante el enlace simbólico [`skills/`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/skills)).
 
-### A. Data Exploration & Preparation
-* **Exploratory Data Analysis (EDA)**: Before modeling, visualize target distributions and feature relationships using correlation matrices, scatterplots, or histograms.
-* **Handling Missing / NULL Values**:
-  * Analyze the frequency of missing values first.
-  * Decide whether to drop, keep, or impute them based on context, and document the reasoning.
-* **Scaling & Encoding**:
-  * Transform nominal variables using one-hot encoding (capping high-cardinality features if necessary).
-  * Transform ordinal variables using ordinal encoders.
-  * Standardize or normalize numerical features to ensure algorithms behave optimally.
- -->
+Cada habilidad se estructura con su manifiesto `SKILL.md` (metadatos YAML y guía operativa) y documentación complementaria en `references/`:
 
+### Habilidades Disponibles:
+- [exploratory-data-analysis](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/.agents/skills/exploratory-data-analysis/SKILL.md): Procedimiento completo de análisis univariado, bivariado, calendario retail 4-5-4 y correlaciones.
+  - [Estándares de Visualización](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/.agents/skills/exploratory-data-analysis/references/visualization_standards.md)
+  - [Guía del Calendario Minorista 4-5-4](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/.agents/skills/exploratory-data-analysis/references/retail_calendar_guide.md)
+
+---
+
+## 6. Verificación y Criterios de Finalización (Definition of Done)
+
+Antes de dar por concluida cualquier intervención o fase:
+1. Confirmar que el código ejecuta sin errores en el kernel `.venv`.
+2. Verificar que las ventas netas y métricas contables no sufrieron desviaciones imprevistas.
+3. Actualizar [`process.md`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/process.md) con el registro completo de la fase ejecutada y el autor.
+4. Generar el commit y push siguiendo la nomenclatura `Fase <n> : <descripción>` en la rama correspondiente (`gera`).

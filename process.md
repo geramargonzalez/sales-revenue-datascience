@@ -74,6 +74,12 @@ Este documento registra el avance, control de tareas, resolución de incidencias
   - Homogeneización de todas las celdas Markdown desde la portada hasta el EDA bajo la jerarquía de fases del proyecto (`Fase 0`, `Fase 1`, `Fase 2`, `Fase 3` y `Fase 4`).
   - Incorporación de elementos de diseño visual (bloques `> [!NOTE]`, `> [!IMPORTANT]`, `> [!TIP]`, resúmenes contextuales y tablas comparativas).
 
+### Fase 3.5: Estandarización de `AGENTS.md` y Especificación Agent Skills (Aplicado por **gera**)
+- [x] **Adopción del Estándar `AGENTS.md`:** Reestructuración integral del archivo raíz conforme al estándar del *Agentic AI Foundation* (visión general, entorno, flujo Git, reglas de notebooks, límites contables, catálogo de habilidades y definición de terminado).
+- [x] **Implementación del Estándar `agentskills.io`:** Creación de la habilidad modular `exploratory-data-analysis` en `.agents/skills/exploratory-data-analysis/` con su manifiesto `SKILL.md` (metadatos YAML y guía metodológica) y referencias de consulta (`visualization_standards.md` y `retail_calendar_guide.md`).
+- [x] **Enlace Simbólico de Compatibilidad:** Creación de enlace simbólico `skills` apuntando a `.agents/skills` para interoperabilidad transparente entre clientes y herramientas de desarrollo.
+- [x] **Preservación de Reglas de Negocio:** Mantenimiento estricto del flujo de ramas (`gera`), nomenclatura de commits (`Fase <n> : <desc>`), idioma español en comentarios y cuadre contable.
+
 ---
 
 ## 3. Problemas Encontrados y Resoluciones
