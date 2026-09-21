@@ -1,6 +1,6 @@
-# Seguimiento del Proyecto (process.md)
+# Seguimiento del Proyecto (process/process.md)
 
-Este documento registra el avance, control de tareas, resolución de incidencias y próximos pasos del proyecto de acuerdo con los lineamientos definidos en [`Gemini.md`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/Gemini.md).
+Este documento registra el avance, control de tareas, resolución de incidencias y próximos pasos del proyecto de acuerdo con los lineamientos definidos en [`AGENTS.md`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/AGENTS.md).
 
 ---
 
@@ -79,6 +79,11 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 - [x] **Implementación del Estándar `agentskills.io`:** Creación de la habilidad modular `exploratory-data-analysis` en `skills/exploratory-data-analysis/` con su manifiesto `SKILL.md` (metadatos YAML y guía metodológica) y referencias de consulta (`visualization_standards.md` y `retail_calendar_guide.md`).
 - [x] **Consolidación Canónica en `skills/`:** Reorganización del repositorio para mantener únicamente la carpeta `skills/` en la raíz sin carpetas intermedias (`.agents/`), logrando una estructura limpia y 100% fiel a la especificación de `agentskills.io`.
 - [x] **Preservación de Reglas de Negocio:** Mantenimiento estricto del flujo de ramas (`gera`), nomenclatura de commits (`Fase <n> : <desc>`), idioma español en comentarios y cuadre contable.
+
+### Fase 3.6: Reorganización de Archivos de Seguimiento e Ideas (Aplicado por **gera**)
+- [x] **Centralización en `process/`:** Traslado de [`process.md`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/process/process.md) e [`ideas.md`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/process/ideas.md) dentro de la carpeta `process/` para despejar la raíz del repositorio.
+- [x] **Actualización de Rutas Globales:** Modificación de [`AGENTS.md`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/AGENTS.md) y de la habilidad de EDA ([`SKILL.md`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/skills/exploratory-data-analysis/SKILL.md)) para referenciar `process/process.md` e integrar `process/ideas.md` como catálogo de hipótesis analíticas de negocio.
+- [x] **Limpieza de Archivos Redundantes:** Eliminación definitiva de `CLAUDE.md` y `Gemini.md` consolidando a `AGENTS.md` como fuente de verdad canónica.
 
 ---
 

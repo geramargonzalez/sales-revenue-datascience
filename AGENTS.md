@@ -42,8 +42,8 @@ Fase <number_of_task> : <description_of_the_task>
 ```
 *Ejemplo:* `Fase 1 : Load Assets and clean CSV`
 
-### Registro de Progreso en `process.md`
-Para cada tarea ejecutada, es obligatorio crear o actualizar el archivo de seguimiento [`process.md`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/process.md) en la raíz del proyecto.
+### Registro de Progreso en `process/process.md`
+Para cada tarea ejecutada, es obligatorio crear o actualizar el archivo de seguimiento [`process.md`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/process/process.md) dentro de la carpeta `process/`. Adicionalmente, consultar [`ideas.md`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/process/ideas.md) como banco de hipótesis analíticas y de negocio.
 
 Este archivo debe detallar:
 - Progreso actual y pasos completados.
@@ -91,5 +91,5 @@ Cada habilidad se estructura con su manifiesto `SKILL.md` (metadatos YAML y guí
 Antes de dar por concluida cualquier intervención o fase:
 1. Confirmar que el código ejecuta sin errores en el kernel `.venv`.
 2. Verificar que las ventas netas y métricas contables no sufrieron desviaciones imprevistas.
-3. Actualizar [`process.md`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/process.md) con el registro completo de la fase ejecutada y el autor.
+3. Actualizar [`process.md`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/process/process.md) con el registro completo de la fase ejecutada y el autor.
 4. Generar el commit y push siguiendo la nomenclatura `Fase <n> : <descripción>` en la rama correspondiente (`gera`).

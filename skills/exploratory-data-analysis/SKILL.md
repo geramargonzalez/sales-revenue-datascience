@@ -93,3 +93,4 @@ Cada bloque de análisis debe finalizar con una celda Markdown que sintetice:
 Para consultar lineamientos específicos de visualización y convenciones de negocio:
 - [Estándares de Visualización](references/visualization_standards.md): Paletas cromáticas, formatos de moneda y diseño visual en `matplotlib` y `seaborn`.
 - [Guía del Calendario Minorista 4-5-4](references/retail_calendar_guide.md): Estructura del calendario NRF y patrones estacionales en joyería.
+- [Hipótesis y Preguntas de Negocio](../../process/ideas.md): Banco de hipótesis sobre estacionalidad, tiendas físicas vs. online, devoluciones y rentabilidad para guiar el análisis exploratorio.
