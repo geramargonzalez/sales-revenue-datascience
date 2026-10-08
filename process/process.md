@@ -111,6 +111,17 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 - [x] **Control y Balance Contable:** Filas **2,408,173**, columnas **37** y ventas netas **$283,387,098.70 USD** sin variación al cierre de la fase (verificado con `assert` en la última celda).
 - [x] **Ejecución:** Notebook completo ejecutado sin errores con el kernel `sales-revenue-env` (49 celdas).
 
+### Fase 5: Dataset Combinado con Datos Actualizados (Aplicado por **gera**)
+- [x] **Comparación de Extracciones:** `utecFinalTransactionRevenue.csv` tiene las mismas 40 columnas que `transactionRevenue_combined.csv`, pero cubre 2023-01-01 a 2026-09-30 (no incluye 2022).
+
+  En las 1,955,767 líneas comunes `net_sales` suma idéntico ($243,152,260.34).
+- [x] **Diferencias en Líneas Comunes:** `markdown` cambia en 752,059 líneas (suma de -$94.05M a -$108.86M); correcciones menores en `customer_id` (1,891), `ship_to_postal` (1,767), `return_lag_days` (53), `cogs` y `margin` (24) e `is_web` (6).
+- [x] **Archivo Generado:** `dataset/transactionRevenue_combined_2022-0926.csv`, con 2022 del archivo anterior (481,373 líneas, $49,774,351.74) y 2023 en adelante del archivo nuevo (1,984,983 líneas, $248,079,496.31).
+
+  Las líneas se copiaron como texto, sin reformatear valores, y los archivos de origen no se modificaron.
+- [x] **Verificación:** 2,466,356 líneas, 40 columnas, sin `line_id` duplicados, rango 2022-01-02 a 2026-09-30 y `net_sales` sin limpiar de $297,853,848.05 (antes $292,926,612.08).
+- [ ] **Pendiente:** El notebook sigue cargando `transactionRevenue_combined.csv`; no se modificó en esta fase.
+
 ---
 
 ## 3. Problemas Encontrados y Resoluciones
@@ -144,6 +155,8 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 - [ ] **Decisiones pendientes:**
   - Corregir o no `retail_calendar_guide.md` (el año minorista de este dataset comienza en enero).
   - Tratamiento de las líneas con costo cero antes de analizar margen.
-  - Definir si `dataset/utecFinalTransactionRevenue.csv` (extracción distinta, no referenciada por el notebook) reemplaza a `transactionRevenue_combined.csv`.
+  - Apuntar el notebook a `dataset/transactionRevenue_combined_2022-0926.csv` y recalcular la cifra de control de `net_sales` de `AGENTS.md` ($283,387,098.70 corresponde al archivo anterior).
+  - `markdown` de 2022 conserva el cálculo de la extracción anterior; volver a extraer 2022 con la consulta actual o excluir ese año al analizar `markdown`.
+  - Agregar una incidencia en la sección 3 si la recarga altera resultados de la Fase 4.
 - [ ] **Control Git:**
   - Mantener commits en la rama `gera` siguiendo el formato `Fase <n> : <descripción>`.
