@@ -90,6 +90,27 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 - [x] **Alcance de la Excepción:** La exclusión solo procede en métricas por cliente (recurrencia, cohortes, RFM, concentración), sobre una vista temporal, sin modificar `df` y reportando el porcentaje de filas y de `net_sales` excluido.
 - [x] **Motivo:** Evitar que la etiqueta imputada se interprete como un único cliente real, sin perder esas transacciones en el resto del análisis ni alterar el cuadre contable.
 
+### Fase 4: Análisis Exploratorio de Datos - Bloques A y G (Aplicado por **gera**)
+- [x] **Banco de Ideas del EDA:** Se definieron siete bloques de análisis (A. validación de hipótesis, B. temporalidad, C. canal y ubicación, D. devoluciones, E. producto y rentabilidad, F. clientes y geografía, G. univariado y correlaciones). En esta fase se implementaron los bloques **A** y **G**.
+- [x] **4.0 Verificación de Estado y Vistas de Análisis:**
+  - Configuración visual global según `visualization_standards.md` (paleta institucional y formateadores de moneda y porcentaje).
+  - Máscaras y vistas auxiliares (`es_devolucion`, `es_operativa`, `ventas_fin`, `devoluciones_fin`, `aux`) que no modifican `df`.
+  - Cuantificación de segmentos que distorsionan el análisis: `is_employee_sale` sin ningún valor verdadero, 40 líneas mayoristas, departamento `System` (5.37% de las líneas, 0.28% de la venta), ubicaciones no operativas (0.81% de la venta) y ventas con costo cero (10.67% de las líneas, 9.90% de la venta).
+- [x] **4.1 Validación de Hipótesis del Documento de Referencia (Bloque A):**
+  - Cifras de control: cuadran al centavo por **año calendario** de `date`; por `retail_year` difieren (hasta +$0.48M en 2024 por la semana 53).
+  - Canal web: 63.8% global (referencia ~62%), en descenso de 68.4% (2022) a 63.9% (2025).
+  - Noviembre y diciembre: entre 29.8% y 32.1% de la venta anual (referencia 32%).
+  - Devoluciones: 9.0% de la venta bruta, de 7.9% (2022) a 9.2% (2025); enero entre 15.2% y 21.9%; el 27% de referencia solo se alcanza a nivel semanal (27.9%).
+  - Williamsburg 15.4% vs. Boston 6.3% de tasa de devolución (referencia 17% vs. 7%).
+  - Wedding Annex: 63 tickets al mes de $1,360 en el histórico; 33 tickets de $1,690 en los últimos 12 meses (referencia ~50 tickets de ~2,000 USD).
+- [x] **4.2 Análisis Univariado (Bloque G):**
+  - Descriptivos con percentiles y asimetría, separando ventas y devoluciones.
+  - Histogramas con KDE y diagramas de caja en escala logarítmica para `gross_sales`, `net_sales`, `cogs`, `margin` y `discount_total`; distribución discreta de `qty`.
+  - Participación en líneas y en venta neta de `class`, `brand`, `location_name`, `department`, `is_web` y `txn_type`.
+- [x] **4.3 Matriz de Correlación (Bloque G):** Pearson y Spearman por línea de venta, Pearson por línea de devolución (con `return_lag_days`) y Pearson agregado por semana minorista y ubicación.
+- [x] **Control y Balance Contable:** Filas **2,408,173**, columnas **37** y ventas netas **$283,387,098.70 USD** sin variación al cierre de la fase (verificado con `assert` en la última celda).
+- [x] **Ejecución:** Notebook completo ejecutado sin errores con el kernel `sales-revenue-env` (49 celdas).
+
 ---
 
 ## 3. Problemas Encontrados y Resoluciones
@@ -103,18 +124,26 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 | `TypeError: 'NoneType' object is not callable` al invocar `display()` en celda 19 | Se ejecutó accidentalmente la asignación `display = None` (procedente de pruebas o autocompletado), sobrescribiendo la función global de IPython en la memoria del kernel. | (Por **gera**) Se eliminó la asignación `display = None`, se ajustó la celda para desplegar directamente el DataFrame `comparativa_outliers` y se añadió explícitamente `from IPython.display import display` en la celda inicial de importaciones para restablecer la referencia. |
 | Elevado volumen aparente de nulos (>90%) en variables de devolución y despacho postal | Confusión potencial entre datos faltantes por error y datos ausentes por diseño operativo (*missing by design*). | (Por **gera**) Se demostró que en ventas no hay devolución ni en tiendas presenciales hay código postal de despacho; se aplicó imputación condicional preservando el 100% de las transacciones sin alterar `net_sales`. |
 | `NameError: name 'plt' is not defined` al ejecutar visualizaciones en celda 21 | En la celda 2 de importaciones iniciales (Fase 0), `matplotlib.pyplot` se importó con un alias erróneo (`import matplotlib.pyplot as plts` con 's' final en lugar de `plt`). | (Por **gera**) Se corrigió el alias a `import matplotlib.pyplot as plt` en la celda 2 inicial del notebook, alineándolo con las llamadas estándar `plt.subplots()`, `plt.tight_layout()` y `plt.show()`. |
+| `gross_sales` vale 0 en todas las líneas de devolución | El sistema de origen solo registra el importe devuelto en `net_sales` (negativo). | (Por **gera**) La tasa de devolución se calcula como importe devuelto (valor absoluto de `net_sales`) sobre la venta bruta de las líneas de venta. |
+| Las cifras de control no cuadran por `retail_year` | El documento de referencia totaliza por año calendario, no por año minorista 4-5-4. | (Por **gera**) Se documentó en la sección 4.1.1 del notebook; para cuadrar contra contabilidad se agrega por año calendario de `date`. |
+| `retail_calendar_guide.md` describe un año minorista que comienza en febrero | La guía sigue el calendario NRF genérico; en este dataset el mes minorista coincide con el mes calendario (84.7% a 99.2% de las líneas). | (Por **gera**) Documentado en el notebook. Pendiente decidir si se corrige la guía de la habilidad de EDA. |
+| `AttributeError: The '.style' accessor requires jinja2` al formatear tablas | `jinja2` no está instalado en `.venv`. | (Por **gera**) Se evitó `DataFrame.style` y se formatearon las tablas con `Series.map`, sin agregar dependencias. |
+| `RuntimeError: FT_Load_Glyph ... division by zero` al dibujar ejes logarítmicos | Las etiquetas en notación matemática de los ejes logarítmicos fallan con la tipografía configurada. | (Por **gera**) Se asignó un formateador de moneda explícito (`FuncFormatter`) a los ejes logarítmicos. |
+| `margin` distinto de `net_sales - cogs` en 56,950 líneas (2.36%) | Líneas con `cogs` igual a cero (por ejemplo cargos y tarjetas de regalo) registran margen cero pese a tener venta neta ($2.8M). | (Por **gera**) Documentado en la sección 4.3; pendiente marcar o corregir antes de usar el margen como variable. |
 
 ---
 
 ## 4. Próximos Pasos y Acciones Pendientes
 
-- [ ] **Fase 4 : Análisis Exploratorio de Datos (EDA)**
-  - **a. Análisis Univariado:**
-    - Distribución de variables financieras clave (`gross_sales`, `net_sales`, `discount_total`, `cogs`, `margin`, `qty`) mediante histogramas y boxplots.
-    - Distribución de frecuencias de variables categóricas (`department`, `class`, `brand`, `location_name`, `is_web`).
-  - **b. Análisis Bivariado:**
-    - Comportamiento de ingresos por canal (`is_web` vs tiendas físicas).
-    - Patrones temporales y estacionales según el calendario 4-5-4 (`retail_year`, `retail_quarter`, `retail_month`).
-    - Matriz de correlación entre variables de ingresos, costos y descuentos.
+- [ ] **Fase 4 : Análisis Exploratorio de Datos (EDA) - bloques restantes**
+  - **B. Temporalidad y estacionalidad:** serie semanal por `retail_year`, crecimiento interanual con `ly_date_key`, mapas de calor mes × año y día × hora, descomposición y autocorrelación.
+  - **C. Canal y ubicación:** web vs. tienda física en margen, descuento y ticket promedio; ranking de las 14 ubicaciones; fechas de apertura por tienda; Wedding Annex como segmento aparte.
+  - **D. Devoluciones:** tasa por producto, motivos (`return_reason`), rezago y devoluciones cruzadas con `orig_location_name`.
+  - **E. Producto y rentabilidad:** jerarquía de producto, Pareto de marcas y artículos, tramos de descuento frente a margen.
+  - **F. Clientes y geografía:** recurrencia, cohortes y distribución por `ship_to_postal` (excluyendo `CLIENTE_ANONIMO`).
+- [ ] **Decisiones pendientes:**
+  - Corregir o no `retail_calendar_guide.md` (el año minorista de este dataset comienza en enero).
+  - Tratamiento de las líneas con costo cero antes de analizar margen.
+  - Definir si `dataset/utecFinalTransactionRevenue.csv` (extracción distinta, no referenciada por el notebook) reemplaza a `transactionRevenue_combined.csv`.
 - [ ] **Control Git:**
   - Mantener commits en la rama `gera` siguiendo el formato `Fase <n> : <descripción>`.
