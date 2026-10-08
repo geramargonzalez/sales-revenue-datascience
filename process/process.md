@@ -85,6 +85,11 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 - [x] **Actualización de Rutas Globales:** Modificación de [`AGENTS.md`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/AGENTS.md) y de la habilidad de EDA ([`SKILL.md`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/skills/exploratory-data-analysis/SKILL.md)) para referenciar `process/process.md` e integrar `process/ideas.md` como catálogo de hipótesis analíticas de negocio.
 - [x] **Limpieza de Archivos Redundantes:** Eliminación definitiva de `CLAUDE.md` y `Gemini.md` consolidando a `AGENTS.md` como fuente de verdad canónica.
 
+### Fase 3.7: Restricción de Exclusión Mínima de `CLIENTE_ANONIMO` (Aplicado por **gera**)
+- [x] **Nueva Restricción Operativa:** Se agregó en la sección 4 de [`AGENTS.md`](../AGENTS.md) y en los principios de la habilidad de EDA ([`SKILL.md`](../skills/exploratory-data-analysis/SKILL.md)) la regla de conservar por defecto las filas con `customer_id == 'CLIENTE_ANONIMO'` (2.97% del dataset).
+- [x] **Alcance de la Excepción:** La exclusión solo procede en métricas por cliente (recurrencia, cohortes, RFM, concentración), sobre una vista temporal, sin modificar `df` y reportando el porcentaje de filas y de `net_sales` excluido.
+- [x] **Motivo:** Evitar que la etiqueta imputada se interprete como un único cliente real, sin perder esas transacciones en el resto del análisis ni alterar el cuadre contable.
+
 ---
 
 ## 3. Problemas Encontrados y Resoluciones

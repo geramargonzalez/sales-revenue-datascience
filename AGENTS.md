@@ -70,6 +70,11 @@ Este archivo debe detallar:
   net_sales = $283,387,098.70 USD
   ```
 - **Tratamiento de Nulos:** Distinguir nulos estructurales (*missing by design*) de ausencias accidentales; preferir imputación semántica antes que descarte de registros.
+- **Exclusión Mínima de `CLIENTE_ANONIMO`:** Las filas con `customer_id == 'CLIENTE_ANONIMO'` se conservan por defecto en todos los análisis (ventas, margen, devoluciones, estacionalidad, canal y producto).
+
+  Excluirlas únicamente cuando sea estrictamente necesario, es decir, en métricas calculadas por cliente donde la etiqueta agruparía a muchos compradores distintos como uno solo (recurrencia, cohortes, RFM, concentración por cliente).
+
+  En esos casos, aplicar el filtro solo sobre una vista temporal (nunca sobre `df`), documentar la exclusión en la celda y reportar el porcentaje de filas y de `net_sales` que queda fuera.
 
 ---
 
