@@ -20,7 +20,7 @@ Al realizar análisis exploratorio en este repositorio, siempre deben respetarse
 - **Idioma Español**: Todos los títulos de gráficos, etiquetas de ejes, leyendas, comentarios de código y textos explicativos deben redactarse exclusivamente en español.
 - **Espaciado en Markdown**: Al terminar una oración en celdas de texto Markdown, dejar una línea en blanco en la siguiente línea.
 - **Integridad Estructural**: No alterar la numeración ni la estructura base de las celdas del notebook.
-- **Cuadre Contable**: Ninguna operación exploratoria o de filtrado temporal debe alterar de forma destructiva el balance de ventas netas del dataset consolidado (`net_sales = $283,387,098.70 USD`).
+- **Cuadre Contable**: Ninguna operación exploratoria o de filtrado temporal debe alterar de forma destructiva el balance de ventas netas del dataset consolidado (`net_sales = $287,699,163.91 USD`).
 - **Exclusión Mínima de `CLIENTE_ANONIMO`**: Conservar estas filas por defecto y excluirlas solo en métricas por cliente (recurrencia, cohortes, RFM), sobre una vista temporal y reportando el porcentaje de filas y de `net_sales` excluido, según la sección 4 de [`AGENTS.md`](../../AGENTS.md).
 
 ---
@@ -29,7 +29,7 @@ Al realizar análisis exploratorio en este repositorio, siempre deben respetarse
 
 ### Paso 1: Verificación de Estado del Dataset
 Antes de generar visualizaciones, confirmar el estado de los datos:
-1. Verificar dimensiones (`shape`): 2,408,173 filas y 37 columnas.
+1. Verificar dimensiones (`shape`): 2,435,854 filas y 37 columnas.
 2. Confirmar ausencia total de valores nulos (`df.isna().sum().sum() == 0`).
 3. Verificar tipos de datos (`dtypes`) de variables financieras y temporales.
 

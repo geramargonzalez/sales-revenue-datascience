@@ -67,7 +67,7 @@ Este archivo debe detallar:
 - **Protección de Datos Consolidados:** Nunca eliminar filas de transacciones válidas sin justificación contable documentada.
 - **Balance de Ventas Netas:** Las operaciones de limpieza, filtrado o imputación deben preservar intacto el balance consolidado de ingresos netos:
   ```text
-  net_sales = $283,387,098.70 USD
+  net_sales = $287,699,163.91 USD
   ```
 - **Tratamiento de Nulos:** Distinguir nulos estructurales (*missing by design*) de ausencias accidentales; preferir imputación semántica antes que descarte de registros.
 - **Exclusión Mínima de `CLIENTE_ANONIMO`:** Las filas con `customer_id == 'CLIENTE_ANONIMO'` se conservan por defecto en todos los análisis (ventas, margen, devoluciones, estacionalidad, canal y producto).

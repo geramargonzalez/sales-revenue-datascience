@@ -120,7 +120,14 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 
   Las líneas se copiaron como texto, sin reformatear valores, y los archivos de origen no se modificaron.
 - [x] **Verificación:** 2,466,356 líneas, 40 columnas, sin `line_id` duplicados, rango 2022-01-02 a 2026-09-30 y `net_sales` sin limpiar de $297,853,848.05 (antes $292,926,612.08).
-- [ ] **Pendiente:** El notebook sigue cargando `transactionRevenue_combined.csv`; no se modificó en esta fase.
+- [x] **Notebook Apuntado al Dataset Nuevo:** La celda de carga lee `dataset/transactionRevenue_combined_2022-0926.csv`.
+- [x] **Balance Recalculado:** Tras la limpieza contable (30,292 líneas `rpt_ignored` y 210 anulaciones excluidas) quedan **2,435,854** filas, **37** columnas y ventas netas de **$287,699,163.91 USD**.
+
+  Antes eran 2,408,173 filas y $283,387,098.70 USD; las cifras de las fases 1 a 4 de este registro corresponden al dataset anterior.
+- [x] **Cifras de Control Actualizadas:** `VENTAS_NETAS_CONTROL` y los `assert` de dimensiones del notebook, `AGENTS.md`, `skills/exploratory-data-analysis/SKILL.md` y la tabla de archivos de `README.md`.
+- [x] **Texto de las Fases 1 a 3 del Notebook:** Se actualizaron los conteos de exclusión, las estadísticas de `return_lag_days` (media 120.45 días, 35.86 tras el recorte, 50,223 registros topados) y los porcentajes de nulos (`markdown` pasa de 23.07% a 19.56%).
+- [x] **Ejecución:** Notebook completo ejecutado sin errores con el kernel `sales-revenue-env` (25 celdas de código), con los `assert` de cierre en verde.
+- [ ] **Pendiente:** Los textos interpretativos de la Fase 4 (celdas 4.0 a 4.3) conservan cifras del dataset anterior; las tablas y gráficos sí están recalculados.
 
 ---
 
@@ -155,8 +162,8 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 - [ ] **Decisiones pendientes:**
   - Corregir o no `retail_calendar_guide.md` (el año minorista de este dataset comienza en enero).
   - Tratamiento de las líneas con costo cero antes de analizar margen.
-  - Apuntar el notebook a `dataset/transactionRevenue_combined_2022-0926.csv` y recalcular la cifra de control de `net_sales` de `AGENTS.md` ($283,387,098.70 corresponde al archivo anterior).
+  - Revisar los textos interpretativos de la Fase 4 contra las salidas recalculadas (por ejemplo, cuota web global 63.5% en lugar de 63.8% y 58,205 líneas con margen cero en lugar de 56,950).
+  - La cifra de referencia de 2026 en la sección 4.1.1 ($41.11M) cubre enero a agosto; con septiembre el año calendario suma $45.42M y la tabla muestra una diferencia de $4.31M.
   - `markdown` de 2022 conserva el cálculo de la extracción anterior; volver a extraer 2022 con la consulta actual o excluir ese año al analizar `markdown`.
-  - Agregar una incidencia en la sección 3 si la recarga altera resultados de la Fase 4.
 - [ ] **Control Git:**
   - Mantener commits en la rama `gera` siguiendo el formato `Fase <n> : <descripción>`.
