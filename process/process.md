@@ -127,7 +127,14 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 - [x] **Cifras de Control Actualizadas:** `VENTAS_NETAS_CONTROL` y los `assert` de dimensiones del notebook, `AGENTS.md`, `skills/exploratory-data-analysis/SKILL.md` y la tabla de archivos de `README.md`.
 - [x] **Texto de las Fases 1 a 3 del Notebook:** Se actualizaron los conteos de exclusión, las estadísticas de `return_lag_days` (media 120.45 días, 35.86 tras el recorte, 50,223 registros topados) y los porcentajes de nulos (`markdown` pasa de 23.07% a 19.56%).
 - [x] **Ejecución:** Notebook completo ejecutado sin errores con el kernel `sales-revenue-env` (25 celdas de código), con los `assert` de cierre en verde.
-- [ ] **Pendiente:** Los textos interpretativos de la Fase 4 (celdas 4.0 a 4.3) conservan cifras del dataset anterior; las tablas y gráficos sí están recalculados.
+- [x] **Textos Interpretativos de la Fase 4:** Se recalcularon las cifras citadas en las secciones 4.0 a 4.3 y se actualizaron las que cambiaron.
+
+  Cambios principales: cuota web global 63.5% (antes 63.8%); comparación homogénea a 39 semanas, de 64.0% (2022) a 54.7% (2026); Wedding Annex con 32 tickets de $1,815 en los últimos 12 meses; mediana de `net_sales` por línea de venta $94.00; `markdown` presente en el 80.0% de las líneas de venta; 58,205 líneas con margen cero; correlación de `markdown` con `net_sales` de -0.52.
+
+  Los veredictos del contraste de hipótesis no cambian.
+- [x] **Cifra de Control de 2026:** Se agregó una nota en la sección 4.1.1: la referencia de $41.11M cubre enero a agosto ($41.12M en el dataset) y la diferencia de $4.31M corresponde a septiembre y a 127 líneas nuevas de agosto.
+- [x] **Etiquetas de Gráficos:** Las etiquetas de 2026 pasaron de enero-agosto a enero-septiembre en la sección 4.1.2.
+- [x] **Ejecución Final:** Notebook completo reejecutado sin errores con el kernel `sales-revenue-env`.
 
 ---
 
@@ -162,8 +169,7 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 - [ ] **Decisiones pendientes:**
   - Corregir o no `retail_calendar_guide.md` (el año minorista de este dataset comienza en enero).
   - Tratamiento de las líneas con costo cero antes de analizar margen.
-  - Revisar los textos interpretativos de la Fase 4 contra las salidas recalculadas (por ejemplo, cuota web global 63.5% en lugar de 63.8% y 58,205 líneas con margen cero en lugar de 56,950).
-  - La cifra de referencia de 2026 en la sección 4.1.1 ($41.11M) cubre enero a agosto; con septiembre el año calendario suma $45.42M y la tabla muestra una diferencia de $4.31M.
+  - Obtener la cifra de control oficial de 2026 con septiembre incluido para reemplazar la referencia de $41.11M (enero a agosto) en la sección 4.1.1.
   - `markdown` de 2022 conserva el cálculo de la extracción anterior; volver a extraer 2022 con la consulta actual o excluir ese año al analizar `markdown`.
 - [ ] **Control Git:**
   - Mantener commits en la rama `gera` siguiendo el formato `Fase <n> : <descripción>`.
