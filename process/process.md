@@ -158,7 +158,13 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 - [x] **Metadatos del Kernel (commit `b4b7bd6`, por Gerardo):** La versión de Python declarada en los metadatos del notebook pasó de 3.11.16 a 3.9.6.
 
   El cambio afecta solo a ese campo de metadatos: no modifica celdas ni salidas, y el notebook se ejecutó con Python 3.11 del entorno `.venv`.
-- [x] **Fusión de Ramas:** La rama `camilo` se fusionó en `gera` y en `main` por avance rápido (*fast-forward*), sin conflictos ni commits de fusión.
+- [x] **Salidas del Notebook (commit `4358454`, por Gerardo):** El código y el texto de las 72 celdas no cambiaron.
+
+  Cambiaron las salidas guardadas de 8 celdas (8, 11, 13, 20, 21, 23, 35 y 39), donde los tipos de dato pasan a mostrarse como `object` en lugar de `str`, y se vació el contador de ejecución de 17 celdas de las secciones 4.2 a 4.8, que conservan sus salidas.
+- [x] **Fusión de Ramas:**
+  - Primera fusión: `camilo` se fusionó en `gera` y en `main` por avance rápido (*fast-forward*), sin conflictos.
+  - Pull request #1: Gerardo fusionó `gera` en `main` desde GitHub (commit de fusión `33e3177`), lo que adelantó el `main` remoto.
+  - Segunda fusión: `gera` se fusionó en ese `main` actualizado con el commit de fusión `2c762ee`, sin conflictos y sin forzar el envío; después `gera` y `camilo` avanzaron hasta ese commit.
 
   Las tres ramas quedaron en el mismo commit, tanto en local como en el remoto.
 
