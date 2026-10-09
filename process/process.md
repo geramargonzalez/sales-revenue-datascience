@@ -155,6 +155,12 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 - [x] **4.8 Clientes y Geografía:** exclusión documentada de `CLIENTE_ANONIMO` (2.91% de las filas, 0.84% de `net_sales`) en una vista temporal; el 36.9% de los clientes repite y genera el 68.6% de la venta.
 - [x] **Control y Balance Contable:** Filas **2,435,854**, columnas **37** y ventas netas **$287,699,163.91 USD** sin variación (verificado con `assert` en la última celda).
 - [x] **Ejecución:** Notebook completo ejecutado sin errores con el kernel `sales-revenue-env` (72 celdas).
+- [x] **Metadatos del Kernel (commit `b4b7bd6`, por Gerardo):** La versión de Python declarada en los metadatos del notebook pasó de 3.11.16 a 3.9.6.
+
+  El cambio afecta solo a ese campo de metadatos: no modifica celdas ni salidas, y el notebook se ejecutó con Python 3.11 del entorno `.venv`.
+- [x] **Fusión de Ramas:** La rama `camilo` se fusionó en `gera` y en `main` por avance rápido (*fast-forward*), sin conflictos ni commits de fusión.
+
+  Las tres ramas quedaron en el mismo commit, tanto en local como en el remoto.
 
 ---
 
@@ -200,4 +206,5 @@ Este documento registra el avance, control de tareas, resolución de incidencias
   - Confirmar si la fecha del canal web es la de compra o la de procesamiento del pedido.
   - Volver a extraer los últimos días de septiembre de 2026.
 - [ ] **Control Git:**
-  - Mantener commits siguiendo el formato `Fase <n> : <descripción>`; la Fase 6 se guardó en la rama `camilo` por indicación de Gerardo.
+  - Mantener commits siguiendo el formato `Fase <n> : <descripción>`.
+  - La Fase 6 se trabajó en la rama `camilo` por indicación de Gerardo y luego se fusionó en `gera` y `main`; mantener las tres ramas sincronizadas.
