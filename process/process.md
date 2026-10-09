@@ -136,6 +136,26 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 - [x] **Etiquetas de Gráficos:** Las etiquetas de 2026 pasaron de enero-agosto a enero-septiembre en la sección 4.1.2.
 - [x] **Ejecución Final:** Notebook completo reejecutado sin errores con el kernel `sales-revenue-env`.
 
+### Fase 6: Integración del EDA de Camilo - Secciones 4.4 a 4.8 (Aplicado por **gera** en la rama `camilo`)
+- [x] **Revisión de los Archivos de Camilo:** Se revisaron `EDA_joyeria.ipynb` (97 celdas, 7 bloques temáticos, sin interpretaciones) y `ProyectoNotas.txt` (lista de análisis y variables nuevas propuestas).
+
+  Sus bloques de temporalidad, canal, devoluciones, producto y clientes cubrían los bloques B a F pendientes de la Fase 4; sus bloques univariado y multivariado ya estaban cubiertos por las secciones 4.2 y 4.3.
+- [x] **Adaptaciones al Integrar:**
+  - Dataset combinado `transactionRevenue_combined_2022-0926.csv` en lugar de `transactionRevenue_combined.csv`.
+  - Sin columnas nuevas en `df`: se usan las vistas de la sección 4.0 y una tabla de tickets por `receipt_id`.
+  - Participaciones mensuales solo con años completos (2022 a 2025) y crecimiento de 2026 medido a igual semana minorista.
+  - Tasa de devolución en importe (devuelto sobre venta bruta), distinguida de la proporción de líneas.
+  - Tiendas físicas operativas separadas del canal web y sin pop-ups; margen porcentual solo sobre líneas con costo informado.
+  - Códigos postales normalizados a cinco dígitos; motivos de devolución agrupados (el catálogo mezcla códigos vigentes y heredados).
+  - Etiquetas en español, paleta institucional e imports centralizados.
+- [x] **4.4 Temporalidad y Estacionalidad:** noviembre y diciembre suman el 31.4% del año; las cinco semanas pico (47 a 51) aportan entre 23.0% y 24.0%; el acumulado a la semana 38 crece 5.1% en 2026 frente a 14.9% en 2025.
+- [x] **4.5 Canal y Ubicación:** ticket promedio web de $273.7 frente a $226.9 en tienda; diez de las trece tiendas físicas abrieron desde junio de 2023; Wedding Annex con ticket de $1,369.
+- [x] **4.6 Devoluciones:** 6.61% de las líneas; tasa en importe de 14.5% en tienda y 5.5% en web; el 32.8% de las devoluciones de compras web se procesa en tienda; la proporción de líneas devueltas sube de 1.2% a 10.7% con el importe.
+- [x] **4.7 Producto y Rentabilidad:** margen de joyería de 65.2%; marca propia con 70% frente a cerca de 50% en diseñadores externos; el margen se mantiene hasta un 20% de descuento.
+- [x] **4.8 Clientes y Geografía:** exclusión documentada de `CLIENTE_ANONIMO` (2.91% de las filas, 0.84% de `net_sales`) en una vista temporal; el 36.9% de los clientes repite y genera el 68.6% de la venta.
+- [x] **Control y Balance Contable:** Filas **2,435,854**, columnas **37** y ventas netas **$287,699,163.91 USD** sin variación (verificado con `assert` en la última celda).
+- [x] **Ejecución:** Notebook completo ejecutado sin errores con el kernel `sales-revenue-env` (72 celdas).
+
 ---
 
 ## 3. Problemas Encontrados y Resoluciones
@@ -156,20 +176,28 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 | `RuntimeError: FT_Load_Glyph ... division by zero` al dibujar ejes logarítmicos | Las etiquetas en notación matemática de los ejes logarítmicos fallan con la tipografía configurada. | (Por **gera**) Se asignó un formateador de moneda explícito (`FuncFormatter`) a los ejes logarítmicos. |
 | `margin` distinto de `net_sales - cogs` en 56,950 líneas (2.36%) | Líneas con `cogs` igual a cero (por ejemplo cargos y tarjetas de regalo) registran margen cero pese a tener venta neta ($2.8M). | (Por **gera**) Documentado en la sección 4.3; pendiente marcar o corregir antes de usar el margen como variable. |
 
+| La fecha y la hora del canal web no reflejan el momento de compra | Solo el 3.8% de la venta web cae en fin de semana y el 13.5% de las líneas web figura a la hora 0; parecen registrar el procesamiento del pedido. | (Por **gera**) Documentado en la sección 4.4; el patrón por día y hora se interpreta solo para tiendas físicas. |
+| Septiembre de 2026 incompleto en la extracción | Los días 28 a 30 de septiembre de 2026 casi no tienen líneas (0, 1 y 13). | (Por **gera**) Las comparaciones de 2026 se cortan en la semana minorista 38, que está completa; septiembre queda subestimado en la serie mensual. |
+| El EDA de Camilo filtraba `markdown > 0` y el histograma salía vacío | `markdown` se registra con signo negativo. | (Por **gera**) No se trasladó ese gráfico; la distribución de `markdown` está en los descriptivos de la sección 4.2.1. |
+| `RuntimeError: failed to load glyph` al dibujar etiquetas pequeñas | La tipografía configurada falla con tamaños de fuente de 8 puntos a baja resolución. | (Por **gera**) Las etiquetas de las secciones nuevas usan un tamaño mínimo de 9 puntos. |
+
 ---
 
 ## 4. Próximos Pasos y Acciones Pendientes
 
-- [ ] **Fase 4 : Análisis Exploratorio de Datos (EDA) - bloques restantes**
-  - **B. Temporalidad y estacionalidad:** serie semanal por `retail_year`, crecimiento interanual con `ly_date_key`, mapas de calor mes × año y día × hora, descomposición y autocorrelación.
-  - **C. Canal y ubicación:** web vs. tienda física en margen, descuento y ticket promedio; ranking de las 14 ubicaciones; fechas de apertura por tienda; Wedding Annex como segmento aparte.
-  - **D. Devoluciones:** tasa por producto, motivos (`return_reason`), rezago y devoluciones cruzadas con `orig_location_name`.
-  - **E. Producto y rentabilidad:** jerarquía de producto, Pareto de marcas y artículos, tramos de descuento frente a margen.
-  - **F. Clientes y geografía:** recurrencia, cohortes y distribución por `ship_to_postal` (excluyendo `CLIENTE_ANONIMO`).
+- [ ] **Ingeniería de características (propuestas de las notas de Camilo, respaldadas por la Fase 4):**
+  - Calendario: indicadores de Navidad (semanas 47 a 51), San Valentín (semana 6) y Día de la Madre (semana 18), y número de semanas del mes minorista.
+  - Atributos del local: antigüedad de la tienda y días con ventas, derivados de la primera fecha de venta de cada ubicación.
+  - Tasas en lugar de importes: descuento sobre venta bruta, margen sobre venta neta y devoluciones sobre venta bruta.
+- [ ] **Análisis del EDA aún no realizados:** crecimiento interanual con `ly_date_key`, descomposición y autocorrelación de la serie semanal, cohortes de clientes y Pareto de artículos.
 - [ ] **Decisiones pendientes:**
   - Corregir o no `retail_calendar_guide.md` (el año minorista de este dataset comienza en enero).
   - Tratamiento de las líneas con costo cero antes de analizar margen.
   - Obtener la cifra de control oficial de 2026 con septiembre incluido para reemplazar la referencia de $41.11M (enero a agosto) en la sección 4.1.1.
   - `markdown` de 2022 conserva el cálculo de la extracción anterior; volver a extraer 2022 con la consulta actual o excluir ese año al analizar `markdown`.
+  - Definir el objetivo del modelo: Camilo plantea clasificar devoluciones (`is_return`); el proyecto apunta a predecir ingresos por ventas.
+  - Confirmar con el negocio qué evento explica el pico de las semanas 30 y 31 (finales de julio).
+  - Confirmar si la fecha del canal web es la de compra o la de procesamiento del pedido.
+  - Volver a extraer los últimos días de septiembre de 2026.
 - [ ] **Control Git:**
-  - Mantener commits en la rama `gera` siguiendo el formato `Fase <n> : <descripción>`.
+  - Mantener commits siguiendo el formato `Fase <n> : <descripción>`; la Fase 6 se guardó en la rama `camilo` por indicación de Gerardo.
