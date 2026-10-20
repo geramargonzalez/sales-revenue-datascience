@@ -196,6 +196,32 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 
   Se conservaron **2,435,854 filas**, **37 columnas** y ventas netas por **$287,699,163.91 USD**, con cero variación y cero nulos no estructurales.
 
+### Fase 8: Organización por Bloques y Revisión de Textos (Aplicado por **gera**, 20/10/2026)
+
+- [x] **Referencia de clase:** Se revisó la organización de `EducacionProjectUTEC/Teorico/Ejemplo proyecto ML/Faltas_medicas.ipynb` como ejemplo de estructura, sin modificar ese archivo ni trasladar su contenido médico o sus instrucciones al proyecto.
+
+- [x] **Presentación e índice:** Se incorporaron contexto, objetivo, alcance actual e índice navegable de los bloques 0 a 10.
+
+  Los bloques de presentación, carga, validación inicial, limpieza y análisis exploratorio contienen el trabajo actual; ingeniería de variables, modelado, optimización, análisis de errores e importancia de variables quedan expresamente pendientes.
+
+- [x] **Estructura preservada:** Se mantuvieron las 72 celdas, sus tipos, identificadores y orden; la nueva organización utiliza los encabezados de las celdas existentes.
+
+- [x] **Revisión de textos:** Se reescribieron las 34 celdas Markdown con descripciones del propósito, la población analizada y las limitaciones de los resultados.
+
+  Se corrigió la referencia antigua a 39 semanas por el corte de 38 y las cuotas web correspondientes; se distinguieron datos ausentes, ceros explícitos, asociaciones descriptivas y etapas todavía no desarrolladas.
+
+- [x] **Etiquetas de presentación:** Se añadieron nombres legibles en español para variables en tablas y gráficos, sin renombrar las columnas de origen.
+
+  Se aclararon los denominadores de rezago, tickets sin devoluciones y envíos con ZIP válido, y se identificaron los períodos parciales y la antigüedad observada de las tiendas.
+
+- [x] **Comprobaciones estructurales:** Sintaxis de las celdas de código y enlaces de los 11 bloques verificados.
+
+- [x] **Validación final:** Las 38 celdas de código se reejecutaron sin errores en `sales-revenue-env` con Python 3.11.16; se revisaron las etiquetas de los gráficos y se corrigió una leyenda que cubría un porcentaje.
+
+  Los 671 valores numéricos comparados en 17 celdas con tablas coinciden con la versión anterior; se conservan **2,435,854 filas**, **37 columnas** y ventas netas por **$287,699,163.91 USD**.
+
+**Próximos pasos:** confirmar el horizonte y la agregación del pronóstico antes de desarrollar los bloques de modelado; mantener las incidencias de extracción y costos pendientes descritas más abajo.
+
 ---
 
 ## 3. Problemas Encontrados y Resoluciones
@@ -223,6 +249,7 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 | Comparaciones interanuales con cortes de 38 y 39 semanas | Una sección usaba la semana máxima disponible y otra validaba que tuviera siete fechas. | (Por **gera**) Se centralizó `SEMANA_CORTE_COMPARABLE` en la semana 38; la semana 39 se identifica como parcial. |
 | Eliminación incondicional de columnas supuestamente vacías | El código asumía que las tres columnas continuarían nulas en futuras extracciones. | (Por **gera**) Se añadieron validaciones de existencia y conteo no nulo antes de ejecutar `.drop()`. |
 | Salida guardada con error de `boxplot` bajo Python 3.9 | Los metadatos apuntaban al kernel genérico y las salidas no representaban el entorno `.venv`. | (Por **gera**) Se restauró `sales-revenue-env`, se fijó Python 3.11.16 en los metadatos y se reejecutó el notebook completo sin errores. |
+| Textos y etiquetas con alcances ambiguos o desactualizados | Persistían referencias a 39 semanas y las etiquetas no distinguían importes por línea, tickets sin devoluciones, rezagos informados o envíos con ZIP válido. | (Por **gera**, Fase 8) Se revisaron títulos, descripciones, leyendas y conclusiones para declarar el período y la población de cada resultado, conservando los cálculos. |
 
 ---
 
