@@ -129,7 +129,7 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 - [x] **Ejecución:** Notebook completo ejecutado sin errores con el kernel `sales-revenue-env` (25 celdas de código), con los `assert` de cierre en verde.
 - [x] **Textos Interpretativos de la Fase 4:** Se recalcularon las cifras citadas en las secciones 4.0 a 4.3 y se actualizaron las que cambiaron.
 
-  Cambios principales: cuota web global 63.5% (antes 63.8%); comparación homogénea a 39 semanas, de 64.0% (2022) a 54.7% (2026); Wedding Annex con 32 tickets de $1,815 en los últimos 12 meses; mediana de `net_sales` por línea de venta $94.00; `markdown` presente en el 80.0% de las líneas de venta; 58,205 líneas con margen cero; correlación de `markdown` con `net_sales` de -0.52.
+  Cambios principales: cuota web global 63.5% (antes 63.8%); comparación inicialmente calculada a 39 semanas y corregida a 38 semanas completas en la Fase 7; Wedding Annex con 32 tickets de $1,815 en los últimos 12 meses; mediana de `net_sales` por línea de venta $94.00; `markdown` presente en el 80.0% de las líneas de venta; 58,205 líneas con margen cero; correlación de `markdown` con `net_sales` de -0.52.
 
   Los veredictos del contraste de hipótesis no cambian.
 - [x] **Cifra de Control de 2026:** Se agregó una nota en la sección 4.1.1: la referencia de $41.11M cubre enero a agosto ($41.12M en el dataset) y la diferencia de $4.31M corresponde a septiembre y a 127 líneas nuevas de agosto.
@@ -168,6 +168,34 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 
   Las tres ramas quedaron en el mismo commit, tanto en local como en el remoto.
 
+### Fase 7: Robustez del Preprocesamiento y Comparabilidad Temporal (Aplicado por **gera**)
+
+- [x] **Preservación de `return_lag_days`:** La columna original dejó de sobrescribirse y conserva sus valores nulos, ceros explícitos y rezagos superiores a 90 días.
+
+  El recorte comercial se aplica únicamente en `return_lag_days_analisis`, dentro de una vista temporal de devoluciones.
+
+- [x] **Semántica de Nulos:** Se conservaron 2,239,455 nulos estructurales globales en `return_lag_days`, incluidos 33,071 dentro de las 160,921 líneas de devolución.
+
+  Los 12,038 ceros explícitos de devoluciones permanecen diferenciados de los nulos.
+
+- [x] **Corrección del Diagnóstico de Rezago:** Las métricas se calculan sobre las devoluciones con rezago informado: 127,850 líneas, media original de 84.36 días, mediana de 17 días y 21,785 valores superiores a 90 días (17.04%).
+
+- [x] **Eliminación Protegida de Columnas Vacías:** Se verificó en el CSV original y después del filtro contable que `item_season`, `promo_name` y `promo_amt` tienen cero valores informados.
+
+  La celda ahora valida existencia y ausencia total antes de eliminarlas; una extracción futura con información detendrá el proceso en lugar de descartarla.
+
+- [x] **Corte Temporal Único:** Todas las comparaciones interanuales utilizan la semana minorista 38, última semana de 2026 con siete fechas.
+
+  La semana 39, con tres fechas y 499 líneas, se muestra como parcial y queda excluida de las métricas comparables.
+
+- [x] **Entorno Reproducible:** Los metadatos del notebook vuelven a declarar Python 3.11.16 y el kernel `sales-revenue-env` (`Python (.venv - Sales Revenue)`).
+
+- [x] **Actualización de la Habilidad EDA:** Se documentaron la conservación de nulos estructurales, la validación previa al descarte, la variable derivada de rezago y el corte semanal compartido.
+
+- [x] **Ejecución y Control Contable:** Las 38 celdas de código del notebook se ejecutaron desde un kernel nuevo sin errores.
+
+  Se conservaron **2,435,854 filas**, **37 columnas** y ventas netas por **$287,699,163.91 USD**, con cero variación y cero nulos no estructurales.
+
 ---
 
 ## 3. Problemas Encontrados y Resoluciones
@@ -187,11 +215,14 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 | `AttributeError: The '.style' accessor requires jinja2` al formatear tablas | `jinja2` no está instalado en `.venv`. | (Por **gera**) Se evitó `DataFrame.style` y se formatearon las tablas con `Series.map`, sin agregar dependencias. |
 | `RuntimeError: FT_Load_Glyph ... division by zero` al dibujar ejes logarítmicos | Las etiquetas en notación matemática de los ejes logarítmicos fallan con la tipografía configurada. | (Por **gera**) Se asignó un formateador de moneda explícito (`FuncFormatter`) a los ejes logarítmicos. |
 | `margin` distinto de `net_sales - cogs` en 56,950 líneas (2.36%) | Líneas con `cogs` igual a cero (por ejemplo cargos y tarjetas de regalo) registran margen cero pese a tener venta neta ($2.8M). | (Por **gera**) Documentado en la sección 4.3; pendiente marcar o corregir antes de usar el margen como variable. |
-
 | La fecha y la hora del canal web no reflejan el momento de compra | Solo el 3.8% de la venta web cae en fin de semana y el 13.5% de las líneas web figura a la hora 0; parecen registrar el procesamiento del pedido. | (Por **gera**) Documentado en la sección 4.4; el patrón por día y hora se interpreta solo para tiendas físicas. |
 | Septiembre de 2026 incompleto en la extracción | Los días 28 a 30 de septiembre de 2026 casi no tienen líneas (0, 1 y 13). | (Por **gera**) Las comparaciones de 2026 se cortan en la semana minorista 38, que está completa; septiembre queda subestimado en la serie mensual. |
 | El EDA de Camilo filtraba `markdown > 0` y el histograma salía vacío | `markdown` se registra con signo negativo. | (Por **gera**) No se trasladó ese gráfico; la distribución de `markdown` está en los descriptivos de la sección 4.2.1. |
 | `RuntimeError: failed to load glyph` al dibujar etiquetas pequeñas | La tipografía configurada falla con tamaños de fuente de 8 puntos a baja resolución. | (Por **gera**) Las etiquetas de las secciones nuevas usan un tamaño mínimo de 9 puntos. |
+| `return_lag_days` confundía nulos con devoluciones del día cero | El recorte sobrescribía la columna original y la imputación posterior convertía los nulos estructurales en `0.0`. | (Por **gera**) Se conservó la columna original y se creó `return_lag_days_analisis` únicamente en la vista de devoluciones. |
+| Comparaciones interanuales con cortes de 38 y 39 semanas | Una sección usaba la semana máxima disponible y otra validaba que tuviera siete fechas. | (Por **gera**) Se centralizó `SEMANA_CORTE_COMPARABLE` en la semana 38; la semana 39 se identifica como parcial. |
+| Eliminación incondicional de columnas supuestamente vacías | El código asumía que las tres columnas continuarían nulas en futuras extracciones. | (Por **gera**) Se añadieron validaciones de existencia y conteo no nulo antes de ejecutar `.drop()`. |
+| Salida guardada con error de `boxplot` bajo Python 3.9 | Los metadatos apuntaban al kernel genérico y las salidas no representaban el entorno `.venv`. | (Por **gera**) Se restauró `sales-revenue-env`, se fijó Python 3.11.16 en los metadatos y se reejecutó el notebook completo sin errores. |
 
 ---
 

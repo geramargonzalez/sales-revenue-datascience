@@ -30,8 +30,9 @@ Al realizar análisis exploratorio en este repositorio, siempre deben respetarse
 ### Paso 1: Verificación de Estado del Dataset
 Antes de generar visualizaciones, confirmar el estado de los datos:
 1. Verificar dimensiones (`shape`): 2,435,854 filas y 37 columnas.
-2. Confirmar ausencia total de valores nulos (`df.isna().sum().sum() == 0`).
-3. Verificar tipos de datos (`dtypes`) de variables financieras y temporales.
+2. Confirmar que no existan nulos accidentales; se permiten únicamente los nulos estructurales de `return_lag_days`, que deben conservarse para distinguirlos de los ceros explícitos.
+3. Antes de eliminar `item_season`, `promo_name` y `promo_amt`, validar que las tres columnas existan y continúen 100% nulas.
+4. Verificar tipos de datos (`dtypes`) de variables financieras y temporales.
 
 ---
 
@@ -72,10 +73,13 @@ Analizar frecuencia y participación de:
   - Comparativa interanual por `retail_year`.
   - Tendencia trimestral por `retail_quarter` (Q1 a Q4, identificando el impacto clave de la temporada festiva en Q4).
   - Distribución mensual por `retail_month` (1 a 12).
+- Definir un único corte comparable con la última semana de siete fechas completas y reutilizarlo en todas las comparaciones interanuales.
+- Mostrar las semanas parciales solo como observaciones descriptivas, identificadas explícitamente y excluidas de métricas interanuales.
 - Para mayor detalle del calendario minorista, consultar [retail_calendar_guide.md](references/retail_calendar_guide.md).
 
 #### Matriz de Correlación
-- Calcular correlación de Pearson y Spearman entre variables numéricas (`gross_sales`, `net_sales`, `markdown`, `discount_total`, `cogs`, `margin`, `qty`, `return_lag_days`).
+- Calcular correlación de Pearson y Spearman entre variables numéricas (`gross_sales`, `net_sales`, `markdown`, `discount_total`, `cogs`, `margin`, `qty`, `return_lag_days_analisis`).
+- Conservar `return_lag_days` sin modificaciones y aplicar el tope de 90 días únicamente en la variable derivada `return_lag_days_analisis` de la vista de devoluciones.
 - Desplegar mapa de calor (*heatmap*) con mapa de colores divergente y anotaciones numéricas legibles.
 - Documentar multicolinealidad o relaciones directas entre costos, descuentos y margen.
 
