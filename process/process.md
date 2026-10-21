@@ -242,6 +242,30 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 
 ---
 
+### Fase 10: Centralización de las Validaciones de Nulos (Aplicado por **gera**, 21/10/2026)
+
+- [x] **Función compartida:** se definió `validar_nulos(datos, nulos_rezago_esperados)` en la celda existente `e1b6d29c`, con parámetros explícitos y sin modificar el DataFrame recibido.
+
+  La función comprueba la ausencia de nulos fuera de `return_lag_days`, verifica el conteo esperado del rezago y devuelve el resumen por columna.
+
+- [x] **Tres puntos de control conservados:** las celdas `e1b6d29c`, `eda_vistas_code` y `eda_control_final` utilizan la misma función; el primer control reutiliza el resumen para evitar recorridos repetidos del dataset.
+
+- [x] **Estructura y alcance:** se conservaron las 72 celdas, sus tipos, identificadores y orden, las salidas guardadas y los metadatos locales preexistentes.
+
+  El commit incluye únicamente los cambios de código de esta fase y su documentación; los metadatos locales del kernel permanecen sin incorporar.
+
+- [x] **Pruebas puntuales:** se verificó un caso válido con nulos, cero explícito y rezago superior a 90 días, sin mutaciones; se comprobó el rechazo de un nulo financiero y de aumentos o reducciones del conteo de nulos del rezago.
+
+- [x] **Ejecución completa:** las 38 celdas de código ejecutaron sin errores en un kernel nuevo `sales-revenue-env` con Python 3.11.16 de `.venv`.
+
+  El cierre conservó **2,435,854 filas**, **37 columnas**, **2,239,455 nulos del rezago** y ventas netas por **$287,699,163.91 USD**.
+
+**Incidencia resuelta:** duplicación de las reglas de validación de nulos identificada en la Fase 9.
+
+**Próximos pasos:** evaluar las propuestas restantes del informe: comparación completa del rezago, contrato de carga y selección del kernel.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |

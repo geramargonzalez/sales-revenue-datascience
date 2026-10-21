@@ -69,3 +69,11 @@ Revisar las propuestas de selección del kernel, centralización de validaciones
 La intervención registra la revisión; no aplica modificaciones al notebook ni al dataset.
 
 Estándares: **2 hallazgos**, con el kernel como principal; requisitos: **1 hallazgo**, también el kernel local.
+
+## Seguimiento de implementación
+
+**Fase 10, 21/10/2026, gera:** se resolvió la duplicación de las validaciones de nulos mediante `validar_nulos(datos, nulos_rezago_esperados)`, definida en la celda existente de control posterior al tratamiento.
+
+Los tres puntos de control llaman a la misma función; el primero reutiliza el conteo devuelto para presentar el resumen sin volver a recorrer el dataset.
+
+Las propuestas de igualdad completa del rezago, contrato de carga y selección del kernel permanecen pendientes.
