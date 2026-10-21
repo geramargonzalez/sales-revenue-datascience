@@ -224,6 +224,24 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 
 ---
 
+### Fase 9: Revisión de Código y Propuestas de Mejora (Aplicado por **gera**, 21/10/2026)
+
+- [x] **Alcance:** revisión de las fases 7 y 8 frente a `main` (`bf51b02`), más los metadatos locales del notebook, mediante la habilidad `mattpocock-skills:code-review`.
+
+- [x] **Revisión independiente:** evaluación de estándares y requisitos documentados, con resultados completos en [revision_fase_9.md](revision_fase_9.md).
+
+- [x] **Incidencia detectada:** el cambio local selecciona `python3` y declara Python 3.9.6, en desacuerdo con `.venv` y `sales-revenue-env`; se documentó la propuesta de restauración sin modificar el notebook.
+
+- [x] **Mejoras propuestas:** centralizar las validaciones repetidas, comparar el rezago original completo y validar el contrato de carga, incluidos los identificadores únicos.
+
+- [x] **Verificación:** las 38 celdas de código ejecutaron sin errores en un kernel nuevo `sales-revenue-env` con Python 3.11.16; se conservaron las 72 celdas y su estructura.
+
+  El cierre confirmó **2,435,854 filas**, **37 columnas**, **2,239,455 nulos originales del rezago** y **$287,699,163.91 USD** de ventas netas; la semana 38 mantiene el corte comparable y la 39 contiene tres fechas.
+
+**Próximos pasos:** evaluar las propuestas del informe antes de implementarlas; completar las decisiones de extracción, costos y horizonte predictivo ya registradas.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
