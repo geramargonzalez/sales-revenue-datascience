@@ -266,6 +266,34 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 
 ---
 
+### Fase 11: Objetivo Predictivo, Contrato de Carga y Confidencialidad (Aplicado por **gera**, 21/10/2026)
+
+- [x] **Objetivo predictivo definido:** al cierre de cada semana minorista se estimarán las ventas netas de la semana siguiente por ubicación operativa, para apoyar la planificación comercial y operativa.
+
+  La unidad futura de modelado será ubicación-semana y el objetivo conservará el efecto contable de las devoluciones válidas.
+
+- [x] **Contrato de carga:** se validan las 40 columnas requeridas, la integridad y unicidad de `line_id`, las fechas, las categorías de `txn_type`, las columnas booleanas y los valores finitos de `net_sales` antes de limpiar la base.
+
+  La extracción actual presenta cero columnas ausentes, cero identificadores nulos o duplicados, cero fechas o categorías inválidas y cero importes no finitos.
+
+- [x] **Procedimiento temporal:** se documentó la agregación semanal, la separación cronológica de entrenamiento, validación y prueba, el desplazamiento de variables históricas y el ajuste del preprocesamiento únicamente con entrenamiento.
+
+  La tabla semanal, las variables y los cortes concretos permanecen sin implementar hasta la validación del diseño.
+
+- [x] **Confidencialidad:** el nombre de la empresa se anonimiza al cargar las columnas de marca y ubicación, antes de mostrar datos, tablas o gráficos.
+
+  Las referencias visibles fueron sustituidas por nombres de ubicación sin prefijo y por la etiqueta `Marca propia`; el CSV de origen no se modifica.
+
+- [x] **Entorno:** se restauraron los metadatos `sales-revenue-env`, `Python (.venv - Sales Revenue)` y Python 3.11.16.
+
+- [x] **Verificación:** las 38 celdas de código ejecutaron en orden y sin errores; se conservaron las 72 celdas, sus identificadores y su orden.
+
+  Los 671 valores numéricos de las 17 tablas existentes permanecen iguales. El cierre conserva **2,435,854 filas**, **37 columnas**, **2,239,455 nulos del rezago** y ventas netas por **$287,699,163.91 USD**.
+
+**Alcance detenido para revisión:** no se construyeron todavía las variables históricas, la partición temporal ni los modelos.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
@@ -292,6 +320,7 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 | Eliminación incondicional de columnas supuestamente vacías | El código asumía que las tres columnas continuarían nulas en futuras extracciones. | (Por **gera**) Se añadieron validaciones de existencia y conteo no nulo antes de ejecutar `.drop()`. |
 | Salida guardada con error de `boxplot` bajo Python 3.9 | Los metadatos apuntaban al kernel genérico y las salidas no representaban el entorno `.venv`. | (Por **gera**) Se restauró `sales-revenue-env`, se fijó Python 3.11.16 en los metadatos y se reejecutó el notebook completo sin errores. |
 | Textos y etiquetas con alcances ambiguos o desactualizados | Persistían referencias a 39 semanas y las etiquetas no distinguían importes por línea, tickets sin devoluciones, rezagos informados o envíos con ZIP válido. | (Por **gera**, Fase 8) Se revisaron títulos, descripciones, leyendas y conclusiones para declarar el período y la población de cada resultado, conservando los cálculos. |
+| Nombre de la empresa visible en textos, código y resultados | Las columnas de marca y ubicación conservaban directamente las etiquetas de origen. | (Por **gera**, Fase 11) Se aplica anonimización al cargar, antes de cualquier salida, y se verificó que el notebook no contenga referencias visibles al nombre. |
 
 ---
 
@@ -307,7 +336,6 @@ Este documento registra el avance, control de tareas, resolución de incidencias
   - Tratamiento de las líneas con costo cero antes de analizar margen.
   - Obtener la cifra de control oficial de 2026 con septiembre incluido para reemplazar la referencia de $41.11M (enero a agosto) en la sección 4.1.1.
   - `markdown` de 2022 conserva el cálculo de la extracción anterior; volver a extraer 2022 con la consulta actual o excluir ese año al analizar `markdown`.
-  - Definir el objetivo del modelo: Camilo plantea clasificar devoluciones (`is_return`); el proyecto apunta a predecir ingresos por ventas.
   - Confirmar con el negocio qué evento explica el pico de las semanas 30 y 31 (finales de julio).
   - Confirmar si la fecha del canal web es la de compra o la de procesamiento del pedido.
   - Volver a extraer los últimos días de septiembre de 2026.

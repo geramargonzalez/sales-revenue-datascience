@@ -76,4 +76,6 @@ Estándares: **2 hallazgos**, con el kernel como principal; requisitos: **1 hall
 
 Los tres puntos de control llaman a la misma función; el primero reutiliza el conteo devuelto para presentar el resumen sin volver a recorrer el dataset.
 
-Las propuestas de igualdad completa del rezago, contrato de carga y selección del kernel permanecen pendientes.
+**Fase 11, 21/10/2026, gera:** se implementó el contrato de carga para esquema, `line_id`, fechas, categorías, booleanos e importes, y se restauraron los metadatos de `sales-revenue-env` con Python 3.11.16.
+
+La comparación completa de la serie original de `return_lag_days` permanece pendiente.
