@@ -1,0 +1,12 @@
+{
+  "tipo": "referencia_estacional",
+  "fecha_evaluacion": "2026-10-22T22:04:34",
+  "criterio_promocion": "WAPE de prueba menor que la referencia estacional",
+  "candidato_run_id": "6eba147a9ce1",
+  "artefacto_candidato": "artefactos_mlops/modelos/6eba147a9ce1.joblib",
+  "candidato_promovido": false,
+  "wape_candidato_prueba": 25.84321491771826,
+  "wape_referencia_prueba": 20.632156322737085,
+  "firma_datos": "e6539ea01ba6ef0f971cb344ca527b52238a260c37854d2fa85741379f4c8054",
+  "firma_codigo": "dad90dc936127ec024dae0579dde5c9bef9da3aa463c1e1f44fad8ede20a0475"
+}
