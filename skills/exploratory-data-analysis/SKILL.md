@@ -15,13 +15,7 @@ Esta habilidad define el procedimiento estandarizado para llevar a cabo el anál
 
 ## 1. Principios y Restricciones Operativas
 
-Al realizar análisis exploratorio en este repositorio, siempre deben respetarse los siguientes principios:
-
-- **Idioma Español**: Todos los títulos de gráficos, etiquetas de ejes, leyendas, comentarios de código y textos explicativos deben redactarse exclusivamente en español.
-- **Espaciado en Markdown**: Al terminar una oración en celdas de texto Markdown, dejar una línea en blanco en la siguiente línea.
-- **Integridad Estructural**: No alterar la numeración ni la estructura base de las celdas del notebook.
-- **Cuadre Contable**: Ninguna operación exploratoria o de filtrado temporal debe alterar de forma destructiva el balance de ventas netas del dataset consolidado (`net_sales = $287,699,163.91 USD`).
-- **Exclusión Mínima de `CLIENTE_ANONIMO`**: Conservar estas filas por defecto y excluirlas solo en métricas por cliente (recurrencia, cohortes, RFM), sobre una vista temporal y reportando el porcentaje de filas y de `net_sales` excluido, según la sección 4 de [`AGENTS.md`](../../AGENTS.md).
+Antes de realizar el análisis exploratorio, consultar y aplicar las secciones 3 («Reglas Generales de Código y Notebooks») y 4 («Límites Operativos y Cuadre Contable») de [`AGENTS.md`](../../AGENTS.md), fuente de referencia de las reglas generales del repositorio.
 
 ---
 

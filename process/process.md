@@ -360,6 +360,22 @@ El entorno `.venv` responde con Python 3.11.16; no se ejecutó el notebook porqu
 
 ---
 
+### Fase 14: Consolidación de Reglas Generales en AGENTS.md (Aplicado por **gera**, 23/10/2026)
+
+- [x] **Cambio aprobado:** se sustituyeron las cinco reglas repetidas de la sección 1 de `skills/exploratory-data-analysis/SKILL.md` por una instrucción de consultar y aplicar las secciones 3 y 4 de `AGENTS.md`.
+
+- [x] **Incidencia resuelta:** las reglas generales tienen una única fuente de referencia, evitando mantener versiones abreviadas que puedan divergir.
+
+- [x] **Alcance:** se conservaron el procedimiento EDA y las guías de visualización y calendario; se consultó `process/ideas.md` y se confirmó que `gera` ya incorporaba `main`.
+
+- [x] **Validación documental:** se comprobó que el enlace relativo resuelve a `AGENTS.md`, que existen las dos secciones referidas y que el diff no presenta errores de espacios.
+
+No se modificaron código, notebooks ni datos; no corresponde reejecutar el análisis ni recalcular el balance contable para este cambio documental.
+
+**Próximos pasos:** la consolidación propuesta en la Fase 13 queda completada; continúa pendiente la revisión independiente de la guía del calendario.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
