@@ -376,6 +376,24 @@ No se modificaron código, notebooks ni datos; no corresponde reejecutar el aná
 
 ---
 
+### Fase 15: Reporte de Estructura de Reglas y Habilidades (Aplicado por **gera**, 23/10/2026)
+
+- [x] **Entregable:** se creó [el reporte de estructura](reporte_estructura_agentes_skills.md) con responsabilidades, árbol de archivos, ejemplo de aplicación y criterios de mantenimiento.
+
+- [x] **Aclaración de alcance:** la habilidad EDA incluye validación, estadística, comparaciones e interpretación; las visualizaciones son una parte del procedimiento y cuentan con una referencia específica.
+
+- [x] **Revisión:** se consultaron `AGENTS.md`, la habilidad y sus referencias, `ideas.md` y el historial de progreso; `gera` ya incorporaba `main`.
+
+**Incidencias:** no se encontraron bloqueos para elaborar el reporte; se mantuvo explícita la discrepancia del calendario ya registrada, sin resolverla dentro de esta tarea documental.
+
+**Validación:** se verificaron los enlaces locales del reporte y la ausencia de errores de espacios en el diff.
+
+No se modificaron código, notebooks ni datos; no se reejecutó el análisis ni se recalcularon métricas contables.
+
+**Próximos pasos:** conservar la distribución actual de responsabilidades y evaluar habilidades adicionales cuando existan procedimientos recurrentes que las justifiquen.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
