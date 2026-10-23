@@ -336,6 +336,30 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 
 ---
 
+### Fase 13: Revisión de Redundancias entre AGENTS.md y Habilidades (Aplicado por **gera**, 23/10/2026)
+
+- [x] **Alcance:** se compararon `AGENTS.md`, `skills/exploratory-data-analysis/SKILL.md` y sus dos documentos de referencia; también se consultó `process/ideas.md`.
+
+- [x] **Duplicaciones identificadas:** la sección 1 de la habilidad repite las reglas generales de español, espaciado Markdown, estructura de celdas, balance de ventas netas y tratamiento de `CLIENTE_ANONIMO` de las secciones 3 y 4 de `AGENTS.md`.
+
+  La regla de clientes anónimos ya enlaza a la fuente general, pero mantiene una versión abreviada de la misma política.
+
+- [x] **Contenido complementario:** el procedimiento EDA, las comprobaciones concretas del dataset, las paletas y formatos gráficos y la explicación del calendario tienen funciones específicas; los enlaces a estos documentos y a `ideas.md` sirven para navegación y no constituyen duplicación sustancial.
+
+- [x] **Solapamiento menor:** la guía visual reitera el idioma español al describir los títulos de gráficos, dentro de una instrucción que también aporta ubicación y tipografía.
+
+**Incidencia y propuesta de resolución:** mantener las reglas globales en `AGENTS.md` y sustituir su repetición en la sección 1 de la habilidad por una referencia explícita a las secciones 3 y 4; conservar el procedimiento y las referencias técnicas.
+
+La consolidación queda propuesta, sin modificar los documentos revisados, porque la tarea solicitada es una verificación.
+
+**Validación:** revisión documental completa y comparación sin diferencias de los archivos revisados entre `gera_playground` y `gera`; `gera` ya incorporaba `main`.
+
+El entorno `.venv` responde con Python 3.11.16; no se ejecutó el notebook porque no se modificaron código ni datos y no se recalcularon las ventas netas.
+
+**Próximos pasos:** aplicar la consolidación si se solicita; mantener como pendiente independiente la discrepancia del calendario ya documentada en el registro de incidencias.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
