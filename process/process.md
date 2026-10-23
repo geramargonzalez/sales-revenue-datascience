@@ -294,6 +294,48 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 
 ---
 
+### Fase 12: Tabla Semanal, Evaluación Temporal y Trazabilidad (Aplicado por **gera**, 22/10/2026)
+
+- [x] **Tabla ubicación-semana:** se construyó una vista separada de la base contable con 247 semanas cerradas entre domingo y sábado y 2,076 combinaciones de ubicación y semana desde la primera actividad observada de cada local.
+
+  La semana 47 de 2022 se conserva porque cubre de domingo a sábado aunque no tiene líneas en uno de sus días; la semana 39 de 2026 se excluye porque la extracción termina el miércoles.
+
+- [x] **Ausencias diferenciadas:** dos semanas de Wedding Annex carecen de líneas y se marcan como `semana_sin_registros` sin convertirlas en ventas cero.
+
+  La base `df` no se filtra ni se modifica para el modelado.
+
+- [x] **Variables sin fuga:** se incorporaron rezagos de 1, 2, 4 y 13 semanas, medias móviles desplazadas, antigüedad observada, codificación cíclica de la semana y venta de la misma semana minorista del año anterior.
+
+  La referencia estacional usa el año anterior y recurre a la semana previa cuando ese historial no existe.
+
+- [x] **Cortes temporales comunes:** entrenamiento del 9 de enero de 2022 al 22 de marzo de 2026, validación del 29 de marzo al 21 de junio de 2026 y prueba final del 28 de junio al 20 de septiembre de 2026.
+
+  La comparación utiliza 1,694 filas de entrenamiento, 182 de validación y 182 de prueba.
+
+- [x] **Comparación inicial:** tres configuraciones de bosque aleatorio se evaluaron únicamente en validación mediante MAE, RMSE, WAPE y sesgo.
+
+  `bosque_conservador` obtuvo el mejor WAPE de validación, con 15.47%, frente a 18.22% de la referencia.
+
+- [x] **Compuerta de promoción:** el candidato seleccionado alcanzó 25.84% de WAPE en prueba y la referencia estacional 20.63%.
+
+  El candidato no se promovió; la referencia permanece como campeón y el resultado queda visible en el notebook.
+
+- [x] **Trazabilidad local:** cada ejecución registra parámetros, métricas, cortes, versiones, huellas de datos y código, predicciones de prueba y el artefacto del candidato en `artefactos_mlops/`.
+
+  El directorio se excluye de Git porque contiene artefactos regenerables y modelos binarios.
+
+- [x] **Dependencias:** se añadieron `scikit-learn`, `scipy`, `joblib` y sus dependencias al entorno y a `requirements.txt`.
+
+- [x] **Ejecución y revisión visual:** las 38 celdas se ejecutaron desde un kernel nuevo y el gráfico final se inspeccionó a resolución completa sin etiquetas cortadas ni superpuestas.
+
+  Se conservaron las 72 celdas, sus identificadores y su orden, además de **2,435,854 filas**, **37 columnas**, **2,239,455 nulos del rezago** y ventas netas por **$287,699,163.91 USD**.
+
+**Incidencia resuelta:** una semana histórica con seis días que contienen líneas no se interpreta automáticamente como extracción parcial; el cierre del período se determina por sus límites de domingo a sábado.
+
+**Próximos pasos:** analizar el deterioro fuera de muestra por ubicación y evento comercial, y evaluar variables adicionales solo si están disponibles al cierre de la semana pronosticada.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
@@ -321,15 +363,20 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 | Salida guardada con error de `boxplot` bajo Python 3.9 | Los metadatos apuntaban al kernel genérico y las salidas no representaban el entorno `.venv`. | (Por **gera**) Se restauró `sales-revenue-env`, se fijó Python 3.11.16 en los metadatos y se reejecutó el notebook completo sin errores. |
 | Textos y etiquetas con alcances ambiguos o desactualizados | Persistían referencias a 39 semanas y las etiquetas no distinguían importes por línea, tickets sin devoluciones, rezagos informados o envíos con ZIP válido. | (Por **gera**, Fase 8) Se revisaron títulos, descripciones, leyendas y conclusiones para declarar el período y la población de cada resultado, conservando los cálculos. |
 | Nombre de la empresa visible en textos, código y resultados | Las columnas de marca y ubicación conservaban directamente las etiquetas de origen. | (Por **gera**, Fase 11) Se aplica anonimización al cargar, antes de cualquier salida, y se verificó que el notebook no contenga referencias visibles al nombre. |
+| El bosque aleatorio mejora validación pero empeora en prueba | La ventana final contiene un patrón distinto al período de validación y el candidato no generaliza mejor que la referencia estacional. | (Por **gera**, Fase 12) Se aplicó una compuerta de promoción sobre prueba; la referencia conserva el estado de campeón y el candidato queda registrado para el análisis de errores. |
 
 ---
 
 ## 4. Próximos Pasos y Acciones Pendientes
 
-- [ ] **Ingeniería de características (propuestas de las notas de Camilo, respaldadas por la Fase 4):**
+- [ ] **Ingeniería de características adicional (propuestas de las notas de Camilo, respaldadas por la Fase 4):**
   - Calendario: indicadores de Navidad (semanas 47 a 51), San Valentín (semana 6) y Día de la Madre (semana 18), y número de semanas del mes minorista.
-  - Atributos del local: antigüedad de la tienda y días con ventas, derivados de la primera fecha de venta de cada ubicación.
+  - Atributos del local: días con ventas y señales verificadas de apertura o cierre; la antigüedad observada ya forma parte del primer modelo.
   - Tasas en lugar de importes: descuento sobre venta bruta, margen sobre venta neta y devoluciones sobre venta bruta.
+- [ ] **Modelado y MLOps:**
+  - Explicar el deterioro del bosque entre validación y prueba por ubicación, semana y evento comercial.
+  - Evaluar validación temporal con ventanas sucesivas antes de ampliar la búsqueda de modelos.
+  - Mantener la referencia estacional como campeón hasta que un candidato la supere fuera de muestra.
 - [ ] **Análisis del EDA aún no realizados:** crecimiento interanual con `ly_date_key`, descomposición y autocorrelación de la serie semanal, cohortes de clientes y Pareto de artículos.
 - [ ] **Decisiones pendientes:**
   - Corregir o no `retail_calendar_guide.md` (el año minorista de este dataset comienza en enero).
