@@ -438,6 +438,40 @@ No se modificaron código, notebooks ni datos; no se reejecutó el análisis ni 
 
 ---
 
+### Fase 18: Comparación con la Misma Semana del Año Anterior (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Variable estacional:** se incorporó `venta_anio_anterior` al ejercicio básico de regresión lineal de la sección 6.
+
+  La variable une `retail_year` y `retail_week` de cada semana objetivo con la misma semana minorista del año previo; no utiliza un desplazamiento fijo de 52 filas y conserva la alineación cuando existe un año de 53 semanas.
+
+- [x] **Configuración del ejercicio:** el modelo utiliza por defecto `venta_semana_anterior` y `venta_anio_anterior` para predecir las ventas netas semanales de `SOHO`.
+
+  `venta_hace_2_semanas` permanece disponible para experimentar y la predicción manual admite las tres variables sin modificar `df`.
+
+- [x] **Comparación homogénea:** la evaluación muestra la regresión y la referencia que copia directamente la misma semana del año anterior sobre exactamente las mismas 39 semanas de prueba.
+
+  La regresión obtuvo MAE de **$15,994.29 USD**, RMSE de **$21,398.12 USD** y R² de **0.1284**.
+
+  La referencia anual obtuvo MAE de **$18,121.61 USD**, RMSE de **$22,541.30 USD** y R² de **0.0328**.
+
+  La regresión reduce el MAE en **$2,127.32 USD**, equivalente a **11.7%**, frente a usar únicamente el valor del año anterior.
+
+- [x] **Cobertura temporal:** quedan 194 semanas con ambos antecedentes disponibles; 155 se usan para entrenamiento, desde el 7 de enero de 2023 al 27 de diciembre de 2025, y 39 para prueba, desde el 3 de enero al 26 de septiembre de 2026.
+
+  Estas métricas no se comparan directamente con el experimento anterior de 49 semanas, porque la disponibilidad del antecedente anual cambia la población evaluada.
+
+- [x] **Verificación:** el notebook ejecutó sin errores hasta la sección 6.5 en un kernel nuevo `sales-revenue-env`.
+
+  Se comprobó para cada fila que `venta_anio_anterior` corresponde al mismo par de semana minorista y año menos uno, además de la separación cronológica, predicciones finitas y coincidencia de índices entre métodos.
+
+  La base conserva **2,435,854 filas**, **37 columnas** y ventas netas por **$287,699,163.91 USD**.
+
+**Incidencia resuelta:** la primera regresión solo utilizaba rezagos consecutivos y no representaba directamente la estacionalidad anual de las ventas.
+
+**Próximos pasos:** comparar las configuraciones de una semana, dos semanas y antecedente anual sobre una única población común antes de seleccionar variables para una evaluación independiente.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
