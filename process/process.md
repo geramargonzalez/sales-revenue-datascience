@@ -472,6 +472,28 @@ No se modificaron código, notebooks ni datos; no se reejecutó el análisis ni 
 
 ---
 
+### Fase 19: Documento de Proceso de Test (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Registro consolidado:** se creó [`proceso_de_test.md`](./proceso_de_test.md) con el protocolo, las métricas y las conclusiones de los tres experimentos de regresión lineal y de la referencia anual.
+
+- [x] **Comparabilidad:** el documento identifica qué resultados utilizan períodos diferentes y establece que los próximos candidatos deben evaluarse sobre las mismas 194 filas y 39 semanas de prueba del Test 3.
+
+- [x] **Indicadores propuestos:** se documentaron Navidad, San Valentín y Día de la Madre como variables binarias conocidas antes de la semana objetivo.
+
+  Cada indicador se probará por separado antes de combinarse, usando las semanas propuestas en `process/ideas.md` como hipótesis iniciales que deben validarse contra las fechas reales.
+
+- [x] **Criterios de avance:** el Test 3 queda como referencia aprendida, con MAE de $15,994.29 USD, RMSE de $21,398.12 USD y R² de 0.1284 sobre las 39 semanas de 2026.
+
+  La referencia que copia la misma semana del año anterior conserva un MAE de $18,121.61 USD sobre esas mismas semanas.
+
+- [x] **Reutilización:** se añadió una plantilla para registrar variables, períodos, métricas, resultado por evento, conclusión y decisión de cada nueva prueba.
+
+**Incidencias:** ninguna; esta fase documenta resultados existentes y el procedimiento de pruebas futuras sin modificar el notebook ni recalcular el modelo.
+
+**Próximos pasos:** implementar el indicador de Navidad como Test 4 y compararlo con el Test 3 sobre la misma población.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
