@@ -8,7 +8,7 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 
 
 
-* **Rama activa de trabajo:** `gera` (según regla: `gerardo.gonzalez@estudiantes.utec.edu.uy` -> rama `gera`).
+* **Rama activa de trabajo:** `gera_playground`, por indicación de Gerardo para los ejercicios de modelado; autor `gera`.
 * **Nomenclatura obligatoria de commits:** `Fase <number_of_task> : <description_of_the_task>`.
 * **Idioma:** Español estricto en comentarios, documentación y descripciones de celdas.
 
@@ -391,6 +391,50 @@ No se modificaron código, notebooks ni datos; no corresponde reejecutar el aná
 No se modificaron código, notebooks ni datos; no se reejecutó el análisis ni se recalcularon métricas contables.
 
 **Próximos pasos:** conservar la distribución actual de responsabilidades y evaluar habilidades adicionales cuando existan procedimientos recurrentes que las justifiquen.
+
+---
+
+### Fase 17: Regresión Lineal Básica en la Sección 6 (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Rama:** se mantuvo `gera_playground` por indicación del usuario y se integraron los cambios de `main` antes de comenzar.
+
+- [x] **Referencia de clase:** se consultó `Hospital_LOS_Prediction_CLASE1.ipynb` y se adaptó su secuencia de preparación, separación 80/20, ajuste, predicción y métricas.
+
+  El ejercicio utiliza `LinearRegression` de scikit-learn para simplificar el ajuste con `statsmodels.OLS` mostrado en clase; no requiere nuevas dependencias.
+
+- [x] **Ejercicio editable:** se agregaron las secciones 6.1 a 6.5 para predecir ventas semanales de una ubicación, inicialmente `SOHO`, usando la venta de la semana anterior.
+
+  Se puede cambiar `UBICACION_RL`, añadir `venta_hace_2_semanas` a `VARIABLES_RL` y modificar los importes de una predicción manual.
+
+- [x] **Partición y alcance:** `train_test_split(test_size=0.20, shuffle=False)` reserva las semanas más recientes para prueba y utiliza las anteriores para entrenamiento.
+
+  Las ventas se agregan de domingo a sábado; las semanas parciales y las filas sin el historial requerido se excluyen únicamente de la vista del ejercicio, con sus conteos visibles.
+
+  Se conservan las devoluciones y las compras anónimas; las semanas sin registros no se imputan con cero.
+
+- [x] **Lectura del resultado:** se muestran intercepto, coeficientes, MAE, RMSE y R² de entrenamiento y prueba, una comparación entre valores reales y predichos y un gráfico del período de prueba.
+
+  La evaluación simula una semana por vez, usando ventas previas ya observadas; la prueba exploratoria no se presenta como evaluación final después de ajustar variables con sus resultados.
+
+- [x] **Integración:** las importaciones se agregaron a la celda inicial y se conservaron los identificadores, tipos y orden relativo de las 74 celdas existentes.
+
+  Se añadieron diez celdas para intercalar el ejercicio bajo el bloque 6 y continuar después con el texto y código del flujo avanzado; el código previo de preparación y bosque aleatorio permanece igual.
+
+- [x] **Verificación:** las 45 celdas de código ejecutaron sin errores en un kernel nuevo `sales-revenue-env` con Python 3.11 de `.venv`.
+
+  Se comprobaron la separación cronológica, la proporción 80/20, los rezagos y las predicciones finitas con una y dos variables históricas.
+
+  Se verificó el gráfico con fechas numéricas, sin etiquetas cortadas, y se guardaron las salidas del ejercicio; el código modificado del gráfico se volvió a ejecutar de forma puntual.
+
+  El ejemplo de `SOHO` conserva 246 semanas utilizables: 196 para entrenamiento y 50 para prueba, del 18/10/2025 al 26/09/2026.
+
+  En prueba obtiene MAE de **$20,414.25 USD**, RMSE de **$26,189.08 USD** y R² de **0.0662**; este ajuste básico deja gran parte de la variación sin explicar.
+
+  La base conserva **2,435,854 filas**, **37 columnas**, **$287,699,163.91 USD** en ventas netas, los mismos nulos y todas las compras anónimas.
+
+**Incidencia resuelta:** el bloque 6 contenía únicamente la explicación del flujo avanzado, sin un ejemplo básico ejecutable de regresión lineal para experimentar.
+
+**Próximos pasos:** explorar otras ubicaciones y comparar una o dos variables históricas; reservar una evaluación temporal independiente si se selecciona una configuración para uso real.
 
 ---
 
