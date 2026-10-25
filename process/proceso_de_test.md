@@ -62,11 +62,17 @@ Por eso, las comparaciones definitivas deben usar las mismas filas y las mismas 
 | 2 | Semana anterior + hace dos semanas | 49 | $20,073.75 | $26,090.93 | 0.09 | Mejora pequeña; la segunda semana aporta poco |
 | 3 | Semana anterior + misma semana del año anterior | 39 | $15,994.29 | $21,398.12 | 0.13 | Mejor resultado observado, con otro período de prueba |
 | 3A | Copiar la misma semana del año anterior | 39 | $18,121.61 | $22,541.30 | 0.03 | Referencia estacional evaluada junto con el Test 3 |
+| 4 | Test 3 + Navidad | 39 | $16,149.27 | $21,500.69 | 0.12 | No mejora; Navidad no aparece en prueba |
+| 5 | Test 3 + San Valentín | 39 | $15,544.93 | $20,818.67 | 0.17 | Mejor MAE general, con solo una semana del evento |
+| 6 | Test 3 + Día de la Madre | 39 | $16,044.99 | $21,397.85 | 0.13 | Resultado prácticamente igual al Test 3 |
+| 7 | Test 3 + los tres indicadores | 39 | $15,615.03 | $20,852.56 | 0.17 | Mejora pequeña; cobertura de eventos insuficiente |
 
 > [!IMPORTANT]
 > Los tests 1, 2 y 3 no son directamente comparables porque utilizan períodos de prueba diferentes.
 >
 > El Test 3 y la referencia 3A sí son comparables: utilizan exactamente las mismas 39 semanas de 2026.
+>
+> Los tests 4 a 7 también utilizan esas mismas 39 semanas y son comparables con el Test 3.
 
 ---
 
@@ -193,15 +199,86 @@ La predicción consiste en copiar directamente la venta de la misma semana minor
 
 **Decisión:** utilizar la referencia anual como control mínimo en los próximos experimentos.
 
+### Test 4: indicador de Navidad
+
+**Hipótesis:** las semanas minoristas 47 a 51 representan el aumento de ventas de fin de año.
+
+**Variables:** antecedentes del Test 3 más `es_navidad`.
+
+| Método | MAE | RMSE | R² |
+| :--- | ---: | ---: | ---: |
+| Test 4 | $16,149.27 | $21,500.69 | 0.1200 |
+| Test 3 | $15,994.29 | $21,398.12 | 0.1284 |
+
+**Cobertura:** 15 semanas de Navidad en entrenamiento y ninguna en prueba.
+
+**Conclusión:** las métricas generales empeoran y el período de prueba no contiene Navidad.
+
+**Decisión:** no considerar validado el indicador; volver a probarlo con una ventana que incluya las semanas 47 a 51.
+
+### Test 5: indicador de San Valentín
+
+**Hipótesis:** la semana minorista 6 contiene un patrón especial de ventas.
+
+**Variables:** antecedentes del Test 3 más `es_san_valentin`.
+
+| Método | MAE | RMSE | R² |
+| :--- | ---: | ---: | ---: |
+| Test 5 | $15,544.93 | $20,818.67 | 0.1749 |
+| Test 3 | $15,994.29 | $21,398.12 | 0.1284 |
+
+**Cobertura:** tres semanas de San Valentín en entrenamiento y una en prueba.
+
+**Conclusión:** es el menor MAE general y reduce el error promedio en **$449.36 USD por semana**, equivalente a **2.8%**.
+
+La única semana del evento es una muestra demasiado pequeña para concluir que el indicador funcionará en otros años.
+
+**Decisión:** conservarlo como candidato exploratorio y validarlo con más años o ventanas temporales sucesivas.
+
+### Test 6: indicador de Día de la Madre
+
+**Hipótesis:** la semana minorista 18 contiene un patrón especial de ventas.
+
+**Variables:** antecedentes del Test 3 más `es_dia_madre`.
+
+| Método | MAE | RMSE | R² |
+| :--- | ---: | ---: | ---: |
+| Test 6 | $16,044.99 | $21,397.85 | 0.1284 |
+| Test 3 | $15,994.29 | $21,398.12 | 0.1284 |
+
+**Cobertura:** tres semanas de Día de la Madre en entrenamiento y una en prueba.
+
+**Conclusión:** el MAE empeora en **$50.70 USD** y las otras métricas permanecen casi iguales.
+
+**Decisión:** no conservarlo por ahora; se necesita mayor cobertura para evaluar el evento.
+
+### Test 7: los tres indicadores
+
+**Hipótesis:** combinar los tres eventos ayuda a representar la estacionalidad comercial.
+
+**Variables:** antecedentes del Test 3 más `es_navidad`, `es_san_valentin` y `es_dia_madre`.
+
+| Método | MAE | RMSE | R² |
+| :--- | ---: | ---: | ---: |
+| Test 7 | $15,615.03 | $20,852.56 | 0.1723 |
+| Test 3 | $15,994.29 | $21,398.12 | 0.1284 |
+| Referencia anual | $18,121.61 | $22,541.30 | 0.0328 |
+
+**Conclusión:** reduce el MAE en **$379.26 USD por semana**, equivalente a **2.4%**, frente al Test 3.
+
+También supera la referencia anual, pero no alcanza el MAE del Test 5.
+
+**Decisión:** mantenerlo en el notebook para experimentar, sin promoverlo como modelo validado.
+
 ---
 
-## 5. Próximos indicadores de calendario
+## 5. Indicadores de calendario
 
 Los indicadores de eventos son columnas con valor `1` cuando la semana pertenece al evento y `0` en el resto.
 
 Son válidos para pronosticar porque el número de semana y las fechas comerciales se conocen antes de observar las ventas objetivo.
 
-Como primera aproximación se utilizarán las semanas propuestas en `process/ideas.md`:
+Como primera aproximación se utilizan las semanas propuestas en `process/ideas.md`:
 
 ```python
 semanal_rl['es_navidad'] = semanal_rl['retail_week'].between(47, 51).astype(int)
@@ -209,38 +286,37 @@ semanal_rl['es_san_valentin'] = semanal_rl['retail_week'].eq(6).astype(int)
 semanal_rl['es_dia_madre'] = semanal_rl['retail_week'].eq(18).astype(int)
 ```
 
-Estas semanas son hipótesis iniciales y deben comprobarse contra las fechas reales de cada año.
+Estas semanas son hipótesis iniciales y todavía deben comprobarse contra las fechas reales de cada año.
 
-### Orden propuesto
+### Cobertura disponible
 
-| Próximo test | Variables adicionales | Qué queremos comprobar |
-| :--- | :--- | :--- |
-| 4 | `es_navidad` | Si identifica el aumento de ventas de fin de año |
-| 5 | `es_san_valentin` | Si reduce el error alrededor de la semana 6 |
-| 6 | `es_dia_madre` | Si reduce el error alrededor de la semana 18 |
-| 7 | Los tres indicadores | Si la combinación mejora el resultado general |
+| Evento | Semanas en entrenamiento | Semanas en prueba |
+| :--- | ---: | ---: |
+| Navidad | 15 | 0 |
+| San Valentín | 3 | 1 |
+| Día de la Madre | 3 | 1 |
 
-Todos estos tests deben conservar las mismas 194 filas, las mismas 155 semanas de entrenamiento y las mismas 39 semanas de prueba del Test 3.
+Los tests conservan las mismas 194 filas, las mismas 155 semanas de entrenamiento y las mismas 39 semanas de prueba del Test 3.
 
-Se agregará un indicador por vez para identificar cuál produce el cambio.
+La prueba termina el 26 de septiembre de 2026, por lo que no puede evaluar directamente la Navidad de ese año.
 
-### Criterio de mejora
+San Valentín y Día de la Madre tienen una sola observación cada uno en prueba.
 
-Un nuevo modelo será mejor que el Test 3 cuando, sobre las mismas semanas:
+El MAE del modelo completo dentro de esa única semana es **$13,723.92 USD** para San Valentín y **$7,936.67 USD** para Día de la Madre.
 
-- Su MAE sea menor que **$15,994.29 USD**.
+La referencia anual obtiene **$1,507.82 USD** y **$24,556.14 USD**, respectivamente.
 
-- Su RMSE sea menor que **$21,398.12 USD**.
+Estos resultados describen dos semanas concretas y no permiten generalizar el comportamiento del evento.
 
-- Su R² sea mayor que **0.1284**.
+### Lectura simple
 
-- También supere la referencia anual de **$18,121.61 USD** de MAE.
+- **Mejor MAE general:** Test 5, con San Valentín.
 
-- No introduzca información futura ni altere el balance contable.
+- **Modelo con los tres indicadores:** mejora pequeña frente al Test 3.
 
-Los indicadores afectan pocas semanas.
+- **Navidad:** todavía no está evaluada fuera del entrenamiento.
 
-Por eso, además de las métricas generales, se registrará el MAE dentro de las semanas de cada evento, indicando siempre cuántas observaciones contiene.
+- **Decisión:** conservar los resultados como exploratorios y usar validación temporal con más ventanas antes de elegir una configuración.
 
 ---
 
@@ -290,6 +366,10 @@ Copiar y completar este bloque después de cada experimento:
 - [x] `venta_anio_anterior` coincide con la misma combinación de semana minorista y año menos uno.
 
 - [x] La regresión y la referencia anual se comparan sobre índices idénticos.
+
+- [x] Los tests 4 a 7 utilizan las mismas 194 filas y las mismas 39 semanas de prueba.
+
+- [x] Los indicadores contienen únicamente valores `0` y `1` y coinciden con las semanas minoristas definidas.
 
 - [x] Las predicciones son finitas.
 

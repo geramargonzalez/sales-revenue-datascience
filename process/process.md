@@ -494,6 +494,42 @@ No se modificaron código, notebooks ni datos; no se reejecutó el análisis ni 
 
 ---
 
+### Fase 20: Indicadores de Eventos en la Regresión Lineal (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Indicadores agregados:** se incorporaron `es_navidad`, `es_san_valentin` y `es_dia_madre` a la sección 6 del notebook.
+
+  Los indicadores utilizan las semanas minoristas 47 a 51, 6 y 18, respectivamente, y se calculan antes de entrenar el modelo.
+
+- [x] **Comparación homogénea:** se evaluaron el modelo sin eventos, cada indicador por separado, los tres combinados y la referencia anual sobre las mismas 194 filas y 39 semanas de prueba.
+
+  El modelo sin indicadores conserva un MAE de **$15,994.29 USD**.
+
+  San Valentín obtiene el menor MAE general, **$15,544.93 USD**, una mejora de **$449.36 USD por semana (2.8%)**.
+
+  El modelo con los tres indicadores obtiene MAE de **$15,615.03 USD**, RMSE de **$20,852.56 USD** y R² de **0.1723**.
+
+- [x] **Cobertura visible:** el notebook muestra 15 semanas de Navidad, 3 de San Valentín y 3 de Día de la Madre en entrenamiento.
+
+  En prueba hay 0, 1 y 1 semanas, respectivamente.
+
+  Por esta cobertura limitada, las mejoras se consideran exploratorias y no validan todavía el efecto de cada evento.
+
+- [x] **Predicción editable:** la sección 6.5 permite elegir una semana minorista y calcula automáticamente los tres indicadores para una predicción manual.
+
+- [x] **Registro de pruebas:** [`proceso_de_test.md`](./proceso_de_test.md) documenta los tests 4 a 7, sus métricas, cobertura, interpretación y decisión.
+
+- [x] **Verificación:** el notebook ejecutó desde un kernel limpio `sales-revenue-env` hasta la sección 6.5 sin errores.
+
+  Se comprobaron las fórmulas binarias, la separación cronológica, la alineación anual, la igualdad de índices entre configuraciones y las predicciones finitas.
+
+  La base conserva **2,435,854 filas**, **37 columnas** y ventas netas por **$287,699,163.91 USD**.
+
+**Incidencia identificada:** la prueba termina el 26 de septiembre de 2026 y no contiene Navidad; San Valentín y Día de la Madre aparecen una sola vez cada uno.
+
+**Próximos pasos:** usar ventanas temporales sucesivas que incluyan más ocurrencias de cada evento y verificar las semanas propuestas contra las fechas comerciales reales antes de seleccionar un modelo.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
@@ -528,7 +564,7 @@ No se modificaron código, notebooks ni datos; no se reejecutó el análisis ni 
 ## 4. Próximos Pasos y Acciones Pendientes
 
 - [ ] **Ingeniería de características adicional (propuestas de las notas de Camilo, respaldadas por la Fase 4):**
-  - Calendario: indicadores de Navidad (semanas 47 a 51), San Valentín (semana 6) y Día de la Madre (semana 18), y número de semanas del mes minorista.
+  - Calendario: validar con más ventanas los indicadores de Navidad, San Valentín y Día de la Madre ya implementados, y evaluar el número de semanas del mes minorista.
   - Atributos del local: días con ventas y señales verificadas de apertura o cierre; la antigüedad observada ya forma parte del primer modelo.
   - Tasas en lugar de importes: descuento sobre venta bruta, margen sobre venta neta y devoluciones sobre venta bruta.
 - [ ] **Modelado y MLOps:**
