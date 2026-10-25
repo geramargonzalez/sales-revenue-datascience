@@ -556,6 +556,40 @@ No se modificaron código, notebooks ni datos; no se reejecutó el análisis ni 
 
 ---
 
+### Fase 22: Black Friday por Año con Prueba en 2025 (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Protocolo:** se agregó un experimento en la sección 6 que entrena una tendencia lineal con Black Friday de 2022–2024, prueba con 2025 y ajusta otro modelo con 2022–2025 para estimar 2026.
+
+  Cada fila representa el total de un evento anual: tres observaciones de entrenamiento y una de prueba.
+
+- [x] **Alcance editable:** SOHO y solo el viernes por defecto; `PERIODO_BF = 'semana'` permite comparar la semana de domingo a sábado.
+
+  Las fechas se calculan por evento, porque Black Friday 2024 pertenece a la semana minorista 48 y los otros tres eventos históricos a la 47.
+
+- [x] **Resultado del viernes:** para 2025 se predicen **$34,922.11 USD**, frente a **$26,852.70 USD** reales; el error absoluto es **$8,069.41 USD (30.05%)**.
+
+  La referencia que repite 2024 obtiene un error de **36.49%**.
+
+  Tras ajustar con los cuatro años conocidos, la estimación para el viernes de 2026 es **$24,431.51 USD**, todavía sin resultado real para evaluar.
+
+- [x] **Comprobación semanal:** para 2025 se predicen **$111,125.11 USD**, frente a **$113,738.20 USD** reales, con error de **2.30%**; se documenta como otro objetivo y no como evidencia de mejora del pronóstico del viernes.
+
+- [x] **Registro:** los tests 8 y 8S, fechas, referencias, estimaciones y límites se agregaron a [`proceso_de_test.md`](./proceso_de_test.md).
+
+- [x] **Verificación:** ejecución de carga, limpieza, preparación y nuevas celdas en un kernel limpio `sales-revenue-env`, con comprobación de ambas opciones, fechas exactas, agregaciones y ajuste independiente del pronóstico de prueba.
+
+  Se conservaron las 84 celdas previas, sus fuentes y su orden; se añadieron seis celdas sin nuevas importaciones.
+
+  La base mantiene **2,435,854 filas**, **37 columnas**, **2,239,455 nulos del rezago** y **$287,699,163.91 USD** en ventas netas.
+
+  Los tres artefactos MLOps que ya estaban modificados al comenzar permanecen intactos y fuera del commit de esta tarea.
+
+**Incidencias y resolución:** la fecha de Black Friday cambia de semana minorista; se alinea por fecha del evento y 2026 se conserva como dato ausente, nunca como venta cero.
+
+**Próximos pasos:** decidir si el objetivo comercial es el viernes o toda su semana y ampliar la evidencia temporal antes de confiar en el pronóstico; evitar seleccionar modelos por una sola observación de prueba.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |

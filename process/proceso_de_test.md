@@ -38,6 +38,8 @@ Por eso, las comparaciones definitivas deben usar las mismas filas y las mismas 
 
 - **Entrenamiento y prueba:** separación cronológica 80/20 con `shuffle=False`.
 
+  El Test 8 utiliza un protocolo distinto: eventos de 2022–2024 para entrenamiento, evento de 2025 para prueba y estimación de 2026 después de ajustar con 2022–2025.
+
 - **Fuga de información:** todas las variables deben estar disponibles antes de comenzar la semana objetivo.
 
 - **Integridad:** las vistas del modelo no pueden modificar `df`, eliminar transacciones válidas ni alterar las ventas netas consolidadas.
@@ -386,3 +388,89 @@ Las pruebas repetidas ya utilizaron los resultados del período de prueba para e
 Por lo tanto, estas 39 semanas funcionan ahora como validación exploratoria y no como una prueba final completamente independiente.
 
 Antes de promover un modelo real se debe reservar una ventana final no utilizada o aplicar validación temporal con ventanas sucesivas.
+
+---
+
+## 9. Test 8: Black Friday por año
+
+**Fecha:** 25/10/2026.
+
+**Ubicación:** SOHO.
+
+**Pregunta:** ¿qué habríamos predicho para Black Friday 2025 usando solamente 2022, 2023 y 2024?
+
+### Diseño de la prueba
+
+- Una fila contiene la venta neta del evento en un año, incluidas devoluciones y compras anónimas.
+
+- La regresión lineal usa como única variable el tiempo transcurrido desde 2022.
+
+- Entrenamiento: los tres Black Friday de 2022–2024.
+
+- Prueba: Black Friday 2025, una observación cuyo importe no se utiliza al ajustar el modelo de prueba.
+
+- Referencia de prueba: copiar las ventas de Black Friday 2024.
+
+- Pronóstico: ajustar un modelo nuevo con los cuatro eventos de 2022–2025 y estimar 2026.
+
+No se usan todas las semanas ni todas las transacciones como ejemplos de entrenamiento; se agregan los importes de cada evento.
+
+Black Friday se calcula como el viernes posterior al cuarto jueves de noviembre, sin fijar un número de semana minorista.
+
+| Año | Black Friday | Función inicial | Venta del viernes (USD) | Venta de la semana domingo–sábado (USD) |
+| :--- | :--- | :--- | ---: | ---: |
+| 2022 | 25/11/2022 | Entrenamiento | $41,494.55 | $178,863.02 |
+| 2023 | 24/11/2023 | Entrenamiento | $41,146.75 | $169,827.33 |
+| 2024 | 29/11/2024 | Entrenamiento | $36,652.17 | $130,318.51 |
+| 2025 | 28/11/2025 | Prueba | $26,852.70 | $113,738.20 |
+| 2026 | 27/11/2026 | Pronóstico; sin dato real | No disponible | No disponible |
+
+En el dataset, Black Friday 2024 pertenece a la semana minorista 48; los eventos de 2022, 2023 y 2025 pertenecen a la 47.
+
+### Test 8: solo el viernes, opción predeterminada
+
+| Método para 2025 | Predicción (USD) | Venta real (USD) | Error absoluto (USD) | Error absoluto (%) |
+| :--- | ---: | ---: | ---: | ---: |
+| Regresión entrenada con 2022–2024 | $34,922.11 | $26,852.70 | $8,069.41 | 30.05% |
+| Copiar Black Friday 2024 | $36,652.17 | $26,852.70 | $9,799.47 | 36.49% |
+
+**Conclusión:** la regresión sobreestima 2025; mejora frente a copiar 2024, pero su error del 30.05% sigue siendo grande en este evento.
+
+**Estimación para 2026:** después de ajustar con 2022–2025, la regresión estima **$24,431.51 USD** para el viernes.
+
+La referencia que repite Black Friday 2025 estima **$26,852.70 USD**.
+
+No se puede medir el error de 2026 porque no hay venta real en la extracción.
+
+### Test 8S: opción semanal
+
+Cambiar `PERIODO_BF = 'semana'` compara toda la semana de domingo a sábado que contiene Black Friday.
+
+| Método para 2025 | Predicción (USD) | Venta real (USD) | Error absoluto (USD) | Error absoluto (%) |
+| :--- | ---: | ---: | ---: | ---: |
+| Regresión entrenada con 2022–2024 | $111,125.11 | $113,738.20 | $2,613.09 | 2.30% |
+| Copiar la semana de Black Friday 2024 | $130,318.51 | $113,738.20 | $16,580.31 | 14.58% |
+
+**Estimación semanal para 2026:** regresión **$89,465.94 USD**; referencia que repite 2025 **$113,738.20 USD**.
+
+Cada ventana histórica de SOHO tiene seis días con registros; el conteo se muestra sin imputar filas ni asumir que un día sin registros representa ventas cero o cierre confirmado.
+
+La ventana de 2026 queda ausente, sin convertirla en cero.
+
+**Interpretación:** el resultado semanal es cercano al valor observado en 2025, pero corresponde a un objetivo distinto del viernes y a un único evento de prueba.
+
+El menor porcentaje de error semanal no demuestra que se pueda predecir mejor el viernes; tampoco constituye una validación estable del pronóstico de 2026.
+
+### Límites y decisión
+
+Tres puntos para aprender una tendencia y uno para comprobarla son una muestra muy pequeña.
+
+No se calcula R² sobre la única observación de prueba y no se interpreta el error individual como garantía para 2026.
+
+Esta tendencia utiliza solo año y ventas del evento; no incorpora campañas, precios ni cambios comerciales.
+
+Las fechas de 2025 ya formaron parte de entrenamientos de experimentos anteriores; esta prueba respeta su propio corte, pero no es una evaluación completamente nueva para el proyecto.
+
+**Decisión:** conservar el ejercicio para aprender a separar entrenamiento, prueba y pronóstico; no promover un modelo con este único resultado.
+
+**Verificación:** ambas opciones ejecutadas en `sales-revenue-env`, fechas y agregaciones comprobadas, predicción de prueba contrastada con un ajuste lineal independiente y base conservada en 2,435,854 filas, 37 columnas y $287,699,163.91 USD.
