@@ -530,6 +530,32 @@ No se modificaron código, notebooks ni datos; no se reejecutó el análisis ni 
 
 ---
 
+### Fase 21: Revisión de Resultados de Indicadores y Modelo Avanzado (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Regresión lineal con indicadores:** San Valentín obtiene el menor MAE general, **$15,544.93 USD**, frente a **$15,994.29 USD** del modelo sin indicadores.
+
+  La mejora es de **$449.36 USD por semana (2.8%)**, pero la prueba contiene una sola semana de San Valentín, una de Día de la Madre y ninguna de Navidad.
+
+  El resultado se conserva como exploratorio y no justifica todavía seleccionar los indicadores como configuración final.
+
+- [x] **Modelo avanzado en validación:** el bosque conservador obtiene WAPE de **15.47%**, frente a **18.22%** de la referencia estacional.
+
+- [x] **Modelo avanzado en prueba:** el bosque conservador empeora a **25.84%** de WAPE, mientras la referencia obtiene **20.63%**.
+
+  El MAE del bosque es **$24,892.74 USD**, frente a **$19,873.34 USD** de la referencia, y su RMSE sube a **$74,950.42 USD**, frente a **$51,810.46 USD**.
+
+- [x] **Localización del deterioro:** el candidato mejora el WAPE en 5 de 14 ubicaciones y reduce el error absoluto en 82 de 182 filas.
+
+  `Web Warehouse` concentra aproximadamente el 56.1% de la venta neta de prueba y registra WAPE de **28.48%** con el candidato, frente a **20.34%** con la referencia.
+
+  Los mayores errores del candidato aparecen en `Web Warehouse` durante las semanas minoristas 31 y 32; las semanas 26 y 32 presentan el mayor deterioro agregado frente a la referencia.
+
+**Decisión:** mantener la referencia estacional como modelo campeón; no promover el bosque ni elegir todavía una configuración de indicadores por los resultados actuales.
+
+**Próximos pasos:** aplicar validación temporal con ventanas sucesivas, evaluar un tratamiento específico para `Web Warehouse` sin excluir sus ventas y revisar los patrones comerciales de las semanas 26 a 32.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
