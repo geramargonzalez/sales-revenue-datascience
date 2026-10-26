@@ -620,6 +620,38 @@ No se modificaron código, notebooks ni datos; no se reejecutó el análisis ni 
 
 ---
 
+### Fase 24: KNN para Practicar con Semanas Parecidas (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Tercer modelo:** se añadió `KNeighborsRegressor` con cinco vecinos y pesos uniformes, precedido por `StandardScaler` dentro de un `Pipeline`.
+
+  Las importaciones están centralizadas y la escala se aprende solo con el entrenamiento.
+
+- [x] **Comparación común:** se reutilizaron las cinco variables, las 155 semanas de entrenamiento y las 39 semanas de prueba de SOHO para comparar regresión lineal, árbol y KNN.
+
+  Se agregaron una tabla de métricas, un gráfico del MAE y una explicación automática del resultado.
+
+- [x] **Resultado:** KNN obtiene MAE de **$16,851.36 USD**, RMSE de **$24,003.53 USD** y R² de **-0.0968** en prueba.
+
+  KNN se equivoca **$1,236.34 USD más por semana (7.9%)** que la regresión lineal en este período.
+
+- [x] **Práctica:** `VECINOS_KNN` permite cambiar k y una celda muestra qué semanas históricas utiliza el modelo para predecir el ejemplo de la sección 6.5.
+
+- [x] **Registro:** se añadió el Test 10 a [`proceso_de_test.md`](./proceso_de_test.md), con configuración, resultados y límites de interpretación.
+
+- [x] **Verificación:** notebook completo ejecutado en un kernel limpio `sales-revenue-env`, con sus escrituras del flujo avanzado aisladas en una carpeta temporal.
+
+  Se comprobaron el ajuste de escala, las predicciones mediante distancias independientes, el promedio de vecinos, las métricas, las matrices originales y el gráfico generado.
+
+  Se conservan **2,435,854 filas**, **37 columnas**, **2,239,455 nulos del rezago**, los clientes anónimos y **$287,699,163.91 USD** de ventas netas.
+
+  Se añadieron seis celdas con resultados guardados y se preservaron las 94 celdas previas, salvo la ampliación de las importaciones iniciales.
+
+**Incidencias y resolución:** los archivos de campeón, experimentos y predicciones tenían cambios previos; se aislaron las escrituras de validación y se comprobó que esos archivos permanecieran intactos.
+
+**Decisión y próximos pasos:** Regresión lineal tiene el menor MAE de los tres en esta ventana; mantener el ejercicio para aprender y usar validación temporal dentro del entrenamiento para elegir k antes de una evaluación nueva.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |

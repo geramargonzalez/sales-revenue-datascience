@@ -69,6 +69,7 @@ Por eso, las comparaciones definitivas deben usar las mismas filas y las mismas 
 | 6 | Test 3 + Día de la Madre | 39 | $16,044.99 | $21,397.85 | 0.13 | Resultado prácticamente igual al Test 3 |
 | 7 | Test 3 + los tres indicadores | 39 | $15,615.03 | $20,852.56 | 0.17 | Mejora pequeña; cobertura de eventos insuficiente |
 | 9 | Árbol pequeño con las cinco variables del Test 7 | 39 | $16,960.66 | $22,628.69 | 0.03 | Mayor error que la regresión con las mismas variables |
+| 10 | KNN con 5 vecinos, escalado y las cinco variables del Test 7 | 39 | $16,851.36 | $24,003.53 | -0.10 | Error mayor que la regresión con las mismas variables |
 
 > [!IMPORTANT]
 > Los tests 1, 2 y 3 no son directamente comparables porque utilizan períodos de prueba diferentes.
@@ -537,3 +538,89 @@ Las 39 semanas ya se utilizaron para explorar indicadores y otros cambios; se ne
 **Verificación:** ejecución desde un kernel limpio `sales-revenue-env`, coincidencia de variables e índices, entrenamiento del árbol con las 155 filas previstas, límites de profundidad y tamaño de hoja, métricas contrastadas y predicciones finitas.
 
 Se conservaron la base de 2,435,854 filas y 37 columnas, los clientes anónimos, los 2,239,455 nulos de `return_lag_days` y las ventas netas por **$287,699,163.91 USD**.
+
+
+---
+
+## 11. Test 10: KNN frente a regresión lineal y árbol
+
+**Fecha y autor:** 25/10/2026, gera.
+
+**Hipótesis:** el promedio de ventas de cinco semanas históricas parecidas puede reducir el error de la predicción semanal.
+
+**Ubicación y objetivo:** SOHO; ventas netas de la semana siguiente en USD, con devoluciones válidas y clientes anónimos incluidos.
+
+**Variables comunes:** `venta_semana_anterior`, `venta_anio_anterior`, `es_navidad`, `es_san_valentin` y `es_dia_madre`.
+
+**Entrenamiento:** 155 semanas, del 07/01/2023 al 27/12/2025.
+
+**Prueba:** 39 semanas, del 03/01/2026 al 26/09/2026.
+
+Se reutilizan las mismas matrices e índices de la partición cronológica 80/20 de los tests 7 y 9, sin mezclar fechas.
+
+La evaluación simula una semana por vez: al predecir cada semana ya se conoce la venta real de la anterior.
+
+### Configuración fijada antes de evaluar
+
+```python
+Pipeline([
+    ('escala', StandardScaler()),
+    ('vecinos', KNeighborsRegressor(n_neighbors=5, weights='uniform'))
+])
+```
+
+La escala se aprende exclusivamente con las 155 semanas de entrenamiento; la prueba solo se transforma con esos parámetros.
+
+Los vecinos se buscan por distancia euclídea en las variables escaladas y la predicción es el promedio de sus ventas, con igual peso para cada vecino.
+
+No se buscaron valores de k ni se cambiaron los parámetros después de observar el resultado.
+
+### Resultados
+
+| Modelo | MAE entrenamiento (USD) | MAE prueba (USD) | RMSE prueba (USD) | R² prueba |
+| :--- | ---: | ---: | ---: | ---: |
+| Regresión lineal | $16,068.27 | $15,615.03 | $20,852.56 | 0.1723 |
+| KNN | $13,606.73 | $16,851.36 | $24,003.53 | -0.0968 |
+| Árbol de decisión | $14,753.35 | $16,960.66 | $22,628.69 | 0.0252 |
+
+**Lectura sencilla:** KNN se equivoca **$1,236.34 USD más por semana (7.9%)** que la regresión lineal en este período.
+
+KNN tiene menor error absoluto que la regresión en **19 de las 39 semanas**.
+
+Aunque KNN reduce levemente el MAE frente al árbol, su RMSE es mayor: penalizado por errores grandes, el resultado empeora.
+
+El R² negativo indica que KNN es peor, según el error cuadrático en estas semanas, que usar la media real de la prueba; esa media se conoce a posteriori y no es un pronóstico disponible de antemano.
+
+La referencia que copia la misma semana minorista del año anterior mantiene MAE de **$18,121.61 USD** sobre esas mismas semanas.
+
+El error de entrenamiento de KNN es optimista: al consultar las semanas usadas para aprender, cada una puede aparecer entre sus propios vecinos.
+
+### Ejemplo editable y límites
+
+El notebook reutiliza los valores de la sección 6.5, muestra las cinco semanas de entrenamiento elegidas y comprueba su promedio de **$101,337.32 USD** como predicción del ejemplo.
+
+Ese ejemplo no es otra observación de prueba ni una venta real futura.
+
+KNN devuelve un promedio dentro del rango de ventas de sus vecinos y puede fallar frente a situaciones alejadas del historial.
+
+Se puede cambiar `VECINOS_KNN` para practicar, pero seleccionar k con estas mismas 39 semanas deja de ser una evaluación independiente.
+
+Los indicadores conservan la cobertura limitada de los experimentos anteriores: ninguna semana navideña y solo una de San Valentín y una del Día de la Madre en prueba.
+
+### Decisión y verificación
+
+**Decisión:** Regresión lineal obtiene el menor MAE de los tres modelos en este ejercicio; conservar KNN como práctica y comparar en otras ventanas temporales antes de una selección definitiva.
+
+El ejercicio no modifica el campeón del flujo avanzado de 14 ubicaciones.
+
+**Verificación:** notebook completo ejecutado de principio a fin en un kernel limpio `sales-revenue-env`, dentro de una carpeta temporal para aislar las escrituras del flujo avanzado.
+
+Se contrastaron las 39 predicciones de KNN mediante distancias y promedios calculados independientemente con NumPy, el ajuste de la escala solo en entrenamiento, la coincidencia de índices y variables, las métricas y el promedio del ejemplo.
+
+Se inspeccionó visualmente el gráfico de MAE, con eje desde cero, períodos explícitos y etiquetas en USD.
+
+Las 94 celdas previas conservan su orden y contenido, salvo las importaciones ampliadas; las tres celdas nuevas de código conservan sus resultados ejecutados.
+
+Se mantienen **2,435,854 filas**, **37 columnas**, **2,239,455 nulos de `return_lag_days`**, los clientes anónimos y **$287,699,163.91 USD** de ventas netas.
+
+Los tres artefactos MLOps que tenían cambios locales al comenzar se conservaron byte por byte y quedaron fuera del commit.
