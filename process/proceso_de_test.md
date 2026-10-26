@@ -70,6 +70,7 @@ Por eso, las comparaciones definitivas deben usar las mismas filas y las mismas 
 | 7 | Test 3 + los tres indicadores | 39 | $15,615.03 | $20,852.56 | 0.17 | Mejora pequeña; cobertura de eventos insuficiente |
 | 9 | Árbol pequeño con las cinco variables del Test 7 | 39 | $16,960.66 | $22,628.69 | 0.03 | Mayor error que la regresión con las mismas variables |
 | 10 | KNN con 5 vecinos, escalado y las cinco variables del Test 7 | 39 | $16,851.36 | $24,003.53 | -0.10 | Error mayor que la regresión con las mismas variables |
+| 11 | Ridge con alpha 1, escalado y las cinco variables del Test 7 | 39 | $15,604.97 | $20,834.49 | 0.17 | Apenas $10.06 menos de MAE que la lineal; la ventaja no se repite en el promedio de validación |
 
 > [!IMPORTANT]
 > Los tests 1, 2 y 3 no son directamente comparables porque utilizan períodos de prueba diferentes.
@@ -624,3 +625,103 @@ Las 94 celdas previas conservan su orden y contenido, salvo las importaciones am
 Se mantienen **2,435,854 filas**, **37 columnas**, **2,239,455 nulos de `return_lag_days`**, los clientes anónimos y **$287,699,163.91 USD** de ventas netas.
 
 Los tres artefactos MLOps que tenían cambios locales al comenzar se conservaron byte por byte y quedaron fuera del commit.
+
+---
+
+## 12. Test 11: aprender regularización con Ridge
+
+**Fecha y autor:** 25/10/2026, gera, en `gera_playground`.
+
+**Objetivo de aprendizaje:** entender cómo una penalización sobre los coeficientes cambia la fórmula, las predicciones y el error.
+
+**Hipótesis:** reducir la sensibilidad de la regresión al entrenamiento puede mejorar la predicción semanal.
+
+**Datos comunes:** SOHO, cinco variables del Test 7, devoluciones válidas y clientes anónimos incluidos.
+
+**Entrenamiento:** 155 semanas, del 07/01/2023 al 27/12/2025.
+
+**Prueba:** 39 semanas, del 03/01/2026 al 26/09/2026.
+
+Se mantienen las mismas filas y la predicción de una semana por vez, con la venta real de la anterior ya conocida.
+
+### Configuración inicial
+
+```python
+ALPHA_RIDGE = 1.0
+modelo_ridge = Pipeline([
+    ('escala', StandardScaler()),
+    ('regresion', Ridge(alpha=ALPHA_RIDGE))
+])
+```
+
+La escala y Ridge se ajustan solo con el entrenamiento; alpha 1 se fijó antes de observar estas métricas.
+
+### Resultados sobre las mismas semanas de prueba
+
+| Modelo | MAE entrenamiento (USD) | MAE prueba (USD) | RMSE prueba (USD) | R² prueba |
+| :--- | ---: | ---: | ---: | ---: |
+| Ridge, alpha 1 | $16,083.58 | $15,604.97 | $20,834.49 | 0.1737 |
+| Regresión lineal | $16,068.27 | $15,615.03 | $20,852.56 | 0.1723 |
+| KNN, 5 vecinos | $13,606.73 | $16,851.36 | $24,003.53 | -0.0968 |
+| Árbol de decisión | $14,753.35 | $16,960.66 | $22,628.69 | 0.0252 |
+
+**Lectura sencilla:** Ridge reduce el error promedio en **$10.06 USD por semana (0.064%)** frente a la lineal; el resultado es casi igual en términos prácticos y no demuestra una ventaja estable.
+
+### Test 11A: practicar con alpha dentro del entrenamiento
+
+Se compararon `alpha = 0.1`, `1` y `10`, junto con una regresión lineal de referencia, usando `TimeSeriesSplit(n_splits=3)` y MAE.
+
+Cada corte vuelve a ajustar la escala y el modelo exclusivamente con su tramo inicial; las 39 semanas de prueba no participan de la búsqueda.
+
+| Corte | Semanas para aprender | Aprende hasta | Valida desde | Valida hasta | Semanas para validar |
+| :--- | ---: | :--- | :--- | :--- | ---: |
+| 1 | 41 | 14/10/2023 | 21/10/2023 | 06/07/2024 | 38 |
+| 2 | 79 | 06/07/2024 | 13/07/2024 | 05/04/2025 | 38 |
+| 3 | 117 | 05/04/2025 | 12/04/2025 | 27/12/2025 | 38 |
+
+Las particiones son por filas cronológicas: el historial de entrenamiento contiene un salto entre semanas utilizables, por lo que los cortes no garantizan duraciones calendario idénticas.
+
+| Modelo | MAE corte 1 (USD) | MAE corte 2 (USD) | MAE corte 3 (USD) | MAE promedio validación (USD) |
+| :--- | ---: | ---: | ---: | ---: |
+| Regresión lineal | $21,590.45 | $16,198.90 | $15,347.10 | $17,712.15 |
+| Ridge, alpha 0.1 | $21,616.99 | $16,215.37 | $15,345.35 | $17,725.90 |
+| Ridge, alpha 1 | $21,848.58 | $16,361.40 | $15,329.63 | $17,846.53 |
+| Ridge, alpha 10 | $24,014.47 | $17,743.55 | $15,179.90 | $18,979.31 |
+
+**Aprendizaje:** aumentar alpha empeora el promedio de validación en este ejercicio, aunque mejora el tercer corte; conviene mirar los períodos además del promedio.
+
+La regresión lineal tiene el menor MAE promedio de validación; entre los tres Ridge, alpha 0.1 tiene el menor promedio.
+
+Este ensayo no modifica automáticamente `ALPHA_RIDGE`: la comparación principal continúa usando alpha 1 para conservar el experimento inicial.
+
+### Ver el efecto sobre los pesos y una predicción
+
+El notebook compara los coeficientes de la lineal y Ridge después de aplicar la misma escala a las variables.
+
+El peso de `venta_semana_anterior` baja de **19,155.49 a 19,027.56**, mientras que `venta_anio_anterior` sube levemente de **10,301.73 a 10,302.24**.
+
+Esto ilustra que Ridge reduce el tamaño conjunto de los coeficientes y no exige que cada uno disminuya individualmente.
+
+En el ejemplo editable de la sección 6.5, la lineal estima **$50,420.59 USD** y Ridge **$50,510.88 USD**, una diferencia de **$90.30 USD**.
+
+Ese ejemplo es una práctica con valores elegidos manualmente, no otra observación de prueba.
+
+### Decisión y verificación
+
+**Decisión:** conservar ambos modelos para aprender; la pequeña ventaja de Ridge en prueba no se repite en el promedio de validación y no justifica cambiar el campeón del flujo avanzado.
+
+Las 39 semanas ya se usaron en experimentos anteriores y los eventos tienen poca cobertura, por lo que esta sigue siendo una comparación exploratoria.
+
+**Verificación:** notebook completo ejecutado en un kernel limpio `sales-revenue-env`, con las escrituras del flujo avanzado aisladas en una carpeta temporal.
+
+Las predicciones, coeficientes y errores de Ridge se contrastaron mediante las ecuaciones resueltas con NumPy; se recalcularon también los resultados de los cuatro candidatos en los tres cortes con escalas ajustadas dentro de cada corte.
+
+Se comprobaron la separación temporal, los índices, la conservación de las predicciones de los otros tres modelos, el ejemplo manual y la ausencia de acceso a prueba desde la celda de selección de alpha.
+
+El gráfico de cuatro modelos se inspeccionó visualmente, con eje desde cero, fechas, unidades y valores legibles.
+
+Se preservaron las 100 celdas previas, salvo las importaciones ampliadas, y se agregaron ocho celdas con los resultados de sus cuatro celdas de código guardados.
+
+La base conserva **2,435,854 filas**, **37 columnas**, **2,239,455 nulos de `return_lag_days`**, los clientes anónimos y **$287,699,163.91 USD** en ventas netas; los 12 archivos existentes de artefactos MLOps se mantuvieron byte por byte.
+
+**Referencias para aprender:** [Ridge y su parámetro alpha](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html) y [cortes cronológicos con TimeSeriesSplit](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html).

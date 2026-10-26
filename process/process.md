@@ -652,6 +652,38 @@ No se modificaron código, notebooks ni datos; no se reejecutó el análisis ni 
 
 ---
 
+### Fase 25: Aprender Regularización con Ridge en el Playground (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Ejercicio guiado:** se agregó Ridge con `ALPHA_RIDGE = 1.0`, escalado dentro de un `Pipeline` y explicaciones breves sobre regularización y el efecto de alpha.
+
+  Las importaciones permanecen centralizadas y se mantiene `gera_playground` por indicación del usuario.
+
+- [x] **Aprender observando:** una tabla compara los pesos de Ridge y la regresión lineal con las mismas variables escaladas; ambas fórmulas se aplican al ejemplo editable de la sección 6.5.
+
+- [x] **Validación temporal:** se compararon alpha 0.1, 1 y 10 contra la lineal en tres cortes dentro de las 155 semanas de entrenamiento, reajustando la escala en cada corte.
+
+  La tabla muestra las fechas, tamaños y MAE de cada corte; la búsqueda no utiliza las 39 semanas de prueba ni cambia automáticamente el alpha del ejercicio principal.
+
+- [x] **Resultado en prueba:** Ridge obtiene MAE de **$15,604.97 USD**, frente a **$15,615.03 USD** de la lineal, una reducción de apenas **$10.06 USD por semana (0.064%)**.
+
+  La lineal tiene mejor MAE promedio en validación (**$17,712.15 USD**) que Ridge con alpha 1 (**$17,846.53 USD**); la ventaja de la prueba no se mantiene entre períodos.
+
+- [x] **Registro:** se documentaron los tests 11 y 11A en [`proceso_de_test.md`](./proceso_de_test.md), incluidas las cuatro configuraciones de validación y los aprendizajes.
+
+- [x] **Verificación:** ejecución completa en un kernel limpio `sales-revenue-env`, comprobación independiente de las ecuaciones de Ridge y de todos los cortes con NumPy, preservación de los modelos anteriores e inspección visual del gráfico.
+
+  Se mantienen **2,435,854 filas**, **37 columnas**, **2,239,455 nulos del rezago**, los clientes anónimos y **$287,699,163.91 USD** de ventas netas.
+
+  Se agregaron ocho celdas y se guardaron sus resultados, preservando las 100 anteriores salvo la ampliación de importaciones.
+
+**Incidencias y resolución:** el entrenamiento contiene un salto entre semanas utilizables; se muestran las fechas reales de los cortes y se documenta que tienen igual cantidad de observaciones, sin exigir idéntica duración calendario ni imputar ventas.
+
+Las escrituras de la ejecución completa se aislaron en una carpeta temporal y los 12 archivos existentes de artefactos MLOps se conservaron intactos.
+
+**Decisión y próximos pasos:** usar el playground para cambiar un parámetro por vez, anticipar su efecto y registrar lo aprendido; conservar ambos modelos sin interpretar la pequeña diferencia de prueba como una mejora estable.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
