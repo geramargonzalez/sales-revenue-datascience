@@ -590,6 +590,36 @@ No se modificaron código, notebooks ni datos; no se reejecutó el análisis ni 
 
 ---
 
+### Fase 23: Árbol de Decisión como Comparación de la Regresión (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Segundo modelo:** se añadió `DecisionTreeRegressor` a las importaciones iniciales y un ejercicio con profundidad máxima de 3, mínimo de 10 semanas por hoja y semilla 42.
+
+  El árbol aprende tres niveles y siete grupos finales; los parámetros se fijaron antes de evaluar, sin búsqueda sobre la prueba.
+
+- [x] **Comparación común:** el árbol y la regresión lineal utilizan las mismas cinco variables, las mismas 155 semanas de entrenamiento y las mismas 39 semanas de prueba de SOHO.
+
+  Las celdas nuevas muestran MAE de entrenamiento y prueba, RMSE y R² de prueba, una lectura del cambio de error y el gráfico de ambos modelos frente a las ventas reales.
+
+- [x] **Resultado:** la regresión obtiene MAE de prueba de **$15,615.03 USD** y el árbol **$16,960.66 USD**.
+
+  El árbol aumenta el error promedio en **$1,345.63 USD por semana (8.6%)**; su menor error de entrenamiento no se mantiene en prueba.
+
+- [x] **Registro:** se documentó el Test 9 en [`proceso_de_test.md`](./proceso_de_test.md), con el protocolo, parámetros, métricas, referencia anual y límites de interpretación.
+
+- [x] **Verificación:** las nuevas celdas y sus dependencias de carga, limpieza, preparación y regresión se ejecutaron en un kernel limpio `sales-revenue-env`.
+
+  Se comprobaron variables e índices comunes, separación temporal, cantidad de filas utilizadas por el árbol, profundidad, tamaño de hojas, métricas, predicciones finitas y conservación de las matrices originales.
+
+  Se mantienen **2,435,854 filas**, **37 columnas**, **2,239,455 nulos del rezago**, los clientes anónimos y **$287,699,163.91 USD** de ventas netas.
+
+  Las 90 celdas previas conservan su orden; solo se amplió la importación inicial y se agregaron cuatro celdas con el ejercicio.
+
+**Incidencias y resolución:** el notebook tenía ejecuciones y una edición local previas del usuario; se conservaron en el archivo de trabajo y se separaron de los cambios incorporados al commit de esta fase.
+
+**Decisión y próximos pasos:** la regresión sigue siendo la mejor de estas dos alternativas en el ejercicio de SOHO; mantener el árbol para experimentar y usar otra evaluación temporal antes de seleccionar un modelo definitivo.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |

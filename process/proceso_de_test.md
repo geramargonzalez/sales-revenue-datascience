@@ -68,13 +68,14 @@ Por eso, las comparaciones definitivas deben usar las mismas filas y las mismas 
 | 5 | Test 3 + San Valentín | 39 | $15,544.93 | $20,818.67 | 0.17 | Mejor MAE general, con solo una semana del evento |
 | 6 | Test 3 + Día de la Madre | 39 | $16,044.99 | $21,397.85 | 0.13 | Resultado prácticamente igual al Test 3 |
 | 7 | Test 3 + los tres indicadores | 39 | $15,615.03 | $20,852.56 | 0.17 | Mejora pequeña; cobertura de eventos insuficiente |
+| 9 | Árbol pequeño con las cinco variables del Test 7 | 39 | $16,960.66 | $22,628.69 | 0.03 | Mayor error que la regresión con las mismas variables |
 
 > [!IMPORTANT]
 > Los tests 1, 2 y 3 no son directamente comparables porque utilizan períodos de prueba diferentes.
 >
 > El Test 3 y la referencia 3A sí son comparables: utilizan exactamente las mismas 39 semanas de 2026.
 >
-> Los tests 4 a 7 también utilizan esas mismas 39 semanas y son comparables con el Test 3.
+> Los tests 4 a 7 y el Test 9 también utilizan esas mismas 39 semanas y son comparables con el Test 3.
 
 ---
 
@@ -474,3 +475,65 @@ Las fechas de 2025 ya formaron parte de entrenamientos de experimentos anteriore
 **Decisión:** conservar el ejercicio para aprender a separar entrenamiento, prueba y pronóstico; no promover un modelo con este único resultado.
 
 **Verificación:** ambas opciones ejecutadas en `sales-revenue-env`, fechas y agregaciones comprobadas, predicción de prueba contrastada con un ajuste lineal independiente y base conservada en 2,435,854 filas, 37 columnas y $287,699,163.91 USD.
+
+---
+
+## 10. Test 9: árbol de decisión frente a regresión lineal
+
+**Fecha:** 25/10/2026.
+
+**Hipótesis:** un árbol pequeño puede representar relaciones entre las variables que la regresión lineal no recoge y reducir el error semanal.
+
+**Ubicación y objetivo:** SOHO; ventas netas de la semana siguiente en USD, con devoluciones y compras anónimas incluidas.
+
+**Variables comunes:** `venta_semana_anterior`, `venta_anio_anterior`, `es_navidad`, `es_san_valentin` y `es_dia_madre`.
+
+**Entrenamiento:** 155 semanas, desde el 07/01/2023 hasta el 27/12/2025.
+
+**Prueba:** 39 semanas, desde el 03/01/2026 hasta el 26/09/2026.
+
+Ambos modelos reutilizan exactamente las mismas matrices de la partición cronológica 80/20 del ejercicio de regresión.
+
+La predicción se evalúa una semana por vez y supone que ya se conoce la venta real de la anterior.
+
+### Configuración fijada antes de evaluar
+
+```python
+DecisionTreeRegressor(
+    max_depth=3,
+    min_samples_leaf=10,
+    random_state=42
+)
+```
+
+El árbol aprende tres niveles y siete grupos finales, cada uno con al menos diez semanas de entrenamiento.
+
+No se buscaron hiperparámetros ni se ajustó la configuración al ver los resultados de prueba.
+
+### Resultados
+
+| Modelo | MAE entrenamiento (USD) | MAE prueba (USD) | RMSE prueba (USD) | R² prueba |
+| :--- | ---: | ---: | ---: | ---: |
+| Regresión lineal con los tres indicadores (Test 7) | $16,068.27 | $15,615.03 | $20,852.56 | 0.1723 |
+| Árbol de decisión pequeño | $14,753.35 | $16,960.66 | $22,628.69 | 0.0252 |
+| Referencia de la misma semana del año anterior | No se entrena | $18,121.61 | $22,541.30 | 0.0328 |
+
+**Lectura sencilla:** el árbol se equivoca **$1,345.63 USD más por semana (8.6%)** que la regresión lineal en prueba.
+
+El árbol reduce el error en 17 de las 39 semanas, pero su error promedio es mayor.
+
+Su ventaja en entrenamiento no se mantiene en prueba; esto no demuestra que todos los árboles sean peores, solo que esta configuración no supera la regresión en este período.
+
+Frente a la referencia anual, el árbol obtiene menor MAE, pero peor RMSE y R².
+
+### Decisión y controles
+
+**Decisión:** conservar la regresión lineal como la mejor de las dos alternativas de este ejercicio y mantener el árbol como comparación educativa.
+
+Esta comparación no cambia el modelo campeón del flujo avanzado de 14 ubicaciones.
+
+Las 39 semanas ya se utilizaron para explorar indicadores y otros cambios; se necesita una evaluación temporal adicional antes de elegir un modelo definitivo.
+
+**Verificación:** ejecución desde un kernel limpio `sales-revenue-env`, coincidencia de variables e índices, entrenamiento del árbol con las 155 filas previstas, límites de profundidad y tamaño de hoja, métricas contrastadas y predicciones finitas.
+
+Se conservaron la base de 2,435,854 filas y 37 columnas, los clientes anónimos, los 2,239,455 nulos de `return_lag_days` y las ventas netas por **$287,699,163.91 USD**.
