@@ -394,6 +394,40 @@ No se modificaron código, notebooks ni datos; no se reejecutó el análisis ni 
 
 ---
 
+### Fase 26: Incorporar las Pruebas del Playground a la Presentación (Aplicado por **gera**, 26/10/2026)
+
+- [x] **Entregable:** se actualizó la [presentación de ventas de joyería](https://docs.google.com/presentation/d/1GeRsyai0zNqn4K9PUGFC437R4Mi5RwFBPkj15_NAQlo/edit), conservando su diseño y las diapositivas existentes.
+
+  Se incorporaron cuatro diapositivas (10 a 13) sobre el protocolo temporal de SOHO, la comparación de regresión lineal, árbol, KNN y Ridge, la validación de alpha y los aprendizajes de cada modelo; la presentación tiene ahora 14 diapositivas.
+
+- [x] **Resultados documentados:** MAE de prueba de Ridge **$15,604.97 USD**, lineal **$15,615.03 USD**, KNN **$16,851.36 USD** y árbol **$16,960.66 USD**, sobre las mismas 39 semanas posteriores a las 155 de entrenamiento.
+
+  Se explicitó que la ventaja de Ridge es de apenas **$10.06 USD por semana (0.064%)** y que la lineal obtiene el menor MAE promedio en los tres cortes de validación del entrenamiento.
+
+- [x] **Trazabilidad:** las notas del presentador contienen fechas, parámetros, métricas completas, límites de interpretación y referencias a los tests 7, 9, 10, 11 y 11A de [`process/proceso_de_test.md` en el commit `1fce479` de `gera_playground`](https://github.com/geramargonzalez/sales-revenue-datascience/blob/1fce479/process/proceso_de_test.md).
+
+  La ejecución posterior `16b5fca` conserva las mismas fuentes de las 108 celdas y sus salidas de texto; el registro de pruebas tampoco cambió.
+
+- [x] **Coherencia:** se actualizaron las diapositivas de modelos, resultados generales y próximos pasos para reflejar las pruebas ya realizadas y distinguir el ejercicio de SOHO del flujo de 14 ubicaciones.
+
+  La referencia estacional conserva el liderazgo en ese flujo general; sus métricas no se comparan directamente con las del playground.
+
+- [x] **Verificación:** lectura estructural de las 14 diapositivas y sus notas, comprobación automática sin incidencias, exportación a PDF e inspección visual de todas las páginas sin texto recortado.
+
+  Las primeras siete diapositivas conservan una representación visual idéntica a la versión inicial.
+
+**Incidencias y resolución:** había textos que presentaban Ridge como una prueba pendiente; se corrigieron y se aclararon las dos poblaciones de evaluación para evitar conclusiones mezcladas.
+
+**Control del repositorio:** se consultó `process/ideas.md` y se sincronizó `gera` con `main` mediante avance rápido antes de registrar esta fase.
+
+La tarea utiliza resultados ya verificados; no se reejecutaron modelos ni se modificaron datos, notebooks o artefactos MLOps como parte de la actualización de la presentación.
+
+El balance documentado de **$287,699,163.91 USD** permanece como referencia; no se recalculó durante esta tarea documental.
+
+**Próximos pasos:** cambiar un parámetro por vez en el playground, registrar cada prueba y evaluar la estabilidad en otros períodos antes de elegir un modelo definitivo.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
