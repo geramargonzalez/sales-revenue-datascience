@@ -460,6 +460,38 @@ No se reentrenaron modelos ni se recalculó el balance contable de **$287,699,16
 
 ---
 
+### Fase 28: Explicar el Objetivo y la Prueba de Cada Modelo (Aplicado por **gera**, 27/10/2026)
+
+- [x] **Entregable:** se agregaron cinco diapositivas a la [presentación de ventas de joyería](https://docs.google.com/presentation/d/1GeRsyai0zNqn4K9PUGFC437R4Mi5RwFBPkj15_NAQlo/edit), manteniendo la identidad visual y los elementos editables.
+
+  La presentación contiene ahora 19 diapositivas; las nuevas aparecen en las posiciones 9 y 12 a 15, antes de las gráficas de resultados correspondientes.
+
+- [x] **Flujo general:** se explica que la referencia estacional utiliza la misma semana del año anterior y que el bosque aleatorio combina árboles; ambos se compararon mediante WAPE en las mismas 13 semanas de prueba.
+
+- [x] **Playground de SOHO:** se explica el propósito, la prueba y el MAE de regresión lineal, árbol de decisión, KNN y Ridge.
+
+  La diapositiva de Ridge distingue los tres cortes de validación con alpha 0,1, 1 y 10 de la evaluación principal en prueba con alpha 1.
+
+- [x] **Trazabilidad y límites:** las notas de las diapositivas nuevas incluyen parámetros, interpretación, cobertura limitada de eventos y referencias a los tests 7, 9, 10, 11 y 11A de [`proceso_de_test.md` en `gera_playground`, commit `1fce479`](https://github.com/geramargonzalez/sales-revenue-datascience/blob/1fce479/process/proceso_de_test.md).
+
+  Se aclara que las 39 semanas se reutilizaron para explorar y que los resultados de SOHO no se comparan directamente con el flujo de 14 ubicaciones.
+
+- [x] **Verificación:** se comprobó el orden de las 19 diapositivas, el texto y las cinco notas nuevas, así como la conservación de las otras 13 notas originales.
+
+  El verificador estructural no encontró incidencias y se inspeccionaron visualmente las 19 páginas exportadas a PDF; las primeras ocho conservaron una representación idéntica a la versión anterior.
+
+**Incidencias y resolución:** una nota anterior todavía presentaba Ridge como pendiente; se actualizó para reflejar los modelos ya probados y distinguir los dos alcances.
+
+Se corrigieron los encabezados de las cinco diapositivas nuevas después de detectar coincidencias de texto en reemplazos globales; el orden se estableció con movimientos individuales y se verificó nuevamente.
+
+**Control del repositorio:** `gera` ya incorporaba `main` y se consultó `process/ideas.md`; no se modificaron el notebook, los datos ni los artefactos MLOps.
+
+No se reentrenaron modelos ni se recalculó el balance contable de **$287,699,163.91 USD**, porque se utilizaron resultados ya documentados.
+
+**Próximos pasos:** registrar y presentar futuras pruebas con el mismo esquema: objetivo, qué se hizo, resultado y límites de la comparación.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
