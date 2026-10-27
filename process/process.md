@@ -492,6 +492,42 @@ No se reentrenaron modelos ni se recalculó el balance contable de **$287,699,16
 
 ---
 
+### Fase 29: Objetivo, Boosting y Métricas para el Alcance 2022–2025 (Aplicado por **gera**, 27/10/2026)
+
+- [x] **Presentación del usuario:** se partió de sus 11 diapositivas actuales, conservando sus eliminaciones y la diapositiva que dejó preparada para Boosting.
+
+  Se redactó el objetivo general y se añadió una diapositiva de métricas; la [presentación](https://docs.google.com/presentation/d/1GeRsyai0zNqn4K9PUGFC437R4Mi5RwFBPkj15_NAQlo/edit) contiene ahora 12 diapositivas editables.
+
+- [x] **Alcance temporal:** exclusivamente fechas de transacción de 2022 a 2025, con 2026 fuera de esta evaluación.
+
+  Se actualizaron las notas, el protocolo y las cantidades que todavía correspondían al período anterior; se retiraron las antiguas 155/39 semanas y los resultados de esa ventana.
+
+- [x] **Descriptivos del recorte:** lectura de solo consulta del CSV, con las exclusiones contables habituales, que obtuvo **2.103.340 líneas** y **USD 242.277.286,76** en ventas netas.
+
+  La cuota web es **65,2272 %** y la participación media de noviembre y diciembre sigue siendo **31,3668 %** en 2022–2025.
+
+- [x] **Propuesta de modelos:** regresión lineal y `GradientBoostingRegressor`, que permite practicar árboles sucesivos e interacciones entre historial y calendario; comparación con las mismas semanas y variables.
+
+  Se revisó documentación oficial de scikit-learn para boosting, métricas y validación temporal; los parámetros iniciales y el entrenamiento quedan planteados como trabajo pendiente.
+
+- [x] **Métricas:** MAE como criterio principal, RMSE como complemento y WAPE y sesgo como apoyo, con definiciones, unidades y límites en las notas del presentador.
+
+- [x] **Registro:** se creó [el documento de alcance y criterios](alcance_modelado_2022_2025.md), que fija la vista temporal, las variables, el protocolo 80/20 y los siguientes pasos.
+
+- [x] **Verificación:** se comprobaron el orden, la numeración de las 12 diapositivas, los textos y las notas, la ausencia de fechas o métricas antiguas visibles y la revisión estructural sin incidencias.
+
+  Se exportaron las 12 páginas a PDF y se inspeccionaron visualmente sin encontrar texto recortado ni superposiciones.
+
+**Incidencia y resolución:** el texto ya decía 2022–2025, pero los totales y la cuota web incluían 2026; se recalcularon y se documentó el denominador temporal correcto.
+
+**Integridad:** la base original sigue conciliando **USD 287.699.163,91** y **2.435.854 líneas**; el recorte deja fuera **USD 45.421.877,15** y **332.514 líneas** de 2026 sin eliminar transacciones del archivo ni modificar `df` del notebook.
+
+**Control del repositorio:** se consultó `process/ideas.md` y se confirmó que `main` estaba incorporado; el registro se guarda en `gera` y luego se restablece la rama de trabajo `gera_playground`.
+
+**Próximos pasos:** adaptar las vistas y la preparación del notebook a 2022–2025, entrenar lineal y boosting con validación temporal y registrar las nuevas métricas; el entrenamiento y sus resultados no forman parte de esta actualización de la presentación.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
@@ -530,6 +566,7 @@ No se reentrenaron modelos ni se recalculó el balance contable de **$287,699,16
   - Atributos del local: días con ventas y señales verificadas de apertura o cierre; la antigüedad observada ya forma parte del primer modelo.
   - Tasas en lugar de importes: descuento sobre venta bruta, margen sobre venta neta y devoluciones sobre venta bruta.
 - [ ] **Modelado y MLOps:**
+  - Aplicar el [nuevo alcance 2022–2025](alcance_modelado_2022_2025.md), entrenar regresión lineal y Gradient Boosting y comparar MAE y RMSE en las mismas semanas.
   - Explicar el deterioro del bosque entre validación y prueba por ubicación, semana y evento comercial.
   - Evaluar validación temporal con ventanas sucesivas antes de ampliar la búsqueda de modelos.
   - Mantener la referencia estacional como campeón hasta que un candidato la supere fuera de muestra.
@@ -537,11 +574,9 @@ No se reentrenaron modelos ni se recalculó el balance contable de **$287,699,16
 - [ ] **Decisiones pendientes:**
   - Corregir o no `retail_calendar_guide.md` (el año minorista de este dataset comienza en enero).
   - Tratamiento de las líneas con costo cero antes de analizar margen.
-  - Obtener la cifra de control oficial de 2026 con septiembre incluido para reemplazar la referencia de $41.11M (enero a agosto) en la sección 4.1.1.
   - `markdown` de 2022 conserva el cálculo de la extracción anterior; volver a extraer 2022 con la consulta actual o excluir ese año al analizar `markdown`.
   - Confirmar con el negocio qué evento explica el pico de las semanas 30 y 31 (finales de julio).
   - Confirmar si la fecha del canal web es la de compra o la de procesamiento del pedido.
-  - Volver a extraer los últimos días de septiembre de 2026.
 - [ ] **Control Git:**
   - Mantener commits siguiendo el formato `Fase <n> : <descripción>`.
   - La Fase 6 se trabajó en la rama `camilo` por indicación de Gerardo y luego se fusionó en `gera` y `main`; mantener las tres ramas sincronizadas.
