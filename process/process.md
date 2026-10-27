@@ -428,6 +428,38 @@ El balance documentado de **$287,699,163.91 USD** permanece como referencia; no 
 
 ---
 
+### Fase 27: Rediseño Visual de la Presentación de Joyería (Aplicado por **gera**, 27/10/2026)
+
+- [x] **Entregable:** se rediseñaron las 14 diapositivas de la [presentación existente](https://docs.google.com/presentation/d/1GeRsyai0zNqn4K9PUGFC437R4Mi5RwFBPkj15_NAQlo/edit), con una estética simple de manufactura y comercialización de joyería de Nueva York.
+
+- [x] **Identidad visual:** fondo marfil `#F5F2EB`, texto verde oscuro `#263D35` y acento dorado `#A28551`; títulos Georgia y cuerpo Arial, con márgenes y jerarquías consistentes.
+
+  La portada incorpora una ilustración técnica editable de un anillo y el cierre utiliza el fondo oscuro de la misma paleta.
+
+- [x] **Lectura de los resultados:** las comparaciones de WAPE y MAE usan barras con origen en cero, valores explícitos y contexto de evaluación; la división temporal se muestra mediante una línea de entrenamiento y prueba.
+
+  Se conserva la distinción entre las 14 ubicaciones del flujo general y SOHO; las barras de Ridge y la lineal reflejan su diferencia mínima sin exagerarla.
+
+- [x] **Diagramas:** las capturas de código se sustituyeron por una ilustración de joyería y un esquema nativo de ramas Git; la estructura, el proceso y los aprendizajes se organizaron en filas, pasos y tarjetas legibles.
+
+  Textos, cifras, gráficos, diagramas e ilustración permanecen editables en Google Slides.
+
+- [x] **Verificación:** se comprobaron el orden y los identificadores de las 14 diapositivas, la conservación exacta de las notas del presentador y 22 cifras o fechas clave.
+
+  El verificador estructural no encontró incidencias; se exportaron las 14 páginas a PDF y se inspeccionaron visualmente sin encontrar texto recortado ni superposiciones.
+
+**Incidencias y resolución:** la conexión de Superdesign quedó pendiente; el usuario indicó continuar directamente en Google Slides y se aplicó el rediseño mediante sus objetos nativos.
+
+Durante la preparación se ajustaron el nombre nativo del rectángulo y la máscara de propiedades de texto requeridos por la API, antes de aplicar las operaciones aceptadas.
+
+**Control del repositorio:** `gera` ya incorporaba `main`; se consultó `process/ideas.md` y se registró esta fase sin modificar el notebook, los datos o los artefactos MLOps.
+
+No se reentrenaron modelos ni se recalculó el balance contable de **$287,699,163.91 USD**, porque el alcance fue exclusivamente visual y documental.
+
+**Próximos pasos:** mantener esta paleta y los diagramas editables al incorporar nuevas pruebas; actualizar las gráficas solo con métricas verificadas del mismo conjunto de evaluación.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
