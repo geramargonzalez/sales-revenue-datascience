@@ -89,6 +89,22 @@ Las comparaciones requieren las mismas semanas y ubicaciones; las métricas de v
 
 ## Estado y siguiente paso
 
+### Revisión de la indicación docente: 28/10/2026
+
+La revisión confirma que el objetivo, la propuesta de modelos y las métricas de este documento coinciden con lo solicitado por el profesor: predecir un importe semanal mediante aprendizaje supervisado de regresión y comparar una regresión lineal con un modelo de boosting.
+
+`RandomForestRegressor` combina árboles, pero no implementa gradient boosting; su prueba histórica no cubre por sí sola ese requisito.
+
+Se verificó que `GradientBoostingRegressor` está disponible en scikit-learn 1.9.1 del entorno `.venv`, pero todavía no aparece implementado en el notebook de `gera_playground`.
+
+Para una práctica sencilla se mantiene **MAE como principal** y **RMSE como complemento**; WAPE y sesgo sirven para comunicar escala y dirección del error, mientras que R² queda como indicador adicional.
+
+WAPE se calcula sobre la misma población y ventana: una reducción entre períodos con distinto volumen de ventas no demuestra por sí sola una mejora del pronóstico.
+
+Se conserva el protocolo ya documentado de 80/20 cronológico dentro de 2022–2025; reservar exactamente el año 2025 completo sería una alternativa de evaluación que requiere redefinir y ejecutar el corte, no una descripción de las pruebas actuales.
+
+Los datos de 2022 pueden aportar historial al rezago anual aunque sus primeras semanas no puedan utilizarse como objetivos de entrenamiento; las cantidades y fechas exactas se contarán al preparar la nueva vista.
+
 La presentación se actualizó al nuevo alcance y contiene 12 diapositivas, incluida la de métricas y la de Boosting que preparó el usuario.
 
 Los modelos de esta propuesta **todavía deben implementarse y evaluarse con el recorte 2022–2025**; esta tarea no reentrenó modelos ni modificó el notebook.
@@ -104,3 +120,5 @@ Los experimentos históricos conservan su protocolo original como registro; sus 
 - [TimeSeriesSplit: validación temporal](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html).
 
 - [Pronóstico con variables rezagadas y evaluación temporal](https://scikit-learn.org/stable/auto_examples/applications/plot_time_series_lagged_features.html).
+
+- [WAPE y sus límites al comparar series con tendencia](https://robjhyndman.com/hyndsight/wape.html).

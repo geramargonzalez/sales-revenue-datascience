@@ -528,6 +528,34 @@ No se reentrenaron modelos ni se recalculó el balance contable de **$287,699,16
 
 ---
 
+### Fase 30: Revisar la Indicación Docente sobre Boosting y Métricas (Aplicado por **gera**, 28/10/2026)
+
+- [x] **Revisión del estado actual:** se comprobó la presentación de 12 diapositivas y la definición de alcance registrada en la Fase 29, que ya fija 2022–2025, regresión lineal y Gradient Boosting como propuesta pendiente de entrenamiento.
+
+- [x] **Adecuación del modelo:** se confirmó que Gradient Boosting satisface la comparación supervisada de regresión y que el bosque aleatorio histórico corresponde a otra técnica de ensamble.
+
+  `GradientBoostingRegressor` está disponible en scikit-learn 1.9.1 de `.venv`; no hay una implementación de boosting en el notebook revisado de `gera_playground`.
+
+- [x] **Métricas:** se ratificó MAE como medida principal en USD y RMSE para dar mayor peso a fallos grandes, con WAPE y sesgo como apoyo y R² como indicador adicional.
+
+  Se contrastaron las definiciones con documentación oficial y se registró el límite de WAPE al comparar períodos con tendencias o volúmenes diferentes.
+
+- [x] **Variables y corte:** se verificaron las cinco entradas del ejercicio semanal y la exclusión de importes contemporáneos de la semana objetivo; se conserva el protocolo cronológico 80/20 del alcance ya documentado.
+
+  Se aclaró que el primer año aporta historial y que reservar 2025 completo como prueba sería un diseño alternativo que todavía no se ejecutó.
+
+- [x] **Registro:** se amplió [el documento de alcance](alcance_modelado_2022_2025.md) con la revisión metodológica y sus fuentes.
+
+**Incidencias y resolución:** la rama abierta conserva el playground histórico y difiere del alcance nuevo ya documentado en `gera`; se revisaron ambas fuentes y se utilizó una carpeta temporal de Git para registrar esta revisión en `gera` sin cambiar la rama abierta del usuario.
+
+**Validación:** lectura del notebook, comprobación de la disponibilidad y firma de Gradient Boosting en `.venv`, lectura actual de la presentación y comprobación del diff documental.
+
+No se reentrenaron modelos, no se modificó la presentación y no se recalcularon los datos ni el balance contable de **USD 287.699.163,91**.
+
+**Próximos pasos:** preparar la vista semanal 2022–2025, ejecutar la comparación temporal entre lineal, boosting y referencia, y completar las métricas con los resultados obtenidos.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
