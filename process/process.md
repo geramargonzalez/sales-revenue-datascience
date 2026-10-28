@@ -875,6 +875,20 @@ Las escrituras de la ejecución completa se aislaron en una carpeta temporal y l
 
 - Próximos pasos: validar ventanas dentro del entrenamiento, contrastar referencias semanales y evaluar otras ubicaciones antes de seleccionar configuraciones.
 
+### Fase 33: Diagnóstico de sesgo en los pronósticos (Aplicado por **gera**)
+
+- Se reprodujo de forma independiente la preparación semanal de SOHO y los dos modelos de la Fase 31 con la misma partición de 31 semanas de prueba.
+
+- Con error definido como predicción menos venta real, la regresión lineal presenta sesgo medio de USD -847,92 (-0,83 % de las ventas reales agregadas), con 17 semanas sobreestimadas y 14 subestimadas.
+
+- Boosting presenta sesgo medio de USD +3.209,69 (+3,13 %), con 19 semanas sobreestimadas y 12 subestimadas; el 09/08 y el 27/12 de 2025 figuran entre las mayores sobreestimaciones.
+
+- Ambos resultados corresponden a una ubicación y una ventana; no se atribuyó causalidad a los errores ni se ajustó el modelo usando la prueba.
+
+- Próximos pasos: medir el sesgo en ventanas cronológicas de validación, examinar errores por temporada y evaluar rezagos y corrección de sesgo aprendida únicamente con datos previos.
+
+- No se modificaron los cambios del usuario en el notebook ni se alteraron las transacciones.
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
