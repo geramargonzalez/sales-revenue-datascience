@@ -8,7 +8,7 @@ Este documento registra el avance, control de tareas, resolución de incidencias
 
 
 
-* **Rama activa de trabajo:** `gera` (según regla: `gerardo.gonzalez@estudiantes.utec.edu.uy` -> rama `gera`).
+* **Rama activa de trabajo:** `gera`; autor `gera`.
 * **Nomenclatura obligatoria de commits:** `Fase <number_of_task> : <description_of_the_task>`.
 * **Idioma:** Español estricto en comentarios, documentación y descripciones de celdas.
 
@@ -553,8 +553,313 @@ No se reentrenaron modelos ni se recalculó el balance contable de **$287,699,16
 No se reentrenaron modelos, no se modificó la presentación y no se recalcularon los datos ni el balance contable de **USD 287.699.163,91**.
 
 **Próximos pasos:** preparar la vista semanal 2022–2025, ejecutar la comparación temporal entre lineal, boosting y referencia, y completar las métricas con los resultados obtenidos.
+### Fase 17: Regresión Lineal Básica en la Sección 6 (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Rama:** se mantuvo `gera_playground` por indicación del usuario y se integraron los cambios de `main` antes de comenzar.
+
+- [x] **Referencia de clase:** se consultó `Hospital_LOS_Prediction_CLASE1.ipynb` y se adaptó su secuencia de preparación, separación 80/20, ajuste, predicción y métricas.
+
+  El ejercicio utiliza `LinearRegression` de scikit-learn para simplificar el ajuste con `statsmodels.OLS` mostrado en clase; no requiere nuevas dependencias.
+
+- [x] **Ejercicio editable:** se agregaron las secciones 6.1 a 6.5 para predecir ventas semanales de una ubicación, inicialmente `SOHO`, usando la venta de la semana anterior.
+
+  Se puede cambiar `UBICACION_RL`, añadir `venta_hace_2_semanas` a `VARIABLES_RL` y modificar los importes de una predicción manual.
+
+- [x] **Partición y alcance:** `train_test_split(test_size=0.20, shuffle=False)` reserva las semanas más recientes para prueba y utiliza las anteriores para entrenamiento.
+
+  Las ventas se agregan de domingo a sábado; las semanas parciales y las filas sin el historial requerido se excluyen únicamente de la vista del ejercicio, con sus conteos visibles.
+
+  Se conservan las devoluciones y las compras anónimas; las semanas sin registros no se imputan con cero.
+
+- [x] **Lectura del resultado:** se muestran intercepto, coeficientes, MAE, RMSE y R² de entrenamiento y prueba, una comparación entre valores reales y predichos y un gráfico del período de prueba.
+
+  La evaluación simula una semana por vez, usando ventas previas ya observadas; la prueba exploratoria no se presenta como evaluación final después de ajustar variables con sus resultados.
+
+- [x] **Integración:** las importaciones se agregaron a la celda inicial y se conservaron los identificadores, tipos y orden relativo de las 74 celdas existentes.
+
+  Se añadieron diez celdas para intercalar el ejercicio bajo el bloque 6 y continuar después con el texto y código del flujo avanzado; el código previo de preparación y bosque aleatorio permanece igual.
+
+- [x] **Verificación:** las 45 celdas de código ejecutaron sin errores en un kernel nuevo `sales-revenue-env` con Python 3.11 de `.venv`.
+
+  Se comprobaron la separación cronológica, la proporción 80/20, los rezagos y las predicciones finitas con una y dos variables históricas.
+
+  Se verificó el gráfico con fechas numéricas, sin etiquetas cortadas, y se guardaron las salidas del ejercicio; el código modificado del gráfico se volvió a ejecutar de forma puntual.
+
+  El ejemplo de `SOHO` conserva 246 semanas utilizables: 196 para entrenamiento y 50 para prueba, del 18/10/2025 al 26/09/2026.
+
+  En prueba obtiene MAE de **$20,414.25 USD**, RMSE de **$26,189.08 USD** y R² de **0.0662**; este ajuste básico deja gran parte de la variación sin explicar.
+
+  La base conserva **2,435,854 filas**, **37 columnas**, **$287,699,163.91 USD** en ventas netas, los mismos nulos y todas las compras anónimas.
+
+**Incidencia resuelta:** el bloque 6 contenía únicamente la explicación del flujo avanzado, sin un ejemplo básico ejecutable de regresión lineal para experimentar.
+
+**Próximos pasos:** explorar otras ubicaciones y comparar una o dos variables históricas; reservar una evaluación temporal independiente si se selecciona una configuración para uso real.
 
 ---
+
+### Fase 18: Comparación con la Misma Semana del Año Anterior (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Variable estacional:** se incorporó `venta_anio_anterior` al ejercicio básico de regresión lineal de la sección 6.
+
+  La variable une `retail_year` y `retail_week` de cada semana objetivo con la misma semana minorista del año previo; no utiliza un desplazamiento fijo de 52 filas y conserva la alineación cuando existe un año de 53 semanas.
+
+- [x] **Configuración del ejercicio:** el modelo utiliza por defecto `venta_semana_anterior` y `venta_anio_anterior` para predecir las ventas netas semanales de `SOHO`.
+
+  `venta_hace_2_semanas` permanece disponible para experimentar y la predicción manual admite las tres variables sin modificar `df`.
+
+- [x] **Comparación homogénea:** la evaluación muestra la regresión y la referencia que copia directamente la misma semana del año anterior sobre exactamente las mismas 39 semanas de prueba.
+
+  La regresión obtuvo MAE de **$15,994.29 USD**, RMSE de **$21,398.12 USD** y R² de **0.1284**.
+
+  La referencia anual obtuvo MAE de **$18,121.61 USD**, RMSE de **$22,541.30 USD** y R² de **0.0328**.
+
+  La regresión reduce el MAE en **$2,127.32 USD**, equivalente a **11.7%**, frente a usar únicamente el valor del año anterior.
+
+- [x] **Cobertura temporal:** quedan 194 semanas con ambos antecedentes disponibles; 155 se usan para entrenamiento, desde el 7 de enero de 2023 al 27 de diciembre de 2025, y 39 para prueba, desde el 3 de enero al 26 de septiembre de 2026.
+
+  Estas métricas no se comparan directamente con el experimento anterior de 49 semanas, porque la disponibilidad del antecedente anual cambia la población evaluada.
+
+- [x] **Verificación:** el notebook ejecutó sin errores hasta la sección 6.5 en un kernel nuevo `sales-revenue-env`.
+
+  Se comprobó para cada fila que `venta_anio_anterior` corresponde al mismo par de semana minorista y año menos uno, además de la separación cronológica, predicciones finitas y coincidencia de índices entre métodos.
+
+  La base conserva **2,435,854 filas**, **37 columnas** y ventas netas por **$287,699,163.91 USD**.
+
+**Incidencia resuelta:** la primera regresión solo utilizaba rezagos consecutivos y no representaba directamente la estacionalidad anual de las ventas.
+
+**Próximos pasos:** comparar las configuraciones de una semana, dos semanas y antecedente anual sobre una única población común antes de seleccionar variables para una evaluación independiente.
+
+---
+
+### Fase 19: Documento de Proceso de Test (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Registro consolidado:** se creó [`proceso_de_test.md`](https://github.com/geramargonzalez/sales-revenue-datascience/blob/1fce479/process/proceso_de_test.md) con el protocolo, las métricas y las conclusiones de los tres experimentos de regresión lineal y de la referencia anual.
+
+- [x] **Comparabilidad:** el documento identifica qué resultados utilizan períodos diferentes y establece que los próximos candidatos deben evaluarse sobre las mismas 194 filas y 39 semanas de prueba del Test 3.
+
+- [x] **Indicadores propuestos:** se documentaron Navidad, San Valentín y Día de la Madre como variables binarias conocidas antes de la semana objetivo.
+
+  Cada indicador se probará por separado antes de combinarse, usando las semanas propuestas en `process/ideas.md` como hipótesis iniciales que deben validarse contra las fechas reales.
+
+- [x] **Criterios de avance:** el Test 3 queda como referencia aprendida, con MAE de $15,994.29 USD, RMSE de $21,398.12 USD y R² de 0.1284 sobre las 39 semanas de 2026.
+
+  La referencia que copia la misma semana del año anterior conserva un MAE de $18,121.61 USD sobre esas mismas semanas.
+
+- [x] **Reutilización:** se añadió una plantilla para registrar variables, períodos, métricas, resultado por evento, conclusión y decisión de cada nueva prueba.
+
+**Incidencias:** ninguna; esta fase documenta resultados existentes y el procedimiento de pruebas futuras sin modificar el notebook ni recalcular el modelo.
+
+**Próximos pasos:** implementar el indicador de Navidad como Test 4 y compararlo con el Test 3 sobre la misma población.
+
+---
+
+### Fase 20: Indicadores de Eventos en la Regresión Lineal (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Indicadores agregados:** se incorporaron `es_navidad`, `es_san_valentin` y `es_dia_madre` a la sección 6 del notebook.
+
+  Los indicadores utilizan las semanas minoristas 47 a 51, 6 y 18, respectivamente, y se calculan antes de entrenar el modelo.
+
+- [x] **Comparación homogénea:** se evaluaron el modelo sin eventos, cada indicador por separado, los tres combinados y la referencia anual sobre las mismas 194 filas y 39 semanas de prueba.
+
+  El modelo sin indicadores conserva un MAE de **$15,994.29 USD**.
+
+  San Valentín obtiene el menor MAE general, **$15,544.93 USD**, una mejora de **$449.36 USD por semana (2.8%)**.
+
+  El modelo con los tres indicadores obtiene MAE de **$15,615.03 USD**, RMSE de **$20,852.56 USD** y R² de **0.1723**.
+
+- [x] **Cobertura visible:** el notebook muestra 15 semanas de Navidad, 3 de San Valentín y 3 de Día de la Madre en entrenamiento.
+
+  En prueba hay 0, 1 y 1 semanas, respectivamente.
+
+  Por esta cobertura limitada, las mejoras se consideran exploratorias y no validan todavía el efecto de cada evento.
+
+- [x] **Predicción editable:** la sección 6.5 permite elegir una semana minorista y calcula automáticamente los tres indicadores para una predicción manual.
+
+- [x] **Registro de pruebas:** [`proceso_de_test.md`](https://github.com/geramargonzalez/sales-revenue-datascience/blob/1fce479/process/proceso_de_test.md) documenta los tests 4 a 7, sus métricas, cobertura, interpretación y decisión.
+
+- [x] **Verificación:** el notebook ejecutó desde un kernel limpio `sales-revenue-env` hasta la sección 6.5 sin errores.
+
+  Se comprobaron las fórmulas binarias, la separación cronológica, la alineación anual, la igualdad de índices entre configuraciones y las predicciones finitas.
+
+  La base conserva **2,435,854 filas**, **37 columnas** y ventas netas por **$287,699,163.91 USD**.
+
+**Incidencia identificada:** la prueba termina el 26 de septiembre de 2026 y no contiene Navidad; San Valentín y Día de la Madre aparecen una sola vez cada uno.
+
+**Próximos pasos:** usar ventanas temporales sucesivas que incluyan más ocurrencias de cada evento y verificar las semanas propuestas contra las fechas comerciales reales antes de seleccionar un modelo.
+
+---
+
+### Fase 21: Revisión de Resultados de Indicadores y Modelo Avanzado (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Regresión lineal con indicadores:** San Valentín obtiene el menor MAE general, **$15,544.93 USD**, frente a **$15,994.29 USD** del modelo sin indicadores.
+
+  La mejora es de **$449.36 USD por semana (2.8%)**, pero la prueba contiene una sola semana de San Valentín, una de Día de la Madre y ninguna de Navidad.
+
+  El resultado se conserva como exploratorio y no justifica todavía seleccionar los indicadores como configuración final.
+
+- [x] **Modelo avanzado en validación:** el bosque conservador obtiene WAPE de **15.47%**, frente a **18.22%** de la referencia estacional.
+
+- [x] **Modelo avanzado en prueba:** el bosque conservador empeora a **25.84%** de WAPE, mientras la referencia obtiene **20.63%**.
+
+  El MAE del bosque es **$24,892.74 USD**, frente a **$19,873.34 USD** de la referencia, y su RMSE sube a **$74,950.42 USD**, frente a **$51,810.46 USD**.
+
+- [x] **Localización del deterioro:** el candidato mejora el WAPE en 5 de 14 ubicaciones y reduce el error absoluto en 82 de 182 filas.
+
+  `Web Warehouse` concentra aproximadamente el 56.1% de la venta neta de prueba y registra WAPE de **28.48%** con el candidato, frente a **20.34%** con la referencia.
+
+  Los mayores errores del candidato aparecen en `Web Warehouse` durante las semanas minoristas 31 y 32; las semanas 26 y 32 presentan el mayor deterioro agregado frente a la referencia.
+
+**Decisión:** mantener la referencia estacional como modelo campeón; no promover el bosque ni elegir todavía una configuración de indicadores por los resultados actuales.
+
+**Próximos pasos:** aplicar validación temporal con ventanas sucesivas, evaluar un tratamiento específico para `Web Warehouse` sin excluir sus ventas y revisar los patrones comerciales de las semanas 26 a 32.
+
+---
+
+### Fase 22: Black Friday por Año con Prueba en 2025 (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Protocolo:** se agregó un experimento en la sección 6 que entrena una tendencia lineal con Black Friday de 2022–2024, prueba con 2025 y ajusta otro modelo con 2022–2025 para estimar 2026.
+
+  Cada fila representa el total de un evento anual: tres observaciones de entrenamiento y una de prueba.
+
+- [x] **Alcance editable:** SOHO y solo el viernes por defecto; `PERIODO_BF = 'semana'` permite comparar la semana de domingo a sábado.
+
+  Las fechas se calculan por evento, porque Black Friday 2024 pertenece a la semana minorista 48 y los otros tres eventos históricos a la 47.
+
+- [x] **Resultado del viernes:** para 2025 se predicen **$34,922.11 USD**, frente a **$26,852.70 USD** reales; el error absoluto es **$8,069.41 USD (30.05%)**.
+
+  La referencia que repite 2024 obtiene un error de **36.49%**.
+
+  Tras ajustar con los cuatro años conocidos, la estimación para el viernes de 2026 es **$24,431.51 USD**, todavía sin resultado real para evaluar.
+
+- [x] **Comprobación semanal:** para 2025 se predicen **$111,125.11 USD**, frente a **$113,738.20 USD** reales, con error de **2.30%**; se documenta como otro objetivo y no como evidencia de mejora del pronóstico del viernes.
+
+- [x] **Registro:** los tests 8 y 8S, fechas, referencias, estimaciones y límites se agregaron a [`proceso_de_test.md`](https://github.com/geramargonzalez/sales-revenue-datascience/blob/1fce479/process/proceso_de_test.md).
+
+- [x] **Verificación:** ejecución de carga, limpieza, preparación y nuevas celdas en un kernel limpio `sales-revenue-env`, con comprobación de ambas opciones, fechas exactas, agregaciones y ajuste independiente del pronóstico de prueba.
+
+  Se conservaron las 84 celdas previas, sus fuentes y su orden; se añadieron seis celdas sin nuevas importaciones.
+
+  La base mantiene **2,435,854 filas**, **37 columnas**, **2,239,455 nulos del rezago** y **$287,699,163.91 USD** en ventas netas.
+
+  Los tres artefactos MLOps que ya estaban modificados al comenzar permanecen intactos y fuera del commit de esta tarea.
+
+**Incidencias y resolución:** la fecha de Black Friday cambia de semana minorista; se alinea por fecha del evento y 2026 se conserva como dato ausente, nunca como venta cero.
+
+**Próximos pasos:** decidir si el objetivo comercial es el viernes o toda su semana y ampliar la evidencia temporal antes de confiar en el pronóstico; evitar seleccionar modelos por una sola observación de prueba.
+
+---
+
+### Fase 23: Árbol de Decisión como Comparación de la Regresión (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Segundo modelo:** se añadió `DecisionTreeRegressor` a las importaciones iniciales y un ejercicio con profundidad máxima de 3, mínimo de 10 semanas por hoja y semilla 42.
+
+  El árbol aprende tres niveles y siete grupos finales; los parámetros se fijaron antes de evaluar, sin búsqueda sobre la prueba.
+
+- [x] **Comparación común:** el árbol y la regresión lineal utilizan las mismas cinco variables, las mismas 155 semanas de entrenamiento y las mismas 39 semanas de prueba de SOHO.
+
+  Las celdas nuevas muestran MAE de entrenamiento y prueba, RMSE y R² de prueba, una lectura del cambio de error y el gráfico de ambos modelos frente a las ventas reales.
+
+- [x] **Resultado:** la regresión obtiene MAE de prueba de **$15,615.03 USD** y el árbol **$16,960.66 USD**.
+
+  El árbol aumenta el error promedio en **$1,345.63 USD por semana (8.6%)**; su menor error de entrenamiento no se mantiene en prueba.
+
+- [x] **Registro:** se documentó el Test 9 en [`proceso_de_test.md`](https://github.com/geramargonzalez/sales-revenue-datascience/blob/1fce479/process/proceso_de_test.md), con el protocolo, parámetros, métricas, referencia anual y límites de interpretación.
+
+- [x] **Verificación:** las nuevas celdas y sus dependencias de carga, limpieza, preparación y regresión se ejecutaron en un kernel limpio `sales-revenue-env`.
+
+  Se comprobaron variables e índices comunes, separación temporal, cantidad de filas utilizadas por el árbol, profundidad, tamaño de hojas, métricas, predicciones finitas y conservación de las matrices originales.
+
+  Se mantienen **2,435,854 filas**, **37 columnas**, **2,239,455 nulos del rezago**, los clientes anónimos y **$287,699,163.91 USD** de ventas netas.
+
+  Las 90 celdas previas conservan su orden; solo se amplió la importación inicial y se agregaron cuatro celdas con el ejercicio.
+
+**Incidencias y resolución:** el notebook tenía ejecuciones y una edición local previas del usuario; se conservaron en el archivo de trabajo y se separaron de los cambios incorporados al commit de esta fase.
+
+**Decisión y próximos pasos:** la regresión sigue siendo la mejor de estas dos alternativas en el ejercicio de SOHO; mantener el árbol para experimentar y usar otra evaluación temporal antes de seleccionar un modelo definitivo.
+
+---
+
+### Fase 24: KNN para Practicar con Semanas Parecidas (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Tercer modelo:** se añadió `KNeighborsRegressor` con cinco vecinos y pesos uniformes, precedido por `StandardScaler` dentro de un `Pipeline`.
+
+  Las importaciones están centralizadas y la escala se aprende solo con el entrenamiento.
+
+- [x] **Comparación común:** se reutilizaron las cinco variables, las 155 semanas de entrenamiento y las 39 semanas de prueba de SOHO para comparar regresión lineal, árbol y KNN.
+
+  Se agregaron una tabla de métricas, un gráfico del MAE y una explicación automática del resultado.
+
+- [x] **Resultado:** KNN obtiene MAE de **$16,851.36 USD**, RMSE de **$24,003.53 USD** y R² de **-0.0968** en prueba.
+
+  KNN se equivoca **$1,236.34 USD más por semana (7.9%)** que la regresión lineal en este período.
+
+- [x] **Práctica:** `VECINOS_KNN` permite cambiar k y una celda muestra qué semanas históricas utiliza el modelo para predecir el ejemplo de la sección 6.5.
+
+- [x] **Registro:** se añadió el Test 10 a [`proceso_de_test.md`](https://github.com/geramargonzalez/sales-revenue-datascience/blob/1fce479/process/proceso_de_test.md), con configuración, resultados y límites de interpretación.
+
+- [x] **Verificación:** notebook completo ejecutado en un kernel limpio `sales-revenue-env`, con sus escrituras del flujo avanzado aisladas en una carpeta temporal.
+
+  Se comprobaron el ajuste de escala, las predicciones mediante distancias independientes, el promedio de vecinos, las métricas, las matrices originales y el gráfico generado.
+
+  Se conservan **2,435,854 filas**, **37 columnas**, **2,239,455 nulos del rezago**, los clientes anónimos y **$287,699,163.91 USD** de ventas netas.
+
+  Se añadieron seis celdas con resultados guardados y se preservaron las 94 celdas previas, salvo la ampliación de las importaciones iniciales.
+
+**Incidencias y resolución:** los archivos de campeón, experimentos y predicciones tenían cambios previos; se aislaron las escrituras de validación y se comprobó que esos archivos permanecieran intactos.
+
+**Decisión y próximos pasos:** Regresión lineal tiene el menor MAE de los tres en esta ventana; mantener el ejercicio para aprender y usar validación temporal dentro del entrenamiento para elegir k antes de una evaluación nueva.
+
+---
+
+### Fase 25: Aprender Regularización con Ridge en el Playground (Aplicado por **gera**, 25/10/2026)
+
+- [x] **Ejercicio guiado:** se agregó Ridge con `ALPHA_RIDGE = 1.0`, escalado dentro de un `Pipeline` y explicaciones breves sobre regularización y el efecto de alpha.
+
+  Las importaciones permanecen centralizadas y se mantiene `gera_playground` por indicación del usuario.
+
+- [x] **Aprender observando:** una tabla compara los pesos de Ridge y la regresión lineal con las mismas variables escaladas; ambas fórmulas se aplican al ejemplo editable de la sección 6.5.
+
+- [x] **Validación temporal:** se compararon alpha 0.1, 1 y 10 contra la lineal en tres cortes dentro de las 155 semanas de entrenamiento, reajustando la escala en cada corte.
+
+  La tabla muestra las fechas, tamaños y MAE de cada corte; la búsqueda no utiliza las 39 semanas de prueba ni cambia automáticamente el alpha del ejercicio principal.
+
+- [x] **Resultado en prueba:** Ridge obtiene MAE de **$15,604.97 USD**, frente a **$15,615.03 USD** de la lineal, una reducción de apenas **$10.06 USD por semana (0.064%)**.
+
+  La lineal tiene mejor MAE promedio en validación (**$17,712.15 USD**) que Ridge con alpha 1 (**$17,846.53 USD**); la ventaja de la prueba no se mantiene entre períodos.
+
+- [x] **Registro:** se documentaron los tests 11 y 11A en [`proceso_de_test.md`](https://github.com/geramargonzalez/sales-revenue-datascience/blob/1fce479/process/proceso_de_test.md), incluidas las cuatro configuraciones de validación y los aprendizajes.
+
+- [x] **Verificación:** ejecución completa en un kernel limpio `sales-revenue-env`, comprobación independiente de las ecuaciones de Ridge y de todos los cortes con NumPy, preservación de los modelos anteriores e inspección visual del gráfico.
+
+  Se mantienen **2,435,854 filas**, **37 columnas**, **2,239,455 nulos del rezago**, los clientes anónimos y **$287,699,163.91 USD** de ventas netas.
+
+  Se agregaron ocho celdas y se guardaron sus resultados, preservando las 100 anteriores salvo la ampliación de importaciones.
+
+**Incidencias y resolución:** el entrenamiento contiene un salto entre semanas utilizables; se muestran las fechas reales de los cortes y se documenta que tienen igual cantidad de observaciones, sin exigir idéntica duración calendario ni imputar ventas.
+
+Las escrituras de la ejecución completa se aislaron en una carpeta temporal y los 12 archivos existentes de artefactos MLOps se conservaron intactos.
+
+**Decisión y próximos pasos:** usar el playground para cambiar un parámetro por vez, anticipar su efecto y registrar lo aprendido; conservar ambos modelos sin interpretar la pequeña diferencia de prueba como una mejora estable.
+
+---
+
+### Fase 31: Concentrar el modelado en regresión lineal y boosting (Aplicado por **gera**)
+
+- Se integró el trabajo del playground en `gera` y se conservó el historial de ambas ramas en este registro.
+
+- Se retiraron del notebook las pruebas de KNN, Ridge, árbol individual, bosque aleatorio y Black Friday, junto con sus artefactos regenerables y el registro independiente de pruebas antiguas.
+
+- Se implementó Gradient Boosting de árboles y se comparó con regresión lineal y una referencia anual, con partición cronológica 80/20 y una ubicación configurable.
+
+- El alcance predictivo utiliza semanas completas de 2022 a 2025; la base contable completa y las transacciones anónimas permanecen intactas.
+
+- La ejecución completa en el kernel `sales-revenue-env` terminó sin errores y confirmó 2.435.854 filas, 37 columnas y ventas netas de USD 287.699.163,91.
+
+- En SOHO se entrenó con 124 semanas (enero de 2023 a mayo de 2025) y se evaluó con 31 semanas (mayo a diciembre de 2025): MAE de USD 16.086,07 para regresión lineal, USD 18.117,46 para boosting y USD 22.475,46 para la referencia anual; los RMSE respectivos fueron USD 19.796,57, USD 23.187,71 y USD 28.146,89.
+
+- Los resultados corresponden a una sola ubicación y ventana; no demuestran cuál modelo generaliza mejor en todas las tiendas.
+
+- Pendiente: evaluar otras ubicaciones y ventanas cronológicas, y seleccionar parámetros solo dentro del entrenamiento.
 
 ## 3. Problemas Encontrados y Resoluciones
 
@@ -590,14 +895,14 @@ No se reentrenaron modelos, no se modificó la presentación y no se recalcularo
 ## 4. Próximos Pasos y Acciones Pendientes
 
 - [ ] **Ingeniería de características adicional (propuestas de las notas de Camilo, respaldadas por la Fase 4):**
-  - Calendario: indicadores de Navidad (semanas 47 a 51), San Valentín (semana 6) y Día de la Madre (semana 18), y número de semanas del mes minorista.
+  - Calendario: validar con más ventanas los indicadores de Navidad, San Valentín y Día de la Madre ya implementados, y evaluar el número de semanas del mes minorista.
   - Atributos del local: días con ventas y señales verificadas de apertura o cierre; la antigüedad observada ya forma parte del primer modelo.
   - Tasas en lugar de importes: descuento sobre venta bruta, margen sobre venta neta y devoluciones sobre venta bruta.
 - [ ] **Modelado y MLOps:**
   - Aplicar el [nuevo alcance 2022–2025](alcance_modelado_2022_2025.md), entrenar regresión lineal y Gradient Boosting y comparar MAE y RMSE en las mismas semanas.
-  - Explicar el deterioro del bosque entre validación y prueba por ubicación, semana y evento comercial.
+  - Analizar los errores de regresión lineal y boosting por ubicación, semana y evento comercial.
   - Evaluar validación temporal con ventanas sucesivas antes de ampliar la búsqueda de modelos.
-  - Mantener la referencia estacional como campeón hasta que un candidato la supere fuera de muestra.
+  - Comparar ambos modelos con la referencia estacional en ventanas temporales adicionales.
 - [ ] **Análisis del EDA aún no realizados:** crecimiento interanual con `ly_date_key`, descomposición y autocorrelación de la serie semanal, cohortes de clientes y Pareto de artículos.
 - [ ] **Decisiones pendientes:**
   - Corregir o no `retail_calendar_guide.md` (el año minorista de este dataset comienza en enero).
