@@ -861,6 +861,20 @@ Las escrituras de la ejecución completa se aislaron en una carpeta temporal y l
 
 - Pendiente: evaluar otras ubicaciones y ventanas cronológicas, y seleccionar parámetros solo dentro del entrenamiento.
 
+### Fase 32: Revisar el enfoque semanal de series temporales (Aplicado por **gera**)
+
+- Se revisó la agregación semanal, los rezagos, los cortes cronológicos y la comparación de regresión lineal y boosting implementados en la Fase 31.
+
+- El ejercicio utiliza datos de 2022 a 2025 y pronostica una semana por vez con la venta anterior ya observada; la prueba actual es una única ventana de SOHO.
+
+- Se documentó que el historial de 2022 alimenta el rezago anual, que el resultado no es un pronóstico simultáneo de varias semanas y que faltan validación con ventanas sucesivas, análisis de estacionalidad y revisión de semanas sin registros.
+
+- Se consultó la documentación de scikit-learn sobre variables rezagadas y validación temporal y se actualizó el documento de alcance.
+
+- No se modificaron código ni datos; sigue vigente la ejecución completa y el control contable de la Fase 31.
+
+- Próximos pasos: validar ventanas dentro del entrenamiento, contrastar referencias semanales y evaluar otras ubicaciones antes de seleccionar configuraciones.
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
@@ -899,7 +913,7 @@ Las escrituras de la ejecución completa se aislaron en una carpeta temporal y l
   - Atributos del local: días con ventas y señales verificadas de apertura o cierre; la antigüedad observada ya forma parte del primer modelo.
   - Tasas en lugar de importes: descuento sobre venta bruta, margen sobre venta neta y devoluciones sobre venta bruta.
 - [ ] **Modelado y MLOps:**
-  - Aplicar el [nuevo alcance 2022–2025](alcance_modelado_2022_2025.md), entrenar regresión lineal y Gradient Boosting y comparar MAE y RMSE en las mismas semanas.
+  - Ampliar la evaluación del [alcance 2022–2025](alcance_modelado_2022_2025.md) a más ventanas y ubicaciones, comparando MAE y RMSE en las mismas semanas.
   - Analizar los errores de regresión lineal y boosting por ubicación, semana y evento comercial.
   - Evaluar validación temporal con ventanas sucesivas antes de ampliar la búsqueda de modelos.
   - Comparar ambos modelos con la referencia estacional en ventanas temporales adicionales.

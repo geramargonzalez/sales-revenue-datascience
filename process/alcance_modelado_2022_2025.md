@@ -87,6 +87,26 @@ R² puede reportarse como indicador secundario; puede ser negativo y no equivale
 
 Las comparaciones requieren las mismas semanas y ubicaciones; las métricas de ventanas anteriores no se trasladan al nuevo alcance.
 
+## Revisión de series temporales: 28/10/2026
+
+El notebook ya usa una serie semanal por ubicación, compara regresión lineal y boosting de árboles con información histórica y reserva las últimas semanas para prueba.
+
+La evaluación actual pronostica una semana por vez: para cada semana de prueba utiliza la venta real de la semana anterior ya observada; no equivale a pronosticar todas las semanas futuras desde una sola fecha.
+
+En SOHO hay 124 semanas de entrenamiento y 31 de prueba; 2022 aporta principalmente historial para el rezago anual.
+
+La comparación actual cubre una sola ubicación y una ventana de prueba, por lo que no demuestra estabilidad para todas las tiendas ni temporadas.
+
+Antes de elegir parámetros o modelos, se recomienda comparar varias ventanas cronológicas dentro del entrenamiento y conservar la prueba final sin usar para la selección.
+
+También conviene contrastar las referencias de semana anterior y misma semana del año anterior, comprobar semanas sin registros y estudiar tendencia, estacionalidad y autocorrelación sin usar datos posteriores al corte.
+
+Los promedios móviles y rezagos adicionales deben calcularse exclusivamente con semanas anteriores a la semana pronosticada.
+
+Si se requiere un pronóstico de varias semanas desde una misma fecha, es necesario definir otro protocolo que no utilice las ventas reales futuras como entradas.
+
+La sección siguiente conserva el estado histórico anterior a la implementación de la Fase 31.
+
 ## Estado y siguiente paso
 
 ### Revisión de la indicación docente: 28/10/2026
