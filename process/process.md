@@ -997,6 +997,30 @@ El balance de **USD 287.699.163,91** corresponde al control validado en la Fase 
 
 ---
 
+### Fase 38: Agregar la Estacionalidad de Devoluciones en Enero (Aplicado por **gera**, 29/10/2026)
+
+- [x] **Verificación del dato:** se revisó el EDA existente y se recalcularon, mediante lectura por bloques del CSV, los importes y líneas de devolución por mes calendario del recorte 2022–2025.
+
+  Enero tiene la mayor tasa de devolución sobre venta bruta: **17,533 %**, con USD 2.698.324,40 devueltos sobre USD 15.390.142,68 de venta bruta de líneas de venta.
+
+  Se distingue esa tasa de una mayoría de devoluciones: enero reúne el 10,968 % de las líneas y diciembre registra más líneas e importe devuelto.
+
+- [x] **Cambio aplicado:** se agregó a la diapositiva 5 la frase **«Enero: mayor tasa de devoluciones, 17,5 % de la venta bruta.»**, conservando los dos indicadores existentes y el diseño de joyería.
+
+- [x] **Trazabilidad:** las notas del presentador y `process/alcance_modelado_2022_2025.md` incorporan período, definición, numerador, denominador y la distinción entre tasa y cantidad.
+
+- [x] **Verificación visual y estructural:** la presentación mantiene sus 13 diapositivas y su orden; solo se agregó un cuadro nativo y se ampliaron las notas de la diapositiva 5.
+
+  El diagnóstico automático no reportó incidencias y la exportación a PDF confirmó legibilidad sin recortes; las otras 12 imágenes son idénticas a las previamente inspeccionadas.
+
+**Control del repositorio y datos:** se consultó `process/ideas.md` y `gera` ya incorporaba `main`.
+
+Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2025, y **2.435.854 líneas y USD 287.699.163,91** en la base completa, sin modificar el CSV, el notebook ni los modelos.
+
+**Próximos pasos:** conservar explícito el denominador al presentar tasas de devolución.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |

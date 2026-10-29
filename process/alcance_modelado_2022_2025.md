@@ -55,6 +55,22 @@ Los tres descriptivos se incorporaron el 29/10/2026, con sus definiciones y deno
 
 La unidad del modelo es una semana completa de domingo a sábado por ubicación.
 
+### Estacionalidad de las devoluciones
+
+Verificación del 29/10/2026 para la diapositiva 5, sobre el mismo recorte 2022–2025 y con las exclusiones contables habituales.
+
+Enero presenta la mayor **tasa agregada mensual de devoluciones sobre la venta bruta**, con **17,533 %**: USD 2.698.324,40 devueltos frente a USD 15.390.142,68 de venta bruta de líneas de venta, sumando los cuatro eneros.
+
+Enero reúne 14.785 líneas de devolución, el 10,968 % de las 134.801 del período, y el 10,978 % del importe devuelto.
+
+No concentra la mayoría de las devoluciones: diciembre registra más líneas (18.731) y mayor importe (USD 3.382.081,84).
+
+La frase incorporada a la presentación es «Enero: mayor tasa de devoluciones, 17,5 % de la venta bruta.».
+
+El control de esta lectura por bloques volvió a confirmar 2.103.340 líneas y USD 242.277.286,76 en el recorte, y 2.435.854 líneas con USD 287.699.163,91 en la base completa, sin modificar los datos.
+
+### Variables del modelo
+
 | Rol | Variables |
 | :--- | :--- |
 | Objetivo | Suma semanal de `net_sales`, denominada `venta_neta` |
