@@ -967,6 +967,36 @@ El balance de **USD 287.699.163,91** corresponde al control validado en la Fase 
 
 ---
 
+### Fase 37: Resumir el EDA en una Diapositiva (Aplicado por **gera**, 29/10/2026)
+
+- [x] **Revisión:** se contrastaron los análisis realizados en el bloque 4 del notebook y las hipótesis de `process/ideas.md`, distinguiendo análisis existentes de propuestas pendientes.
+
+- [x] **Cambio aplicado:** se agregó una única diapositiva, «04 · Análisis exploratorio / Qué exploramos antes de predecir», después de Datos y preparación en la [presentación de ventas](https://docs.google.com/presentation/d/1GeRsyai0zNqn4K9PUGFC437R4Mi5RwFBPkj15_NAQlo).
+
+  El resumen contiene cuatro preguntas: **cuándo se vende** (meses, semanas y estacionalidad), **dónde se vende** (web, tiendas y ubicaciones), **qué se vende** (productos, descuentos y margen) y **cómo se compra** (recompras, devoluciones, motivos y plazos).
+
+- [x] **Diseño:** se duplicó el ejemplo nativo de cuatro renglones `estructura_0`, conservando tipografía, colores, formas editables y motivos de joyería; se ajustó la numeración a las 13 diapositivas sin cambiar su orden relativo previo.
+
+- [x] **Alcance y trazabilidad:** las notas vinculan cada resumen con las secciones 4.1–4.8 e incluyen los análisis de nulos, extremos y correlaciones ya realizados.
+
+  Se distingue el histórico del EDA, que llega a septiembre de 2026, del recorte 2022–2025 usado para las cifras y el objetivo actual de la presentación; esta slide no incorpora cifras de otro período ni resultados nuevos.
+
+  Se aclaran en las notas las limitaciones de costos cero, clientes anónimos, recurrencia y canal de procesamiento de devoluciones.
+
+- [x] **Verificación:** lectura estructural final con 13 diapositivas, una sola incorporación, orden y numeración comprobados y diagnóstico automático sin incidencias.
+
+  Las 12 diapositivas previas conservan sus contenidos, geometría y notas; solo se modificaron sus números de encabezado y pie cuando correspondía.
+
+  Se exportó una vez a PDF y se inspeccionaron la diapositiva nueva y la vista conjunta de las 13 páginas, sin recortes ni problemas de legibilidad.
+
+**Control del repositorio:** `gera` ya incorpora `main`; no se modificaron el CSV, el notebook ni los modelos y no fue necesario reejecutarlos.
+
+El balance de **USD 287.699.163,91** corresponde al control validado en la Fase 35; no se recalculó durante esta edición de la presentación.
+
+**Próximos pasos:** mantener el resumen alineado con los análisis efectivamente ejecutados y validar LightGBM antes de incorporar resultados del modelo.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
