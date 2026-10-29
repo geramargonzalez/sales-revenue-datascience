@@ -4,7 +4,7 @@ Decisión registrada por **gera**, 27/10/2026, a partir de la indicación del us
 
 ## Objetivo
 
-Predecir las ventas netas semanales por ubicación con datos de 2022 a 2025, usando historial y calendario comercial en dos modelos supervisados de regresión: lineal y Gradient Boosting, evaluados con MAE y RMSE.
+Predecir las ventas netas semanales por ubicación con datos de 2022 a 2025, usando historial y calendario comercial en dos modelos supervisados de regresión: lineal y LightGBM, evaluados con MAE, RMSE y R².
 
 La finalidad es apoyar la planificación comercial y financiera.
 
@@ -54,15 +54,19 @@ La comparación anual debe alinear año y semana minorista, sin asumir siempre 5
 
 La evaluación prevista es de una semana por vez, con la venta real de la semana anterior disponible en cada paso.
 
-## Modelos y evaluación propuesta
+## Modelos y evaluación vigente: actualización del 29/10/2026
 
-Se compararán `LinearRegression` y `GradientBoostingRegressor`, además de una referencia que copie la misma semana del año anterior cuando esté disponible.
+Por indicación del usuario, se compararán `LinearRegression` y **LightGBM**, mediante `lightgbm.LGBMRegressor` con `boosting_type='gbdt'`, además de una referencia que copie la misma semana del año anterior cuando esté disponible.
 
-Gradient Boosting agrega árboles sucesivos para corregir los errores del conjunto y permite estudiar relaciones no lineales entre historial y calendario.
+LightGBM agrega árboles sucesivos para reducir la pérdida del conjunto y permite estudiar relaciones no lineales entre historial y calendario.
 
-Se recomienda comenzar con la implementación de scikit-learn, ya disponible en el entorno, y árboles pequeños; esto es un punto de partida educativo y no una garantía de mejora.
+La presentación utiliza el nombre formal LightGBM (Light Gradient Boosting Machine); «LightBoosting» se interpretó como una referencia a este modelo y se contrastó con la etiqueta que el usuario ya había escrito en su diapositiva.
 
-Configuración inicial propuesta: `n_estimators=100`, `learning_rate=0.05`, `max_depth=2`, `min_samples_leaf=5`, `loss='squared_error'` y `random_state=42`.
+La Fase 31 implementó `sklearn.ensemble.GradientBoostingRegressor`; sus resultados son históricos y no pueden atribuirse a LightGBM.
+
+Antes de publicar resultados de LightGBM es necesario implementar y evaluar ese estimador en el notebook, verificando su dependencia y usando las mismas semanas y variables que la lineal.
+
+La configuración deberá considerar sus propios parámetros, como `num_leaves`, `max_depth`, `min_child_samples`, `learning_rate` y `n_estimators`; los parámetros del estimador anterior no se trasladan sin adaptar.
 
 La configuración se validará dentro del entrenamiento; evitar una selección o parada temprana que mezcle aleatoriamente las fechas.
 
@@ -70,7 +74,7 @@ Se mantendrá una división cronológica 80/20 de las semanas utilizables, con l
 
 Si se usa un modelo conjunto por ubicaciones, el corte se realiza por fechas semanales únicas, conservando todas las ubicaciones de una semana en el mismo tramo.
 
-Las fechas exactas, cantidades de semanas y cobertura de eventos se determinarán después de preparar las variables del nuevo recorte.
+El ejercicio implementado de SOHO tiene 124 semanas de entrenamiento y 31 de prueba; LightGBM deberá utilizar esa misma partición si se conserva la preparación actual.
 
 ## Métricas
 
@@ -78,12 +82,18 @@ Las fechas exactas, cantidades de semanas y cobertura de eventos se determinará
 | :--- | :--- | :--- |
 | MAE | Principal para comparar configuraciones | Error absoluto promedio por semana y ubicación, en USD; menor es mejor |
 | RMSE | Complementaria | Da mayor peso a los errores grandes y se expresa en USD; menor es mejor |
-| WAPE | Apoyo comercial | `100 × suma(abs(predicción - real)) / suma(abs(real))`, si el denominador es positivo |
+| R² | Complementaria | Compara el error cuadrático con el de usar la media observada del bloque; mayor es mejor y puede ser negativo |
 | Sesgo medio | Control de dirección | `promedio(predicción - real)`; positivo sobreestima, negativo subestima |
 
-MAPE no se recomienda como criterio principal cuando hay semanas con ventas cero o cercanas a cero.
+El conjunto de métricas elegido para la presentación es **MAE, RMSE y R²**, con sesgo como control auxiliar.
 
-R² puede reportarse como indicador secundario; puede ser negativo y no equivale a un porcentaje de exactitud.
+WAPE se retiró de sus textos y notas por indicación del usuario.
+
+R² vale 1 para predicción perfecta y 0 para el error cuadrático de usar la media del bloque; valores negativos indican peor resultado que esa referencia.
+
+La media del bloque de prueba es una referencia calculada a posteriori; R² no equivale a un porcentaje de aciertos.
+
+MAPE no se recomienda como criterio principal cuando hay semanas con ventas cero o cercanas a cero.
 
 Las comparaciones requieren las mismas semanas y ubicaciones; las métricas de ventanas anteriores no se trasladan al nuevo alcance.
 
@@ -132,6 +142,10 @@ Los modelos de esta propuesta **todavía deben implementarse y evaluarse con el 
 Los experimentos históricos conservan su protocolo original como registro; sus resultados no constituyen una evaluación del nuevo alcance.
 
 ## Fuentes metodológicas
+
+- [LightGBM: documentación oficial de LGBMRegressor](https://lightgbm.readthedocs.io/en/stable/pythonapi/lightgbm.LGBMRegressor.html).
+
+- [R²: documentación oficial y límites de interpretación](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html).
 
 - [GradientBoostingRegressor: documentación oficial](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingRegressor.html).
 

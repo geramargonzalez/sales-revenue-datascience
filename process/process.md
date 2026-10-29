@@ -889,6 +889,38 @@ Las escrituras de la ejecución completa se aislaron en una carpeta temporal y l
 
 - No se modificaron los cambios del usuario en el notebook ni se alteraron las transacciones.
 
+### Fase 34: Actualizar la Presentación con R² y LightGBM (Aplicado por **gera**, 29/10/2026)
+
+- [x] **Cambio solicitado:** se incorporó R² junto con MAE y RMSE y se eliminó WAPE de todos los textos y notas de la [presentación](https://docs.google.com/presentation/d/1GeRsyai0zNqn4K9PUGFC437R4Mi5RwFBPkj15_NAQlo/edit).
+
+  El sesgo se conserva como control auxiliar, respetando la fila que seguía en la diapositiva del usuario.
+
+- [x] **Modelo de boosting:** se unificaron objetivo, fichas, pies y próximos pasos con **LightGBM**, mediante `lightgbm.LGBMRegressor`.
+
+  El nombre se verificó en la documentación oficial y coincide con la etiqueta LightGBM que el usuario ya había incorporado.
+
+- [x] **Interpretación de R²:** se explica la comparación con la media, que 1 es ideal, que puede ser negativo y que no representa un porcentaje de aciertos.
+
+- [x] **Trazabilidad:** se corrigieron las notas que todavía proponían `GradientBoostingRegressor` y se distinguieron sus resultados históricos de la futura evaluación de LightGBM.
+
+  Se actualizó [el documento de alcance](alcance_modelado_2022_2025.md) con la decisión vigente, manteniendo el registro histórico anterior.
+
+- [x] **Verificación:** se comprobó el mismo orden de las 12 diapositivas, la ausencia de WAPE en textos y notas y la coherencia de R² y LightGBM en las cinco diapositivas afectadas.
+
+  Las otras siete diapositivas conservaron exactamente sus objetos y notas; las cifras descriptivas del recorte no cambiaron.
+
+  El verificador estructural no encontró incidencias; se exportaron las 12 páginas a PDF y se inspeccionaron visualmente, incluido el ajuste del acento dorado de la nueva fila R².
+
+**Incidencias y resolución:** el usuario había retirado la fila de WAPE, pero quedaban menciones en pies y notas, y el pie del modelo todavía nombraba el estimador anterior; se corrigieron esas referencias sin reponer la fila eliminada.
+
+**Control del repositorio:** se consultó `process/ideas.md` y se confirmó que `main` estaba incorporado; el registro se preparó en una carpeta de trabajo aislada de `gera`, conservando la rama `camilo` del directorio original.
+
+No se modificaron el notebook ni las dependencias, no se entrenó LightGBM y no se recalcularon las transacciones o el balance contable de **USD 287.699.163,91**.
+
+**Próximos pasos:** implementar LightGBM y evaluarlo junto con la lineal y la referencia en las mismas semanas, registrando MAE, RMSE, R² y el sesgo auxiliar.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
