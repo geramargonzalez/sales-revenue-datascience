@@ -921,6 +921,28 @@ No se modificaron el notebook ni las dependencias, no se entrenó LightGBM y no 
 
 ---
 
+### Fase 35: Proponer Descriptivos de Columnas para la Diapositiva de Datos (Aplicado por **gera**, 29/10/2026)
+
+- [x] **Revisión solicitada:** se calcularon descriptivos sencillos de las columnas del recorte 2022–2025 para proponerlos antes de agregar contenido a la presentación.
+
+- [x] **Resultados:** la mediana de `net_sales` en 1.968.539 líneas de venta es **USD 91,80**; las 134.801 líneas de devolución representan **6,4089 %** de las 2.103.340 líneas del período.
+
+  `net_sales` no contiene nulos y se confirmó que `item_season`, `promo_name` y `promo_amt` están completamente vacías dentro de ese recorte.
+
+- [x] **Interpretación:** se distingue una línea de venta de un ticket y el porcentaje de líneas devueltas de una tasa sobre importes.
+
+- [x] **Validación:** lectura del CSV por bloques con las exclusiones contables habituales, sin excluir clientes anónimos; se reconciliaron las 2.103.340 líneas y **USD 242.277.286,76** del recorte y las 2.435.854 líneas y **USD 287.699.163,91** de la base completa.
+
+  Se registraron los descriptivos en [el documento de alcance](alcance_modelado_2022_2025.md), se consultó `process/ideas.md` y se confirmó que `gera` ya incorporaba `main`.
+
+**Incidencias y resolución:** la solicitud se refiere a estadísticas exploratorias de columnas; se sustituyó la propuesta inicial de describir la agregación semanal por cifras concretas del período correcto.
+
+No se modificaron la presentación, el notebook ni el CSV.
+
+**Próximos pasos:** esperar la elección del usuario antes de añadir uno o dos descriptivos a la diapositiva 3.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |

@@ -36,6 +36,21 @@ Los descriptivos se recalcularon en una lectura por bloques de `dataset/transact
 
 ## Variables y horizonte
 
+### Descriptivos complementarios propuestos para la presentación
+
+Revisión del 29/10/2026 sobre las 2.103.340 líneas del recorte 2022–2025, después de las exclusiones contables habituales.
+
+| Columna o control | Resultado | Alcance de la cifra |
+| :--- | ---: | :--- |
+| `net_sales`: mediana por línea de venta | USD 91,80 | 1.968.539 líneas con `is_return == False`; no es ticket promedio |
+| `is_return`: líneas de devolución | 134.801 (6,4089 %) | Porcentaje de las 2.103.340 líneas; no es una tasa sobre importes |
+| `net_sales`: valores nulos | 0 | Todas las líneas del recorte |
+| `item_season`, `promo_name` y `promo_amt` | 100 % nulas | Tres columnas excluidas del esquema depurado de 37 columnas |
+
+Estos datos se calcularon en una lectura por bloques del CSV original, conservando devoluciones y clientes anónimos, sin modificar archivos de datos ni el notebook.
+
+La presentación no se actualizó: son propuestas pendientes de la elección del usuario.
+
 La unidad del modelo es una semana completa de domingo a sábado por ubicación.
 
 | Rol | Variables |
