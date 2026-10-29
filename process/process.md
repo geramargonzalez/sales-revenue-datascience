@@ -943,6 +943,30 @@ No se modificaron la presentación, el notebook ni el CSV.
 
 ---
 
+### Fase 36: Incorporar Descriptivos de Columnas a la Diapositiva 3 (Aplicado por **gera**, 29/10/2026)
+
+- [x] **Cambio aprobado:** se incorporaron a «03 · Datos y preparación» los tres descriptivos calculados en la Fase 35: **USD 91,80** de mediana por línea de venta, **6,4 %** de líneas de devolución y **3 columnas** completamente vacías excluidas.
+
+- [x] **Diseño:** se agregó una franja de tres indicadores usando los cuadros y estilos nativos de la diapositiva, conservando los totales, la tipografía y los motivos de joyería.
+
+- [x] **Trazabilidad:** se ampliaron las notas con las 1.968.539 líneas de venta, las 134.801 de devolución sobre 2.103.340 líneas del recorte y los nombres de las tres columnas vacías.
+
+  Se distingue la mediana por línea del ticket promedio y la proporción de líneas de devolución de una tasa sobre importes.
+
+- [x] **Verificación:** lectura estructural de las 12 diapositivas, cifras y orden conservados, comprobación automática sin incidencias, exportación a PDF e inspección visual de la diapositiva 3 sin recortes.
+
+  Las otras 11 diapositivas conservan exactamente sus objetos y notas y su representación visual es idéntica a la última revisión.
+
+**Incidencias:** no se encontraron bloqueos ni fue necesario modificar las cifras verificadas en la Fase 35.
+
+**Control del repositorio:** se consultó `process/ideas.md` y se confirmó que `gera` ya incorporaba `main`; no se modificaron el CSV ni el notebook ni se reentrenaron modelos.
+
+El balance de **USD 287.699.163,91** corresponde al control validado en la Fase 35; no se recalculó durante esta edición de la presentación.
+
+**Próximos pasos:** mantener los denominadores y el período 2022–2025 cuando se actualicen estos descriptivos.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |

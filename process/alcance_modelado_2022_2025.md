@@ -36,7 +36,7 @@ Los descriptivos se recalcularon en una lectura por bloques de `dataset/transact
 
 ## Variables y horizonte
 
-### Descriptivos complementarios propuestos para la presentación
+### Descriptivos complementarios de la presentación
 
 Revisión del 29/10/2026 sobre las 2.103.340 líneas del recorte 2022–2025, después de las exclusiones contables habituales.
 
@@ -49,7 +49,9 @@ Revisión del 29/10/2026 sobre las 2.103.340 líneas del recorte 2022–2025, de
 
 Estos datos se calcularon en una lectura por bloques del CSV original, conservando devoluciones y clientes anónimos, sin modificar archivos de datos ni el notebook.
 
-La presentación no se actualizó: son propuestas pendientes de la elección del usuario.
+El usuario aprobó incorporar a la diapositiva 3 la mediana de USD 91,80 por línea de venta, el 6,4 % de líneas de devolución y las tres columnas completamente vacías excluidas del esquema.
+
+Los tres descriptivos se incorporaron el 29/10/2026, con sus definiciones y denominadores completos en las notas del presentador.
 
 La unidad del modelo es una semana completa de domingo a sábado por ubicación.
 
