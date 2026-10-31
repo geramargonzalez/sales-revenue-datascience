@@ -1021,6 +1021,28 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 39: Exclusión del Año 2026 en el Análisis Exploratorio (EDA) (Aplicado por **gera**, 31/10/2026)
+
+- [x] **Alcance temporal 2022–2025 en la sección 4.0:** se definió la vista analítica temporal `df_eda` (`date >= '2022-01-01'` y `date < '2026-01-01'`) con **2.103.340 líneas** y **USD 242.277.286,76** de `net_sales`, sin modificar la base contable consolidada `df` (**2.435.854 líneas**, **37 columnas**, `net_sales = $287,699,163.91 USD`).
+
+  Se reportan explícitamente las **332.514 líneas (13,65 %)** y **USD 45.421.877,15 (15,79 % de `net_sales`)** de 2026 que quedan fuera de la vista exploratoria.
+
+- [x] **Actualización integral de tablas, gráficos y narrativas (secciones 4.1 a 4.8):** se recalcularon todas las vistas derivadas (`ventas`, `devoluciones`, `operativa`, `tickets_venta`, `clientes_identificados`), tablas descriptivas, correlaciones, series temporales, indicadores por canal y tienda, devoluciones, catálogo y clientes exclusivamente sobre los cuatro años completos 2022–2025.
+
+  Se actualizaron los títulos, etiquetas y celdas markdown de interpretación para reflejar el período 2022–2025 y los cuatro años completos, eliminando el corte parcial de 38 semanas de 2026 y la tienda de Seattle (cuya apertura ocurre en 2026).
+
+  En la sección 4.8 se mantuvo la exclusión temporal de `CLIENTE_ANONIMO` únicamente para las métricas por cliente, reportando el **2,83 % de las filas** y el **0,83 % de `net_sales`** excluidos dentro del período 2022–2025.
+
+- [x] **Incidencias resueltas:** se corrigió un carácter erróneo (`ß`) introducido en la celda 38 (`eda_hipotesis_metricas`) que provocaba `SyntaxError`, y se restauraron los metadatos del notebook al kernel `sales-revenue-env` (Python 3.11.16) para evitar el fallo de `boxplot(..., orientation='horizontal')` bajo Python 3.9.
+
+  Se preservó la serie `fecha` sobre el `df` completo para mantener la compatibilidad con el Bloque 6 de modelado, utilizando `fecha_eda` dentro del Bloque 4.
+
+- [x] **Verificación y cuadre contable:** se ejecutó el notebook completo de principio a fin en `.venv` (`jupyter-execute --inplace --kernel_name=sales-revenue-env`) con 0 errores en las 89 celdas, preservando intactos los identificadores y el orden de las celdas y confirmando al cierre `df.shape == (2_435_854, 37)` y `net_sales == $287,699,163.91 USD`.
+
+**Próximos pasos:** mantener sincronizado el alcance 2022–2025 entre el EDA, el modelado predictivo y la presentación ejecutiva.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
