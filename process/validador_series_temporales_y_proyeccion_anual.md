@@ -213,3 +213,4 @@ Al observar que la venta real acumulada de 2025 en `Williamsburg` fue de **`$3,6
    En 2025 esa ponderación coincidió casi exactamente con la tasa media de crecimiento anual de `Williamsburg`, dejando el saldo neto de las 52 semanas del modelo `Lineal` en `-0.16%`.
 
    Sin embargo, el modelo **`SARX + Fourier`** —aunque cierra el total anual con una diferencia de **`+2.26%`**— es **superior en todas las métricas de ajuste real**: reduce el `MAE` semanal en `-$613.57 USD`, reduce el `MAE` mensual en `-$5,575.25 USD` (`-15.4%`) y mejora el $R^2$ tanto semanal (`0.62` vs. `0.56`) como mensual (`0.73` vs. `0.69`).
+
