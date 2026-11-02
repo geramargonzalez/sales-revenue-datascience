@@ -1099,6 +1099,23 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 42: Evaluación del Modelo con Williamsburg en 2018–2025 (Aplicado por **gera**, 02/11/2026)
+
+- [x] **Cambio de ubicación en el Bloque 6.1:** se configuró `UBICACION_RL = 'Williamsburg'` en la celda 78 (`rl_preparacion`), tienda con historial continuo desde el 02/01/2018.
+
+  En el período 2018–2025, `Williamsburg` reúne **372.281 líneas** y alcanza **348 semanas utilizables** (**278 semanas de entrenamiento** del 19/01/2019 al 17/08/2024 y **70 semanas de prueba** del 24/08/2024 al 27/12/2025, abarcando dos cierres de cuarto trimestre completos).
+
+- [x] **Resultados de evaluación en prueba (70 semanas):**
+  - `LinearRegression`: `MAE = $12,756.07 USD`, `RMSE = $18,655.71 USD`, `R² = 0.41`.
+  - `GradientBoostingRegressor`: `MAE = $13,711.67 USD`, `RMSE = $19,493.42 USD`, `R² = 0.35`.
+  - Referencia anual (`venta_anio_anterior`): `MAE = $19,876.54 USD`, `RMSE = $24,747.34 USD`, `R² = -0.04`.
+
+- [x] **Verificación y control contable:** se ejecutó el notebook completo en `.venv` (`sales-revenue-env`) con 0 errores en las 89 celdas, preservando intacta la base contable `df` (`3,481,156` filas, `37` columnas y `net_sales = $392,170,429.26 USD`).
+
+**Próximos pasos:** definir si se conserva `Williamsburg` como ejemplo principal de tienda física o si se amplía a un panel multi-tienda.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
