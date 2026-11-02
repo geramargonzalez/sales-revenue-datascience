@@ -1116,6 +1116,23 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 43: Incorporación de Indicadores de Tendencia y Calendario Comercial en el Modelo (Aplicado por **gera**, 02/11/2026)
+
+- [x] **Nuevos indicadores históricos y de calendario en el Bloque 6:** se amplió la matriz `X` en la celda 78 (`rl_preparacion`) con tres antecedentes de tendencia/estacionalidad (`venta_semana_anterior`, `media_movil_4s`, `venta_hace_52_semanas`) y seis indicadores específicos de eventos comerciales (`es_black_friday`, `es_previa_navidad`, `es_cierre_navidad`, `es_san_valentin`, `es_dia_madre`, `es_post_evento`).
+
+  El rezago exacto de 52 semanas (`364` días antes) evita el desfase de una semana en diciembre provocado por el año minorista 2024 de 53 semanas, mientras que `es_previa_navidad`, `es_cierre_navidad` y `es_post_evento` separan el pico máximo previo al 24 de diciembre de la caída posterior a cada feriado.
+
+- [x] **Impacto en las métricas de prueba (`Williamsburg`, 69 semanas de prueba del 07/09/2024 al 27/12/2025 sobre 275 de entrenamiento):**
+  - `LinearRegression`: `MAE = $10,395.74 USD` (`-18.5 %` respecto a la Fase 42), `RMSE = $14,449.47 USD` (`-$4,206.24 USD`), **`R² = 0.66`** (sube desde `0.41`).
+  - `GradientBoostingRegressor`: `MAE = $12,833.26 USD`, `RMSE = $17,670.96 USD` (`-$1,822.46 USD`), **`R² = 0.48`** (sube desde `0.35`).
+  - Referencia anual (`venta_hace_52_semanas`): `MAE = $16,873.40 USD`, `RMSE = $20,821.99 USD`, `R² = 0.28` (sube desde `-0.04` al corregir el desfase de 53 semanas).
+
+- [x] **Verificación y control contable:** se ejecutó el notebook completo de principio a fin en `.venv` (`sales-revenue-env`) con 0 errores en las 89 celdas, preservando intactos los identificadores y el orden de las celdas y confirmando al cierre `df.shape == (3_481_156, 37)` y `net_sales == $392,170,429.26 USD`.
+
+**Próximos pasos:** evaluar si se incorporan estos nuevos indicadores y resultados en la presentación ejecutiva o se extienden al resto de las tiendas operativas.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
