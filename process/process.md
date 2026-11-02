@@ -1185,6 +1185,18 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 47: Creación del Documento Validador de Series Temporales y Proyección Anual (Aplicado por **gera**, 02/11/2026)
+
+- [x] **Documento validador en `process/`:** se creó [`validador_series_temporales_y_proyeccion_anual.md`](validador_series_temporales_y_proyeccion_anual.md) con el respaldo metodológico y de auditoría de los modelos semanales y anuales implementados en [`sales-revenue-jewery.ipynb`](../sales-revenue-jewery.ipynb).
+
+- [x] **Contenido documentado:**
+  - Control contable de partida y validación estadística de series temporales en el EDA (`ly_date_key`, $F_T = 0.664$, $F_S = 0.721$, ACF y PACF).
+  - Catálogo completo de variables utilizadas por cada modelo (`VARIABLES_RL` de 9 variables, `VARIABLES_SERIES_RL` de 18 variables, univariados y `VARIABLES_ANUAL_RL` / `VARIABLES_ANUAL_SERIES` de 8 y 12 variables).
+  - Conteo exacto de registros de entrenamiento y prueba en el esquema semanal (`275` / `69` semanas y los 5 pliegues de `TimeSeriesSplit`) y en el esquema anual (`241` semanas de 2020–2024 frente a las `52` semanas / `12` meses de 2025).
+  - Procedimiento en 6 pasos de la proyección anual directa a 52 semanas, tabla comparativa frente al pronóstico semanal táctico y análisis estadístico de ausencia de *overfitting* y de compensación de errores semanales de signo opuesto al agregar al nivel mensual y anual.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
