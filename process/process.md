@@ -1158,7 +1158,30 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 - [x] Se ejecutó la celda completa con datos sintéticos en Matplotlib 3.9.4 y en el entorno virtual del proyecto con Matplotlib 3.11.1; ambas ejecuciones finalizaron sin errores. La versión 3.11 emite una advertencia de obsolescencia para `vert`.
 
-- [ ] Próximo paso: volver a ejecutar la celda en el kernel activo; se recomienda seleccionar `sales-revenue-env` para utilizar el entorno previsto del proyecto.
+- [x] Próximo paso: volver a ejecutar la celda en el kernel activo; se recomienda seleccionar `sales-revenue-env` para utilizar el entorno previsto del proyecto.
+
+---
+
+### Fase 46: Incorporación Integral de Series Temporales en EDA, Ingeniería de Variables y Modelado (Aplicado por **gera**, 02/11/2026)
+
+- [x] **Series temporales en el Análisis Exploratorio (Sección 4.4, celdas 54, 59 y 60):**
+  - **Crecimiento interanual homologado con `ly_date_key` (2019–2025):** se cruzó cada fecha de `df_eda` con su par equivalente del año previo (`cobertura_ly_pct` de `98.9 %` a `100.0 %`), obteniendo variaciones de `+23.7 %` (2019), `+0.8 %` (2020), `+61.2 %` (2021), `+30.7 %` (2022), `+13.3 %` (2023), `+12.8 %` (2024) y `+14.0 %` (2025).
+  - **Descomposición semanal (416 semanas completas 2018–2025):** separación en tendencia (media móvil simétrica $2 \times 52$), estacionalidad de 52 semanas y residuo, cuantificando una fuerza de tendencia $F_T = 0.664$ y una fuerza estacional $F_S = 0.721$.
+  - **Funciones de Autocorrelación (ACF) y Autocorrelación Parcial (PACF) hasta 56 semanas (recursión de Durbin-Levinson):** se verificó significancia estadística al 95 % ($\pm 0.096$) en $t-1$ ($\text{ACF} = 0.823$, $\text{PACF} = 0.823$), $t-4$ ($\text{ACF} = 0.405$) y $t-52$ ($\text{ACF} = 0.720$, $\text{PACF} = 0.320$).
+
+- [x] **Ingeniería de características temporales en el Bloque 6.1 (`semanal_rl`, celda 81):**
+  - Se conservó intacto `VARIABLES_RL` y se amplió a 18 predictores en `VARIABLES_SERIES_RL` incorporando ventanas móviles multi-escala sin fuga de datos (`media_movil_8s`, `media_movil_12s`), volatilidad reciente (`volatilidad_4s`), impulso de corto frente a mediano plazo (`impulso_4s_12s`) y armónicos de Fourier de 52 semanas (`fourier_sin_1`, `fourier_cos_1`, `fourier_sin_2`, `fourier_cos_2`).
+
+- [x] **Modelos de series temporales y validación cruzada temporal (`TimeSeriesSplit`) en el Bloque 6.4 (celdas 86, 87 y 89):**
+  - **SARX + Fourier (`StandardScaler` + `Ridge` ajustados solo en entrenamiento):** alcanza el mejor resultado en las 69 semanas de prueba de `Williamsburg` con **`MAE = $10,332.94 USD`**, **`RMSE = $13,691.94 USD`** (`-$757.53 USD` frente a `LinearRegression`) y **`R² = 0.69`** (sube desde `0.66`).
+  - **Holt-Winters aditivo ($m = 52$ semanas, calibrado en entrenamiento con `scipy.optimize.minimize`):** obtiene `MAE = $14,468.14 USD`, `RMSE = $20,474.08 USD` y `R² = 0.31` ($\alpha = 0.379, \beta = 0.0019, \gamma = 0.617$), superando a la referencia anual (`R² = 0.28`) pero evidenciando la ventaja de incluir variables exógenas de feriados comerciales.
+  - **Validación cruzada temporal (`TimeSeriesSplit` de 5 pliegues cronológicos de 40 semanas):** **SARX + Fourier** lidera también en validación cruzada con `MAE medio = $12,379.86 USD` (`Desv. MAE = $3,025.79 USD`), `RMSE medio = $17,422.07 USD` y `R² medio = 0.36` (frente a `$12,533.12 USD` y `R² = 0.34` de `LinearRegression`).
+
+- [x] **Proyección de año completo 2025 (52 semanas) con armónicos de Fourier en el Bloque 6.5 (celdas 90, 91 y 92):**
+  - **Horizonte semanal (52 semanas de 2025):** **SARX + Fourier** reduce el `MAE` de `$12,696.52 USD` a **`$12,082.95 USD`**, el `RMSE` de `$16,674.98 USD` a **`$15,519.89 USD`** y eleva el **`R²` de `0.56` a `0.62`**.
+  - **Horizonte mensual agregado (12 meses de 2025):** **SARX + Fourier** reduce el `MAE` de `$36,174.14 USD` a **`$30,598.89 USD`** (`-15.4 %`), el `RMSE` de `$45,520.54 USD` a **`$42,409.18 USD`** y eleva el **`R²` de `0.69` a `0.73`**.
+
+- [x] **Verificación y control contable:** ejecución íntegra de las 95 celdas en `.venv` (`sales-revenue-env`, Python 3.11.16) con 0 errores y validación final en la celda 94 (`df.shape == (3_481_156, 37)` y `net_sales == $392,170,429.26 USD`).
 
 ---
 
@@ -1202,9 +1225,9 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 - [ ] **Modelado y MLOps:**
   - Ampliar la evaluación del [alcance 2022–2025](alcance_modelado_2022_2025.md) a más ventanas y ubicaciones, comparando MAE y RMSE en las mismas semanas.
   - Analizar los errores de regresión lineal y boosting por ubicación, semana y evento comercial.
-  - Evaluar validación temporal con ventanas sucesivas antes de ampliar la búsqueda de modelos.
-  - Comparar ambos modelos con la referencia estacional en ventanas temporales adicionales.
-- [ ] **Análisis del EDA aún no realizados:** crecimiento interanual con `ly_date_key`, descomposición y autocorrelación de la serie semanal, cohortes de clientes y Pareto de artículos.
+  - [x] Evaluar validación temporal con ventanas sucesivas antes de ampliar la búsqueda de modelos (`TimeSeriesSplit` de 5 pliegues en Fase 46).
+  - [x] Comparar los modelos con la referencia estacional en ventanas temporales adicionales.
+- [ ] **Análisis del EDA aún no realizados:** cohortes de clientes y Pareto de artículos (crecimiento interanual con `ly_date_key` y descomposición/autocorrelación semanal completados en Fase 46).
 - [ ] **Decisiones pendientes:**
   - Corregir o no `retail_calendar_guide.md` (el año minorista de este dataset comienza en enero).
   - Tratamiento de las líneas con costo cero antes de analizar margen.
