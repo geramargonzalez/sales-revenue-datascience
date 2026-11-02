@@ -17,6 +17,11 @@ Due to dataset size, the extraction is partitioned into two files. Both files sh
 | `transactionRevenue_combined.csv` | 2022-01-02 | 2026-08-31 | 2,437,140 |
 | `utecFinalTransactionRevenue.csv` | 2023-01-01 | 2026-09-30 | 1,984,983 |
 | **`transactionRevenue_combined_2022-0926.csv`** (loaded by the notebook) | **2022-01-02** | **2026-09-30** | **2,466,356** |
+| `transactionRevenue_2018-2021.csv` | 2018-01-02 | 2021-12-31 | 1,045,686 |
+| `transactionRevenue_combined_2018-0926.csv` | 2018-01-02 | 2026-09-30 | 3,512,042 |
+
+> [!NOTE]
+> The `transaction_revenue` BigQuery table only holds data from 2023 onward. The 2018–2021 history is extracted from its source table `flat_SalesReceipt` with the same column mapping as `documentation/query.sql`, using [`scripts/extraer_historico_bigquery.py`](scripts/extraer_historico_bigquery.py) (requires `gcloud auth application-default login` with an account that has access to `migrationdatanetsuite`).
 
 > [!TIP]
 > The single combined dataset `transactionRevenue_combined.csv` can be regenerated at any time using the script [`scripts/merge_dataset.py`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/scripts/merge_dataset.py).

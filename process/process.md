@@ -1041,6 +1041,38 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 **Próximos pasos:** mantener sincronizado el alcance 2022–2025 entre el EDA, el modelado predictivo y la presentación ejecutiva.
 
+### Fase 40: Incorporación del Histórico 2018–2021 desde BigQuery (Aplicado por **gera**, 02/11/2026)
+
+- [x] **Origen de los datos:** la tabla `migrationdatanetsuite.bigQueryToNetsuite.transaction_revenue` solo contiene datos desde 2023, por lo que el histórico se extrajo de su tabla de origen `flat_SalesReceipt`, que cubre desde noviembre de 2015.
+
+  Se aplicó el mismo mapeo de 40 columnas de `documentation/query.sql`; los conteos de `flat_SalesReceipt` coinciden exactamente con `transaction_revenue` en 2023, 2024 y 2025.
+
+- [x] **Script de extracción:** se creó [`scripts/extraer_historico_bigquery.py`](../scripts/extraer_historico_bigquery.py), que recibe un rango de fechas y escribe el CSV con el mismo formato que la exportación existente (booleanos en minúscula, decimales sin ceros sobrantes, nulos vacíos).
+
+  Se validó extrayendo el 15/03/2022 y comparando contra el CSV actual: encabezado idéntico, mismas 814 filas y mismos valores en todas las columnas salvo `markdown`, que BigQuery recalculó después de la extracción original (ver decisión pendiente sobre `markdown` de 2022).
+
+- [x] **Archivos generados en `dataset/` (no versionados):**
+  - `transactionRevenue_2018-2021.csv`: **1.045.686 líneas** entre el 02/01/2018 y el 31/12/2021, con **USD 104.474.905,95** de `net_sales` brutas.
+  - `transactionRevenue_combined_2018-0926.csv`: unión del tramo 2018–2021 con `transactionRevenue_combined_2022-0926.csv`, con **3.512.042 líneas** y **USD 402.328.754,00** de `net_sales` brutas.
+
+- [x] **Verificación y cuadre contable:**
+
+  | Año | Líneas | `net_sales` (USD) |
+  | :--- | ---: | ---: |
+  | 2018 | 172.037 | 19.095.350,79 |
+  | 2019 | 231.816 | 23.537.309,12 |
+  | 2020 | 262.023 | 23.764.549,88 |
+  | 2021 | 379.810 | 38.077.696,16 |
+  | 2022–2026 (sin cambios) | 2.466.356 | 297.853.848,05 |
+
+  Los `line_id` son únicos en el archivo combinado y ningún `receipt_id` aparece en ambos tramos.
+
+  El tramo 2022–2026 conserva exactamente las líneas y las ventas netas brutas del archivo anterior; el notebook no se modificó y sigue cargando `transactionRevenue_combined_2022-0926.csv`, por lo que el balance `net_sales = $287,699,163.91 USD` tras la limpieza no cambia.
+
+- [x] **Incidencia de acceso:** la credencial de `gcloud` registrada como `ryan@netsuiteconsultingrp.com` devolvía tokens de otra cuenta y los nuevos inicios de sesión quedaban revocados de inmediato; la extracción se realizó con credenciales ADC (`gcloud auth application-default login`).
+
+**Próximos pasos:** decidir si el notebook pasa a cargar `transactionRevenue_combined_2018-0926.csv`, lo que exige recalcular el balance contable de referencia y revisar el alcance temporal del EDA y del modelado.
+
 ---
 
 ## 3. Problemas Encontrados y Resoluciones
