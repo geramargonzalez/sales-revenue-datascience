@@ -1133,6 +1133,23 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 44: Proyección de Año Completo (52 Semanas) en el Bloque 6.5 (Aplicado por **gera**, 02/11/2026)
+
+- [x] **Modelo directo a 52 semanas en la sección 6.5:** se incorporó en las celdas 85 (`rl_experimento_md`) y 86 (`rl_experimento`) la proyección simultánea de las **52 semanas de 2025** en `Williamsburg`, entrenando únicamente con datos hasta el cierre de 2024 y sin utilizar ventas observadas de 2025.
+
+  Para evitar el efecto bola de nieve de una proyección recursiva semana a semana, se utiliza `venta_52s_ajustada` (venta de hace 52 semanas ponderada por el pulso de cierre del año anterior), `media_movil_4s_hace_52s` y los seis indicadores de calendario comercial.
+
+- [x] **Resultados sobre el año 2025 completo (`Williamsburg`):**
+  - **Total anual 2025:** venta real de **`$3,679,703.90 USD`** frente a **`$3,673,816.21 USD`** proyectados (**`-0.16 %`** de diferencia acumulada en el año).
+  - **Horizonte semanal (`52` semanas):** `MAE = $12,697.10 USD`, `RMSE = $16,675.29 USD`, **`R² = 0.56`**.
+  - **Horizonte mensual agregado (`12` meses):** `MAE = $36,174.16 USD`, `RMSE = $42,272.24 USD`, **`R² = 0.69`**.
+
+- [x] **Verificación y control contable:** ejecución completa en `.venv` (`sales-revenue-env`) con 0 errores en las 89 celdas, preservando intactos los identificadores y confirmando al cierre `df.shape == (3_481_156, 37)` y `net_sales == $392,170,429.26 USD`.
+
+**Próximos pasos:** decidir si se incorpora la lámina o comparativa de proyección anual (52 semanas / 12 meses) en la presentación ejecutiva.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
