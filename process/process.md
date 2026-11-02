@@ -1075,6 +1075,30 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 41: Actualización Integral del Notebook al Histórico 2018–2026 y Alcance 2018–2025 (Aplicado por **gera**, 02/11/2026)
+
+- [x] **Carga, contrato y limpieza contable (Bloques 1 a 3):** se actualizó [`sales-revenue-jewery.ipynb`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/sales-revenue-jewery.ipynb) para cargar `dataset/transactionRevenue_combined_2018-0926.csv` (**3.512.042 filas** y **40 columnas**, del 02/01/2018 al 30/09/2026).
+
+  Se incorporó la categoría `'Deposit'` (presente en el tramo 2018–2021) a `tipos_transaccion_esperados` en el contrato de carga y en el mapeo categórico del EDA.
+
+  Tras excluir **30.622** filas con `rpt_ignored == True` y **264** anulaciones (`Reversal`/`Reversed`), la base contable consolidada `df` conserva **3.481.156 filas**, **37 columnas** y **`net_sales = $392,170,429.26 USD`** (**USD 104.471.265,35** de 2018–2021 más **USD 287.699.163,91** intactos de 2022–2026).
+
+- [x] **Análisis Exploratorio de Datos sobre 2018–2025 (Bloque 4):** se redefinió la vista `df_eda` (`date >= '2018-01-01'` y `date < '2026-01-01'`), reuniendo **3.148.642 líneas** y **USD 346.748.552,11** de ventas netas en los ocho años calendario completos (excluyendo las **332.514 líneas** y **USD 45.421.877,15** de 2026 sin alterar `df`).
+
+  Se recalcularon y actualizaron las tablas, gráficos, paletas de ocho años (2018–2025) y síntesis interpretativas en todas las secciones (4.0 a 4.8), manteniendo la exclusión temporal de `CLIENTE_ANONIMO` únicamente en la sección 4.8 (**2,88 %** de las filas y **0,78 %** de `net_sales` del período).
+
+- [x] **Preparación y modelado con mayor historia en 2018–2025 (Bloques 5 y 6):** al ampliar la ventana a `2018–2025`, `SOHO` pasa de 288.494 a **333.848 líneas** y de 155 a **220 semanas utilizables** (**176 semanas de entrenamiento** del 23/01/2021 al 22/02/2025 y **44 semanas de prueba** del 01/03/2025 al 27/12/2025).
+
+  Con más semanas de entrenamiento, el error en prueba de `SOHO` se reduce tanto en `LinearRegression` (`MAE = $15,123.17`, `RMSE = $18,635.74`, `R² = 0.21`) como en `GradientBoostingRegressor` (`MAE = $16,463.72`, `RMSE = $21,195.09`, `R² = -0.02`) frente a la ventana anterior.
+
+- [x] **Incidencias resueltas:** en la celda 78 (`rl_preparacion`), el sábado `2022-01-01` (feriado de Año Nuevo y cierre de la semana minorista 52 de 2021) no tenía transacciones propias aunque la semana sí registró ventas del 26 al 31 de diciembre de 2021; se resolvió asignando la clave minorista semanal con `.resample('W-SAT').last()`.
+
+- [x] **Verificación y control de cierre:** se ejecutó el notebook completo en `.venv` (`sales-revenue-env`) con 0 errores en las 89 celdas, preservando su estructura e identificadores y validando en el Bloque 10 `df.shape == (3_481_156, 37)` y `net_sales == $392,170,429.26 USD`.
+
+**Próximos pasos:** evaluar si en el Bloque 6 se mantiene una ubicación configurable (`SOHO`, `Williamsburg` con 347 semanas o `Web Warehouse` con 361 semanas) o se pasa a un panel conjunto de todas las tiendas operativas.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
