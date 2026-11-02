@@ -1150,6 +1150,18 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 45: Compatibilidad del gráfico de caja (Aplicado por **gera**, 02/11/2026)
+
+- [x] Se sustituyó `orientation='horizontal'` por `vert=False` en la distribución financiera para permitir su ejecución con versiones de Matplotlib que no admiten `orientation`.
+
+- [x] El cambio afecta únicamente la representación del gráfico y no modifica las transacciones ni el cálculo de ventas netas.
+
+- [x] Se ejecutó la celda completa con datos sintéticos en Matplotlib 3.9.4 y en el entorno virtual del proyecto con Matplotlib 3.11.1; ambas ejecuciones finalizaron sin errores. La versión 3.11 emite una advertencia de obsolescencia para `vert`.
+
+- [ ] Próximo paso: volver a ejecutar la celda en el kernel activo; se recomienda seleccionar `sales-revenue-env` para utilizar el entorno previsto del proyecto.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
