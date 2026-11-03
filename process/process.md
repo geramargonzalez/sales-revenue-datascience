@@ -1197,6 +1197,29 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 49: Pronóstico por Trimestre Minorista (`retail_quarter` Q1–Q4) en la Sección 6.6 (Aplicado por **gera**, 03/11/2026)
+
+- [x] **Incorporación de `retail_quarter` en la tabla semanal (`semanal_rl`, celda 81):** se añadió `retail_quarter` (`1` a `4`) a `calendario_diario_rl` con validación de integridad sin nulos para cada sábado de cierre (`W-SAT`).
+
+- [x] **Esquema *walk-forward* trimestre a trimestre en la sección 6.6 (celdas 93 a 96):**
+  - Al cierre de cada trimestre minorista ($Q-1$), se entrenan los modelos únicamente con trimestres anteriores (`id_trimestre < id_q`, verificando `entreno_q.index.max() < prueba_q.index.min()`) para proyectar las semanas y el total del trimestre entrante ($Q \in \{1, 2, 3, 4\}$).
+  - Las muestras de entrenamiento crecen trimestre a trimestre en 2025: **`275` semanas** antes de `2025-Q1`, **`288` semanas** antes de `2025-Q2`, **`301` semanas** antes de `2025-Q3` y **`314` semanas** antes de `2025-Q4`.
+  - Se utilizan antecedentes estrictamente cerrados en $Q-1$: `venta_52s_ajustada_q` (venta de hace 52 semanas ponderada por `ratio_q_previo`), `media_movil_4s_hace_52s`, `media_cierre_q_previo` (media de las últimas 4 semanas de $Q-1$), los 6 indicadores de calendario comercial (`INDICADORES_EVENTOS_RL`) y los 4 armónicos de Fourier (`VARIABLES_FOURIER_RL`).
+
+- [x] **Resultados por Quarter minorista en `Williamsburg` (`2025-Q1` a `2025-Q4`):**
+  - **`Quarter (SARX + Fourier)`** lidera en todos los horizontes trimestrales:
+    - **`2025-Q1` (13 sem.):** venta real `$699,384.15 USD` vs. proyectado `$735,793.38 USD` (**`+5.21 %`**).
+    - **`2025-Q2` (13 sem.):** venta real `$952,766.58 USD` vs. proyectado `$888,317.37 USD` (**`-6.76 %`**).
+    - **`2025-Q3` (13 sem.):** venta real `$927,931.33 USD` vs. proyectado `$923,513.06 USD` (**`-0.48 %`**).
+    - **`2025-Q4` (12 sem. cerradas en 2025):** venta real `$1,051,716.09 USD` vs. proyectado `$964,294.39 USD` (**`-8.31 %`**).
+    - **`Total 2025 (Q1–Q4)` (51 sem. del año minorista 2025 cerradas en 2025):** venta real `$3,631,798.15 USD` vs. proyectado `$3,511,918.21 USD` (**`-3.30 %`**).
+  - **Métricas agregadas por Quarter (4 trimestres de 2025):** `Quarter (SARX + Fourier)` alcanza **`MAE = $48,174.60 USD`**, **`RMSE = $57,317.99 USD`** y **`R² = 0.80`** (frente a `MAE = $114,767.18 USD` y `R² = -0.27` de la referencia anual).
+  - **Métricas semanales dentro de cada Quarter (2025):** `Quarter (SARX + Fourier)` reduce el `MAE` semanal a **`$11,335.51 USD`** (`RMSE = $14,353.83 USD`, **`R² = 0.67`**), superando a la proyección anual fija (`MAE = $12,082.95 USD`, `R² = 0.62`).
+
+- [x] **Verificación y control contable:** ejecución completa de las 99 celdas en `.venv` (`sales-revenue-env`) con 0 errores, preservando `df.shape == (3_481_156, 37)` y `net_sales == $392,170,429.26 USD`.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |

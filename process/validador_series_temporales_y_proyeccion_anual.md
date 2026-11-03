@@ -214,3 +214,38 @@ Al observar que la venta real acumulada de 2025 en `Williamsburg` fue de **`$3,6
 
    Sin embargo, el modelo **`SARX + Fourier`** —aunque cierra el total anual con una diferencia de **`+2.26%`**— es **superior en todas las métricas de ajuste real**: reduce el `MAE` semanal en `-$613.57 USD`, reduce el `MAE` mensual en `-$5,575.25 USD` (`-15.4%`) y mejora el $R^2$ tanto semanal (`0.62` vs. `0.56`) como mensual (`0.73` vs. `0.69`).
 
+
+---
+
+## 7. Pronóstico al Inicio de Cada Trimestre Minorista (`retail_quarter` Q1–Q4, Sección 6.6)
+
+Además del pronóstico semanal táctico ($t+1$) y de la proyección anual estratégica al cierre del año anterior ($t+1 \dots t+52$), la sección 6.6 implementa un esquema intermedio de **pronóstico trimestral rodante (*walk-forward por quarter*)** sobre los trimestres minoristas (`retail_quarter` 1 a 4):
+
+1. **Protocolo de entrenamiento sin fuga de datos:**
+
+   Antes de comenzar cada trimestre $(A, Q)$, los modelos se entrenan exclusivamente con las semanas cerradas de los trimestres anteriores (`id_trimestre < id_q`):
+   - **`2025-Q1` (`13` semanas):** entrenado con **`275` semanas** (hasta el cierre de `2024-Q4`).
+   - **`2025-Q2` (`13` semanas):** entrenado con **`288` semanas** (hasta el cierre de `2025-Q1`).
+   - **`2025-Q3` (`13` semanas):** entrenado con **`301` semanas** (hasta el cierre de `2025-Q2`).
+   - **`2025-Q4` (`12` semanas cerradas en 2025):** entrenado con **`314` semanas** (hasta el cierre de `2025-Q3`).
+
+2. **Variables del modelo trimestral:**
+
+   - **`VARIABLES_QUARTER_RL` (`9` variables):** `venta_52s_ajustada_q`, `media_movil_4s_hace_52s`, `media_cierre_q_previo` y los `6` indicadores de `INDICADORES_EVENTOS_RL`.
+   - **`VARIABLES_QUARTER_SERIES` (`13` variables — `Quarter SARX + Fourier`):** las `9` variables anteriores más los `4` armónicos de `VARIABLES_FOURIER_RL`.
+
+3. **Resultados verificados por Quarter en `Williamsburg` (`2025-Q1` a `2025-Q4`):**
+
+   | Trimestre | Sem. | Sem. entreno | Venta real (USD) | Quarter SARX+Fourier (USD) | Error SARX+Fourier (%) | Quarter Lineal (USD) | Error Lineal (%) | Referencia anual (USD) | Error Ref. (%) |
+   | :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+   | **`2025-Q1`** | `13` | `275` | `$699,384.15` | `$735,793.38` | `+5.21%` | `$1,002,031.75` | `+43.27%` | `$926,416.08` | `+32.46%` |
+   | **`2025-Q2`** | `13` | `288` | `$952,766.58` | `$888,317.37` | `-6.76%` | `$801,336.76` | `-15.89%` | `$1,126,082.05` | `+18.19%` |
+   | **`2025-Q3`** | `13` | `301` | `$927,931.33` | `$923,513.06` | `-0.48%` | `$838,797.91` | `-9.61%` | `$984,203.26` | `+6.06%` |
+   | **`2025-Q4`** | `12` | `314` | `$1,051,716.09` | `$964,294.39` | `-8.31%` | `$975,879.20` | `-7.21%` | `$1,049,266.72` | `-0.23%` |
+   | **`Total 2025 (Q1–Q4)`** | `51` | `314` | **`$3,631,798.15`** | **`$3,511,918.21`** | **`-3.30%`** | `$3,618,045.62` | `-0.38%` | `$4,085,968.11` | `+12.51%` |
+
+4. **Síntesis de métricas de ajuste por Quarter:**
+
+   - **Totales por Quarter en 2025 (`4` trimestres):** `Quarter (SARX + Fourier)` alcanza **`MAE = $48,174.60 USD`**, **`RMSE = $57,317.99 USD`** y **`R² = 0.80`**.
+   - **Totales por Quarter en 2024–2025 (`8` trimestres):** `Quarter (SARX + Fourier)` logra **`MAE = $93,114.89 USD`**, **`RMSE = $108,998.68 USD`**, **`R² = 0.22`** y un sesgo acumulado de solo **`-0.76%`** en dos años.
+   - **Semanas dentro de cada Quarter en 2025 (`51` semanas):** `Quarter (SARX + Fourier)` reduce el error semanal a **`MAE = $11,335.51 USD`** (`RMSE = $14,353.83 USD`, **`R² = 0.67`**), mejorando el ajuste semanal de la proyección anual fija (`MAE = $12,082.95 USD`, `R² = 0.62`).
