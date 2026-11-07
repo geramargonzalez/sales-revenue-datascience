@@ -1197,6 +1197,18 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 48: Mapas Geográficos de Envíos Web en la Sección 4.8 (Aplicado por **gera**, 07/11/2026)
+
+- [x] **Reemplazo de gráficos de barras geográficos por mapas en la celda 78 (Sección 4.8):** se conservó el panel izquierdo de recurrencia de clientes (`axes[0]`) y se sustituyeron los dos paneles de barras horizontales (`axes[1]` y `axes[2]`) por representaciones cartográficas en `matplotlib`, sin añadir dependencias externas ni alterar la celda inicial de importaciones.
+
+- [x] **Mapa de importe web por gran región postal (`axes[1]`):** sobre la silueta continental de Estados Unidos se graficaron las 10 regiones postales (primer dígito del ZIP, `0` a `9`) con burbujas proporcionales a su participación sobre el importe web sin devoluciones con ZIP válido y resaltado en azul primario (`#1E3A8A`) para las tres regiones principales (`1 · NY, PA` con `25.4%`, `9 · Pacífico` con `24.0%` y `0 · Noreste` con `12.2%`).
+
+- [x] **Mapa de los 15 principales códigos postales web en Nueva York (`axes[2]`):** dado que los 15 códigos postales de mayor importe web pertenecen íntegramente a Manhattan y Brooklyn, se representaron los contornos de ambos distritos con las ubicaciones geográficas exactas de los 15 códigos ZIP, destacando `10013 SoHo ($3.5M)` y `11249 Williamsburg ($3.3M)`.
+
+- [x] **Verificación visual y contable:** se ejecutó la celda en `.venv` (`sales-revenue-env`) verificando tamaño mínimo de fuente de 9 puntos sin superposición de etiquetas y conservando intactos el conteo de filas (`3,481,156`), columnas (`37`), la exclusión temporal documentada de `CLIENTE_ANONIMO` solo en la vista por cliente y el balance contable (`net_sales = $392,170,429.26 USD`).
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
