@@ -1207,6 +1207,8 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 - [x] **Verificación visual y contable:** se ejecutó la celda en `.venv` (`sales-revenue-env`) verificando tamaño mínimo de fuente de 9 puntos sin superposición de etiquetas y conservando intactos el conteo de filas (`3,481,156`), columnas (`37`), la exclusión temporal documentada de `CLIENTE_ANONIMO` solo en la vista por cliente y el balance contable (`net_sales = $392,170,429.26 USD`).
 
+- [x] **Corrección de salto de línea en cadena literal (09/11/2026):** se corrigió el salto de línea no escapado en `ax.annotate(f'{etiq}\n({pct:.1f}%)', ...)` de la celda 78 y se validó con `ast.parse` la sintaxis de todas las celdas de código del notebook.
+
 ---
 
 ## 3. Problemas Encontrados y Resoluciones
@@ -1237,6 +1239,7 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 | Textos y etiquetas con alcances ambiguos o desactualizados | Persistían referencias a 39 semanas y las etiquetas no distinguían importes por línea, tickets sin devoluciones, rezagos informados o envíos con ZIP válido. | (Por **gera**, Fase 8) Se revisaron títulos, descripciones, leyendas y conclusiones para declarar el período y la población de cada resultado, conservando los cálculos. |
 | Nombre de la empresa visible en textos, código y resultados | Las columnas de marca y ubicación conservaban directamente las etiquetas de origen. | (Por **gera**, Fase 11) Se aplica anonimización al cargar, antes de cualquier salida, y se verificó que el notebook no contenga referencias visibles al nombre. |
 | El bosque aleatorio mejora validación pero empeora en prueba | La ventana final contiene un patrón distinto al período de validación y el candidato no generaliza mejor que la referencia estacional. | (Por **gera**, Fase 12) Se aplicó una compuerta de promoción sobre prueba; la referencia conserva el estado de campeón y el candidato queda registrado para el análisis de errores. |
+| `SyntaxError: unterminated string literal` en línea 73 de la celda 78 | Al serializar la celda 78 a JSON en disco, la secuencia `\n` dentro de `f'{etiq}\n({pct:.1f}%)'` se expandió como salto de línea literal partiéndola en dos elementos de `source`. | (Por **gera**, Fase 48) Se restauró la secuencia escapada `\n` en una única línea dentro de la celda 78 y se verificó con `ast.parse` la totalidad de las celdas de código del notebook. |
 
 ---
 
