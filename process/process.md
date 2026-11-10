@@ -1219,6 +1219,16 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 50: Complementos de Multicolinealidad (VIF), Control de Variable Confusora y Concentración de Pareto en el EDA (Aplicado por **gera**, 10/11/2026)
+
+- [x] **Diagnóstico de multicolinealidad mediante VIF en la sección 4.3 (celdas 52 y 53):** siguiendo la metodología de `Hospital_LOS_Prediction_CLASE1.ipynb` y `RegresionParte2.pdf` de la carpeta teórica de UTEC, se incorporó el cálculo del Factor de Inflación de la Varianza (VIF) sobre la serie agregada `semanal` (`2,242` observaciones), evidenciando multicolinealidad severa (`VIF > 5.0` en las 7 variables, lideradas por `23,420.1` en ventas netas, `8,895.2` en margen y `2,987.7` en costo) que justifica el uso de rezagos históricos y regularización Ridge en el Bloque 6.
+
+- [x] **Estratificación de devoluciones por rango de importe y canal en la sección 4.6 (celdas 71 y 72):** aplicando el análisis de variables confusoras de `Faltas_medicas.ipynb` (sección 4.5), se desglosó el panel `axes[1, 1]` en barras comparadas (`Procesada en tienda física` frente a `Procesada en canal web`) junto a la curva del total por tramo (`1.1%` a `9.6%`), verificando que la proporción de devoluciones sube con el precio dentro de ambos canales (`0.6%` a `4.6%` en web y `1.7%` a `20.1%` en tienda física).
+
+- [x] **Concentración de Pareto (80/20) en catálogo y marcas en la sección 4.7 (celdas 75 y 76):** siguiendo el criterio de Pareto de `Faltas_medicas.ipynb` (sección 3.4), se documentó el peso acumulado en los subtítulos de los paneles (`99.0%` en las 12 subclases principales, `99.7%` en las 7 clases líderes de joyería y `86.4%` en las 12 marcas principales de margen) y se desplegó la tabla de corte del 80% (`7/27` subclases reúnen el `84.0%` de la venta, `3/37` clases el `80.8%` y `7/210` marcas el `80.6%` del margen), preservando la anonimización (`Marca propia`) y el balance contable.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
@@ -1262,7 +1272,7 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
   - Analizar los errores de regresión lineal y boosting por ubicación, semana y evento comercial.
   - [x] Evaluar validación temporal con ventanas sucesivas antes de ampliar la búsqueda de modelos (`TimeSeriesSplit` de 5 pliegues en Fase 46).
   - [x] Comparar los modelos con la referencia estacional en ventanas temporales adicionales.
-- [ ] **Análisis del EDA aún no realizados:** cohortes de clientes y Pareto de artículos (crecimiento interanual con `ly_date_key` y descomposición/autocorrelación semanal completados en Fase 46).
+- [ ] **Análisis del EDA aún no realizados:** cohortes de clientes (crecimiento interanual con `ly_date_key` y descomposición/autocorrelación semanal completados en Fase 46; concentración de Pareto 80/20 de subclases, clases y marcas completada en Fase 50).
 - [ ] **Decisiones pendientes:**
   - Corregir o no `retail_calendar_guide.md` (el año minorista de este dataset comienza en enero).
   - Tratamiento de las líneas con costo cero antes de analizar margen.
