@@ -1237,6 +1237,20 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 52: MAE en Porcentaje y Ejemplo Enriquecido de la Semana Minorista 6 (Aplicado por **gera**, 10/11/2026)
+
+- [x] **MAE relativo en las tablas de evaluación (celdas 87 y 92):** se agregaron las columnas `MAE (% media)` (MAE dividido por la venta media del período evaluado) y `MAPE (%)` a la evaluación en prueba, a la validación cruzada temporal (`MAE medio (% media)`) y a la proyección anual 2025; la celda 92 se simplificó con la función auxiliar `metricas_anuales`.
+
+- [x] **Resultados en prueba (69 semanas, venta media `$73,686.36`):** `SARX + Fourier` `14.02%` (`MAPE 14.56%`), regresión lineal `14.11%`, boosting `17.42%`, `Holt-Winters` `19.63%` y referencia anual `22.90%`; en validación cruzada `SARX + Fourier` promedia `13.56%`, y en la proyección 2025 alcanza `17.08%` semanal y `9.98%` mensual.
+
+- [x] **Ejemplo de la semana minorista 6 (San Valentín, celda 91):** la simulación (`1.a`) muestra para cada modelo su pronóstico, MAE histórico en USD y en %, y los rangos esperados `±MAE %` y `±MAE USD`; el contraste real (`1.b`) compara los cinco métodos con la semana del `15/02/2025` (venta real `$81,528.80`): regresión lineal `2.50%`, `SARX + Fourier` `10.48%`, referencia anual `21.22%`.
+
+- [x] **Textos actualizados (celdas 90 y 93):** la sección 6.3 describe las nuevas salidas y los bloques 7 y 8 incorporan las métricas porcentuales y la lectura del caso de San Valentín.
+
+- [x] **Incidencia corregida antes del commit:** un borrador del Bloque 7 citaba `17.28%` como MAE medio de la validación cruzada sin haberlo calculado; al ejecutar la celda se obtuvo `13.56%` y se corrigió el texto.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
