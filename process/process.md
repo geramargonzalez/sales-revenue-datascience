@@ -1211,6 +1211,14 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 49: Exclusión de `is_employee_sale` de la Tabla de Segmentos (Sección 4.0) (Aplicado por **gera**, 09/11/2026)
+
+- [x] **Simplificación de la sección 4.0 (celdas 31 y 32):** se retiró la fila `'Ventas a empleados (is_employee_sale)'` del diccionario `segmentos` y su comentario en `#### Lectura de los segmentos`, dado que presenta cero valores verdaderos en todo el período 2018–2025 (`0` líneas, `0.00%`).
+
+- [x] **Preservación de la estructura y control contable:** se conservó la columna en `df` para mantener intactas las `37` columnas de la base consolidada (`df.shape == (3_481_156, 37)`) y el balance de ventas netas (`net_sales = $392,170,429.26 USD`).
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
