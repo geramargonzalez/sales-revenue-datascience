@@ -1229,6 +1229,14 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 51: Reubicación de Construcción de Variables y Partición Temporal al Bloque 5 (Aplicado por **gera**, 10/11/2026)
+
+- [x] **Alineación estructural con el índice general (`Bloque 0.2`) y la referencia de clase (`Faltas_medicas.ipynb`):** sin alterar la posición ni el número total de celdas del notebook (`95` celdas), se actualizaron los encabezados markdown de las celdas `79`, `80`, `82`, `84`, `86` y `90` para que el **Bloque 5 (`Ingeniería de variables`)** agrupe formalmente la construcción de la tabla semanal y las 18 variables de series temporales (`### 5.1 Construcción de la tabla semanal y variables de series temporales`, celdas 80 y 81) junto con la división cronológica (`### 5.2 Partición temporal (80% entrenamiento y 20% prueba)`, celdas 82 y 83).
+
+- [x] **Renumeración del Bloque 6 (`Modelado`) y limpieza de anclas duplicadas:** se eliminó el texto preliminar duplicado que permanecía al final de la celda `79`, se ubicó el inicio del `<a id="bloque-6"></a> ## Bloque 6. Modelado` en la celda `84` (`### 6.1 Regresión lineal base: entrenar y predecir`), y se renumeraron las subsecciones de evaluación comparativa (`### 6.2 Comparar los pronósticos y validación cruzada temporal` en la celda 86) y de proyección anual (`### 6.3 Probar una predicción puntual y proyectar un año completo (52 semanas)` en la celda 90).
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
