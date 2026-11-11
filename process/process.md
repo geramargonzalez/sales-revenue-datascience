@@ -1271,6 +1271,18 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 55: Evaluación Incremental por Grupos de Variables, Verificación de 364 Días, Diagnóstico de Multicolinealidad (VIF) y Escalado Trimestral en los Bloques 5 a 9 (Aplicado por **gera**, 11/11/2026)
+
+- [x] **Grupos explícitos de variables y verificación `364 días` vs. `retail_week` (celdas 80 a 83, Bloque 5):** se estructuraron las variables en cuatro bloques (`G0 Base`, `G1 Calendario`, `G2 Historia y ventanas`, `G3 Armónicos de Fourier`) y se documentó en la celda 83 la tabla comparativa entre definir el año anterior por `retail_week` (`371` días en `2025` tras las `53` semanas de `2024`, `MAE = $19,640.93 USD` / `26.65%`) frente a `52` semanas exactas (`364` días, `shift(52)`, `MAE = $16,873.40 USD` / `22.90%`, mejora de `-14.1%`).
+
+- [x] **Diagnóstico de multicolinealidad (`VIF <= 5`) en entrenamiento (celda 83, sección 5.2):** se calculó el `VIF` sobre las `14` variables de historia y calendario en el conjunto de entrenamiento, identificando y podando iterativamente las tres medias móviles colineales (`media_movil_4s` con `VIF = inf`, `media_movil_12s` con `VIF = 45.0` y `media_movil_8s` con `VIF = 7.3`) para conformar el subconjunto libre de colinealidad `VARIABLES_SIN_VIF_RL` (`11` variables).
+
+- [x] **Trazabilidad incremental de grupos de variables e importancia de predictores (celdas 84 y 85, sección 6.1):** se compararon las `6` etapas de variables (`G0 Base`, `G0+G1 Calendario`, `G0+G2 Historia`, `G0+G1+G2 Completo sin Fourier`, `Reducido sin VIF > 5` y `Series Temp. + Fourier`) en `Regresión lineal (OLS)`, `Regresión Ridge` y `Boosting de árboles`, junto con un panel gráfico `1x2` del `MAE (% media)` por etapa y la importancia de variables en `Boosting` (`venta_semana_anterior` `68.6%`, `media_movil_4s` `14.8%`, `es_previa_navidad` `7.5%`, `venta_hace_52_semanas` `7.1%`).
+
+- [x] **Escalado por horizonte temporal en 2025 y actualización de conclusiones (celdas 90, 92 y 93):** se incorporó en la celda 92 la agregación trimestral (`4 trimestres`, `resample('QE')`) junto a la semanal (`52 semanas`) y mensual (`12 meses`), mostrando cómo el `MAE (% media)` de `SARX + Fourier` desciende de `17.08%` (semanal) a `9.98%` (mensual), `7.85%` (trimestral) y `+0.97%` en el cierre anual de `2025`, y se actualizaron los `Bloques 7, 8 y 9` en la celda 93.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
