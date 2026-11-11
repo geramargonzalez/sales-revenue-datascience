@@ -1261,6 +1261,16 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 54: Integración de Boxplot de Valores Extremos, Dispersión de Descuentos y Devoluciones de Enero y Tienda en el EDA (Aplicado por **gera**, 11/11/2026)
+
+- [x] **Boxplot de `net_sales` en escala lineal completa (celdas 46 y 47, sección 4.2.1):** se amplió la celda 46 a un panel `1x2` que combina la densidad en escala logarítmica con el boxplot horizontal en escala completa de `df_eda['net_sales']`, mostrando la caja intercuartílica comprimida entre `$25.00` (`p25`) y `$142.80` (`p75`), la mediana global de `$68.00` y los extremos desde `-$13,040.00 USD` hasta `+$55,440.00 USD`.
+
+- [x] **Pico post-navideño de devoluciones en semanas 1 a 5 y tasa por tienda física (celdas 70 y 72, sección 4.6):** se incorporó en la celda 70 un panel `1x2` con la curva semanal de devoluciones (`retail_week` `1 a 52`), destacando el tramo de enero (semanas `1 a 5`: `15.1%` en importe y `9.8%` de las líneas, con pico en la semana 1 de `23.0%` y `13.6%`, frente a `7.7%` y `5.4%` en las semanas `6 a 52`), junto con el desglose de tasa de devolución por tienda física operativa (`>= $1M` de venta bruta: desde `6.5%` en `BOSTON Newbury` hasta `15.2%` en `Williamsburg`) separando compras de tienda y compras originadas en `Web Warehouse` (`11.6%` a `25.8%` del importe devuelto en mostrador).
+
+- [x] **Dispersión de `discount_total` frente a `gross_sales` (celdas 75 y 76, sección 4.7):** se integró en la celda 75 el gráfico de dispersión sobre una muestra aleatoria de `5,000` líneas de venta (`random_state=42`) con guías de pendiente en `10%`, `15%`, `20%`, `30%` y `50%` y la base sin descuento en `$0 USD` (`68.2%` de las líneas), documentando su lectura en la celda 76 sin alterar la estructura de `95` celdas del notebook.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
