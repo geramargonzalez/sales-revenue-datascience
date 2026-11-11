@@ -1251,6 +1251,16 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 53: MAE y RMSE Semanales en la Predicción Puntual de la Sección 6.3 (Aplicado por **gera**, 11/11/2026)
+
+- [x] **Tabla `1.a` (celda 91):** cada pronóstico simulado de la semana minorista 6 muestra ahora las métricas semanales del modelo en prueba: `MAE` (USD y % de la venta media), `RMSE` (USD y % de la venta media), `R²` y los rangos `±MAE` y `±RMSE`; por ejemplo, `SARX + Fourier` pronostica `$94,541` con `MAE = $10,333` (`14.02%`) y `RMSE = $13,692` (`18.58%`).
+
+- [x] **Tabla `1.b` (celda 91):** el contraste con la semana real del `15/02/2025` incorpora `MAE` y `RMSE` de prueba de cada modelo e indica si el error de esa semana quedó dentro de `±MAE` (sí para regresión lineal, `SARX + Fourier` y boosting; no para `Holt-Winters` y la referencia anual).
+
+- [x] **Texto de la sección 6.3 (celda 90)** actualizado para describir las nuevas métricas.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
