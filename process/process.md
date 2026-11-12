@@ -1283,6 +1283,22 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 56: Reestructuración del Modelado Iterativo Paso a Paso siguiendo el Planteamiento de Camilo y la Reunión (Aplicado por **gera**, 12/11/2026)
+
+- [x] **Bloque 5 limpio con únicamente rezagos base (`celdas 80 a 83`):** se eliminó la creación anticipada de las `18` variables al inicio del modelado. La celda 81 construye la serie semanal de `Williamsburg` (`344` semanas continuas entre `12/01/2019` y `27/12/2025`, `275` entrenamiento / `69` prueba) con solo **`2` rezagos elementales** (`venta_semana_anterior` y `venta_hace_52_semanas`), y la celda 83 centraliza los ayudantes compartidos de evaluación y gráficos para comparar exactamente el mismo universo temporal en todas las iteraciones.
+
+- [x] **Ensayo 1 — Modelos Base e identificación visual de errores (`celdas 84 y 85`, sección 6.1):** se entrenaron `Regresión lineal (OLS)` (`MAE = $13,308.92 USD` / `18.06%`, `R² = 0.39`) y `Boosting de árboles` (`$13,896.05 USD` / `18.86%`, `R² = 0.33`) frente a ambas referencias ingenuas (`$16,873.40` anual y `$14,925.77` semana previa), mostrando el panel de `4` métricas (`MAE`, `RMSE`, `R²`, `Sesgo`) y las `5` semanas de mayor desvío (`-$86,861.44` en previa de Navidad y `+$48,068.80` el `04/01/2025`).
+
+- [x] **Ensayo 2 — Incorporación paso a paso del Calendario comercial (`celdas 86 y 87`, sección 6.2):** se crearon directamente en este paso los `6` indicadores conocidos de antemano (`es_black_friday`, `es_previa_navidad`, `es_cierre_navidad`, `es_san_valentin`, `es_dia_madre`, `es_post_evento`) y se reentrenaron todos los modelos, reduciendo el `MAE` lineal un **`20.27%`** hasta `$10,611.67 USD` (`14.40%`, `R² = 0.64`) y el de `Boosting` un `9.07%` (`$12,635.63 USD`), con efecto marginal visible en dólares por evento.
+
+- [x] **Ensayo 3 — Historia extendida de ventas (`celdas 88 y 89`, sección 6.3):** se agregaron `t-2`, medias móviles (`4s`, `8s`, `12s`), `volatilidad_4s` e `impulso_4s_12s` en dos sub-ensayos (`3a Base + Historia sin cal.` con `17.42%` y `3b Base + Cal. + Historia` con `13.86%`), evidenciando los cambios de signo en `OLS` causados por la colinealidad entre ventanas.
+
+- [x] **Ensayo 4 — Multicolinealidad (`VIF`), Modelo Reducido, `Ridge` (+ Fourier) y control de sobreajuste (`celdas 90 y 91`, sección 6.4):** se ejecutó la poda `VIF <= 5` (`11` variables tras descartar `media_movil_4s`, `media_movil_12s` y `media_movil_8s`) y se añadieron los `4` armónicos estacionales de Fourier para evaluar `Regresión Ridge (alpha=15.0)`, alcanzando el menor error en prueba (`MAE = $10,332.94 USD` / `14.02%`, `R² = 0.69`, razón `Prueba/Entreno = 0.90x`). Se excluyó `Holt-Winters` del flujo principal conforme a lo acordado en reunión para priorizar modelos interpretables (`OLS`, `Ridge` y `Boosting`).
+
+- [x] **Verificación `364 días` vs. `retail_week`, `TimeSeriesSplit` y escalamiento por horizontes (`celdas 92 a 98`, secciones 6.5, 6.6 y Bloques 7 a 10):** se demostró el impacto de `364 días` (`-14.1%` en referencia ingenua y `-1.5%` en `OLS`), se validó la estabilidad en `5` pliegues expansivos (`SARX + Fourier Ridge` líder con `MAE medio = $12,379.86 USD` / `13.56%`, `R² medio = 0.36`), se contrastó la semana puntual `6` de `2025` (`San Valentín`: `0.59%` en Lineal y `10.48%` en `SARX+Fourier` dentro de `±MAE`) y se escaló `2025` de `52 semanas` (`17.08%`) a `12 meses` (`9.98%`, `R² = 0.73`), `4 trimestres` (`7.85%`) y `Total anual` (`+2.26%`), conservando `3,481,156` filas y `$392,170,429.26 USD` (`$287,699,163.91 USD` 2022–2026) intactos en el Bloque 10.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
