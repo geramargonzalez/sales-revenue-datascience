@@ -1299,6 +1299,18 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 57: Reestructuración Didáctica de las Secciones 5 y 6 con Esquema Antes, Código y Análisis en Cada Paso (Aplicado por **gera**, 17/11/2026)
+
+- [x] **Esquema uniforme `Antes -> Código y gráficos -> Análisis de resultados` en todas las subsecciones (`celdas 80 a 109`):** se reordenaron los **Bloques 5 y 6** conservando intactas las celdas `0` a `79` para que cada etapa presente primero el objetivo y variables del ensayo sin adelantar hallazgos, luego el código ejecutable con tablas y gráficos, y inmediatamente después su lectura crítica con la decisión que enlaza con la etapa siguiente.
+
+- [x] **Separación limpia del Bloque 5 (`5.1` celdas `80–82` y `5.2` celdas `83–86`):** se separó la tabla semanal base (`344` semanas operativas continuas de `Williamsburg`) de la partición cronológica `80/20` (`275` entrenamiento / `69` prueba, venta media `$73,686.36 USD`) y de la definición de funciones auxiliares compartidas (`celda 85`), cerrando cada parte con su propio análisis escrito.
+
+- [x] **Lectura posterior paso a paso en los ensayos `6.1` a `6.5` (`celdas 87 a 101`):** se incorporaron secciones específicas de análisis tras cada ensayo (`6.1 Base`: `MAE OLS = $13,308.92` / `18.06%`; `6.2 +Calendario`: caída de `-20.27%` hasta `$10,611.67` / `14.40%`; `6.3 +Historia`: colinealidad e inversión de signos en `OLS`; `6.4 VIF, Ridge + Fourier y sobreajuste`: `SARX + Fourier Ridge` líder con `$10,332.94` / `14.02%`, `R² = 0.69` y razón `Prueba/Entreno = 0.90x`; `6.5 Verificación 364 días`: mejora de `-14.1%` en referencia anual y `-1.5%` en `OLS`).
+
+- [x] **División de `6.6` (`TimeSeriesSplit`) y `6.7` (Predicción puntual y escalamiento `2025`) más síntesis de Bloques `7–10` (`celdas 102 a 109`):** se separó la validación cruzada de `5` pliegues (`SARX + Fourier Ridge` con `MAE medio = $12,379.86 USD` / `13.56%`) de la aplicación puntual en Semana `6` (`0.59%` en Lineal `Base+Cal.` frente a `21.22%` en referencia anual) y de la proyección anual `2025` escalada por horizonte (`17.08%` semanal $\rightarrow$ `9.98%` mensual $\rightarrow$ `7.85%` trimestral $\rightarrow$ `+2.26%` anual), verificando en `.venv` las `110` celdas totales sin errores ni alteración contable (`3,481,156` filas y `$392,170,429.26 USD`).
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
