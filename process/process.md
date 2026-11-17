@@ -1311,6 +1311,20 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 58: Retiro Completo de Ridge, Separación de 6.4a/6.4b y 6.7/6.8, Validación Multi-Ubicación y Actualización del Índice (Aplicado por **gera**, 17/11/2026)
+
+- [x] **Eliminación total de `Ridge` en los Bloques 5 a 10:** se retiró `Regresión Ridge` de las funciones compartidas (`celda 85`), del cuarto ensayo (`celdas 96–101`), de `TimeSeriesSplit` (`celda 106`) y de la proyección anual `2025` (`celda 113`), demostrando que podar la colinealidad por `VIF <= 5` deja lista la `Regresión lineal (OLS)` sin penalización adicional (`OLS Reducido + Fourier`: `MAE = $10,488.87 USD` / `14.23%`, `R² = 0.66`).
+
+- [x] **Subsecciones desdobladas (`6.4a`, `6.4b`, `6.7` y `6.8`):** se separó `6.4` en **`6.4a` (`VIF` y `Modelo Reducido`, celdas `96–98`)** y **`6.4b` (`Fourier`, trazabilidad global y control de sobreajuste, celdas `99–101`)**, y se desdobló la antigua celda `106` en **`6.7` (`Predicción semanal puntual` con detección calendario exacta por fecha objetivo `FECHA_OBJETIVO_SIMULADA`, celdas `109–111`)** y **`6.8` (`Escalamiento por horizontes 2025` con `OLS + Fourier`, celdas `112–114`)**.
+
+- [x] **Panel visual de `4` métricas y validación multi-ubicación (`celdas 105 a 108`):** se reutilizó `graficar_panel_4_metricas` sobre la comparativa final de prueba (`celda 106`) y se añadió la evaluación cruzada por sucursal operativa (`>= 100` semanas continuas tras `t-52`, `celda 107`), confirmando que el enfoque supera a la referencia anual en las cuatro sedes maduras (`Web Warehouse` `18.5%` vs. `21.3%` con `R² = 0.85`, `Williamsburg` `14.2%` vs. `22.9%`, `SOHO` `15.3%` vs. `18.8%` y `Wedding Annex` `45.5%` vs. `61.7%`).
+
+- [x] **Mejora de resultados en uso puntual y anual `2025` sin `Ridge` (`celdas 110 a 116`):** en San Valentín `2025`, `OLS Reducido + Fourier` redujo su desvío puntual a **`1.80%`** (`-$1,467.30 USD`), y en la proyección ciega de `2025` bajó el error a **`17.21%`** semanal (`R² = 0.61`), **`9.75%`** mensual (`R² = 0.75`), **`7.46%`** trimestral (`R² = 0.72`) y **`+0.60%`** anual (`$3,701,829.27` vs. `$3,679,704.43 USD`).
+
+- [x] **Coherencia documental y verificación final:** se actualizó la tabla de estados del índice en la `celda 0` (`Bloques 7 a 9` marcados como `Desarrollado`), se añadió salida explícita en `celda 85` y referencia explícita a `Williamsburg` en cada análisis, ejecutando las `117` celdas en `.venv` sin errores y conservando `3,481,156` filas y `$392,170,429.26 USD`.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
