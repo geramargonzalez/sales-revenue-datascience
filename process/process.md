@@ -1333,6 +1333,20 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 60: Arquitectura Modular en `src/`, Script CLI y Notebook `sales-revenue-modular.ipynb` (Aplicado por **gera**, 18/11/2026)
+
+- [x] **Paquete reutilizable `src/`:** se extrajo la lógica de negocio, limpieza, análisis exploratorio, ingeniería de variables, evaluación, modelado y visualización hacia [`src/config.py`](../src/config.py), [`src/datos.py`](../src/datos.py), [`src/eda.py`](../src/eda.py), [`src/variables.py`](../src/variables.py), [`src/evaluacion.py`](../src/evaluacion.py), [`src/modelos.py`](../src/modelos.py) y [`src/graficos.py`](../src/graficos.py).
+
+- [x] **Persistencia y extensibilidad de modelos:** `src/modelos.py` centraliza el catálogo de estimadores (`FABRICAS_MODELOS_DEFECTO`) para incorporar candidatos adicionales sin modificar el notebook e incluye `guardar_modelo` / `cargar_modelo` con `joblib` hacia `artefactos_mlops/`.
+
+- [x] **Script CLI reutilizable:** se creó [`scripts/entrenar_y_evaluar.py`](../scripts/entrenar_y_evaluar.py) para ejecutar de forma reproducible el entrenamiento y la validación temporal fuera de Jupyter (`Williamsburg` verificado con `MAE = $10,488.87 USD` / `14.23%`, `R² = 0.66` en `OLS Reducido + Fourier`, y `MAE medio = $12,707.61 USD` / `13.92%` en `TimeSeriesSplit` para `OLS Base + Calendario`).
+
+- [x] **Nuevo notebook limpio (`sales-revenue-modular.ipynb`):** se generó [`sales-revenue-modular.ipynb`](../sales-revenue-modular.ipynb) conservando los mismos `119` bloques y celdas que [`sales-revenue-jewery.ipynb`](../sales-revenue-jewery.ipynb) (intacto como respaldo) y reduciendo el código embebido a `444` líneas declarativas.
+
+- [x] **Verificación en `.venv` (`sales-revenue-env`):** ejecución completa de las `119` celdas con `0` errores, preservando `3,481,156` filas, `37` columnas y `net_sales = $392,170,429.26 USD`.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
