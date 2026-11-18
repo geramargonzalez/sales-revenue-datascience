@@ -1325,6 +1325,24 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
+### Fase 60: Resumen del notebook en Google Slides (gera, 18/11/2026)
+
+Se actualizó la [presentación existente](https://docs.google.com/presentation/d/1GeRsyai0zNqn4K9PUGFC437R4Mi5RwFBPkj15_NAQlo/edit) para exponer los bloques 0 a 10 en 17 diapositivas con notas de 15 minutos en total.
+
+Se contrastaron los objetivos, el EDA, la preparación semanal, los ensayos OLS y boosting, el análisis de errores, los cuatro locales y las aplicaciones semanal y anual con el código y las salidas guardadas.
+
+La versión anterior citaba 2022–2025 y LightGBM como trabajo pendiente; se sustituyeron por el período 2018–2025 y los resultados del estimador realmente utilizado, GradientBoostingRegressor de scikit-learn.
+
+Un recálculo independiente del CSV en Python 3.11 de `.venv` confirmó 3.148.642 líneas y USD 346.748.552,11 en la vista de estudio, USD 392.170.429,26 en el consolidado ampliado y el control histórico de USD 287.699.163,91 en su tramo original.
+
+Se verificaron el texto, el orden y los tiempos de las notas en la presentación guardada; se conservaron las láminas sobre Git, hipótesis y habilidad EDA.
+
+El notebook y sus datos no se modificaron ni se volvieron a entrenar los modelos para esta tarea documental.
+
+Próximo paso: ensayar la exposición con las notas y contrastar las especificaciones elegidas en una ventana temporal nueva.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
