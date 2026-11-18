@@ -1335,6 +1335,8 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ### Fase 60: Arquitectura Modular en `src/`, Script CLI y Notebook `sales-revenue-modular.ipynb` (Aplicado por **gera**, 18/11/2026)
 
+- [x] **Alcance en `gera_playground` (entrega modular aparte):** esta rama aloja la versión modularizada como entregable separado; `gera` y `main` permanecen como flujo central sobre [`sales-revenue-jewery.ipynb`](../sales-revenue-jewery.ipynb) (sin modificar en esta fase para facilitar futuros `merge` desde `main`/`gera` hacia `gera_playground`).
+
 - [x] **Paquete reutilizable `src/`:** se extrajo la lógica de negocio, limpieza, análisis exploratorio, ingeniería de variables, evaluación, modelado y visualización hacia [`src/config.py`](../src/config.py), [`src/datos.py`](../src/datos.py), [`src/eda.py`](../src/eda.py), [`src/variables.py`](../src/variables.py), [`src/evaluacion.py`](../src/evaluacion.py), [`src/modelos.py`](../src/modelos.py) y [`src/graficos.py`](../src/graficos.py).
 
 - [x] **Persistencia y extensibilidad de modelos:** `src/modelos.py` centraliza el catálogo de estimadores (`FABRICAS_MODELOS_DEFECTO`) para incorporar candidatos adicionales sin modificar el notebook e incluye `guardar_modelo` / `cargar_modelo` con `joblib` hacia `artefactos_mlops/`.
