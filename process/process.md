@@ -1197,26 +1197,139 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 
 ---
 
-### Fase 49: Pronóstico por Trimestre Minorista (`retail_quarter` Q1–Q4) en la Sección 6.6 (Aplicado por **gera**, 03/11/2026)
+### Fase 48: Mapas Geográficos de Envíos Web en la Sección 4.8 (Aplicado por **gera**, 07/11/2026)
 
-- [x] **Incorporación de `retail_quarter` en la tabla semanal (`semanal_rl`, celda 81):** se añadió `retail_quarter` (`1` a `4`) a `calendario_diario_rl` con validación de integridad sin nulos para cada sábado de cierre (`W-SAT`).
+- [x] **Reemplazo de gráficos de barras geográficos por mapas en la celda 78 (Sección 4.8):** se conservó el panel izquierdo de recurrencia de clientes (`axes[0]`) y se sustituyeron los dos paneles de barras horizontales (`axes[1]` y `axes[2]`) por representaciones cartográficas en `matplotlib`, sin añadir dependencias externas ni alterar la celda inicial de importaciones.
 
-- [x] **Esquema *walk-forward* trimestre a trimestre en la sección 6.6 (celdas 93 a 96):**
-  - Al cierre de cada trimestre minorista ($Q-1$), se entrenan los modelos únicamente con trimestres anteriores (`id_trimestre < id_q`, verificando `entreno_q.index.max() < prueba_q.index.min()`) para proyectar las semanas y el total del trimestre entrante ($Q \in \{1, 2, 3, 4\}$).
-  - Las muestras de entrenamiento crecen trimestre a trimestre en 2025: **`275` semanas** antes de `2025-Q1`, **`288` semanas** antes de `2025-Q2`, **`301` semanas** antes de `2025-Q3` y **`314` semanas** antes de `2025-Q4`.
-  - Se utilizan antecedentes estrictamente cerrados en $Q-1$: `venta_52s_ajustada_q` (venta de hace 52 semanas ponderada por `ratio_q_previo`), `media_movil_4s_hace_52s`, `media_cierre_q_previo` (media de las últimas 4 semanas de $Q-1$), los 6 indicadores de calendario comercial (`INDICADORES_EVENTOS_RL`) y los 4 armónicos de Fourier (`VARIABLES_FOURIER_RL`).
+- [x] **Mapa de importe web por gran región postal (`axes[1]`):** sobre la silueta continental de Estados Unidos se graficaron las 10 regiones postales (primer dígito del ZIP, `0` a `9`) con burbujas proporcionales a su participación sobre el importe web sin devoluciones con ZIP válido y resaltado en azul primario (`#1E3A8A`) para las tres regiones principales (`1 · NY, PA` con `25.4%`, `9 · Pacífico` con `24.0%` y `0 · Noreste` con `12.2%`).
 
-- [x] **Resultados por Quarter minorista en `Williamsburg` (`2025-Q1` a `2025-Q4`):**
-  - **`Quarter (SARX + Fourier)`** lidera en todos los horizontes trimestrales:
-    - **`2025-Q1` (13 sem.):** venta real `$699,384.15 USD` vs. proyectado `$735,793.38 USD` (**`+5.21 %`**).
-    - **`2025-Q2` (13 sem.):** venta real `$952,766.58 USD` vs. proyectado `$888,317.37 USD` (**`-6.76 %`**).
-    - **`2025-Q3` (13 sem.):** venta real `$927,931.33 USD` vs. proyectado `$923,513.06 USD` (**`-0.48 %`**).
-    - **`2025-Q4` (12 sem. cerradas en 2025):** venta real `$1,051,716.09 USD` vs. proyectado `$964,294.39 USD` (**`-8.31 %`**).
-    - **`Total 2025 (Q1–Q4)` (51 sem. del año minorista 2025 cerradas en 2025):** venta real `$3,631,798.15 USD` vs. proyectado `$3,511,918.21 USD` (**`-3.30 %`**).
-  - **Métricas agregadas por Quarter (4 trimestres de 2025):** `Quarter (SARX + Fourier)` alcanza **`MAE = $48,174.60 USD`**, **`RMSE = $57,317.99 USD`** y **`R² = 0.80`** (frente a `MAE = $114,767.18 USD` y `R² = -0.27` de la referencia anual).
-  - **Métricas semanales dentro de cada Quarter (2025):** `Quarter (SARX + Fourier)` reduce el `MAE` semanal a **`$11,335.51 USD`** (`RMSE = $14,353.83 USD`, **`R² = 0.67`**), superando a la proyección anual fija (`MAE = $12,082.95 USD`, `R² = 0.62`).
+- [x] **Mapa de los 15 principales códigos postales web en Nueva York (`axes[2]`):** dado que los 15 códigos postales de mayor importe web pertenecen íntegramente a Manhattan y Brooklyn, se representaron los contornos de ambos distritos con las ubicaciones geográficas exactas de los 15 códigos ZIP, destacando `10013 SoHo ($3.5M)` y `11249 Williamsburg ($3.3M)`.
 
-- [x] **Verificación y control contable:** ejecución completa de las 99 celdas en `.venv` (`sales-revenue-env`) con 0 errores, preservando `df.shape == (3_481_156, 37)` y `net_sales == $392,170,429.26 USD`.
+- [x] **Verificación visual y contable:** se ejecutó la celda en `.venv` (`sales-revenue-env`) verificando tamaño mínimo de fuente de 9 puntos sin superposición de etiquetas y conservando intactos el conteo de filas (`3,481,156`), columnas (`37`), la exclusión temporal documentada de `CLIENTE_ANONIMO` solo en la vista por cliente y el balance contable (`net_sales = $392,170,429.26 USD`).
+
+- [x] **Corrección de salto de línea en cadena literal (09/11/2026):** se corrigió el salto de línea no escapado en `ax.annotate(f'{etiq}\n({pct:.1f}%)', ...)` de la celda 78 y se validó con `ast.parse` la sintaxis de todas las celdas de código del notebook.
+
+---
+
+### Fase 49: Exclusión de `is_employee_sale` de la Tabla de Segmentos (Sección 4.0) (Aplicado por **gera**, 09/11/2026)
+
+- [x] **Simplificación de la sección 4.0 (celdas 31 y 32):** se retiró la fila `'Ventas a empleados (is_employee_sale)'` del diccionario `segmentos` y su comentario en `#### Lectura de los segmentos`, dado que presenta cero valores verdaderos en todo el período 2018–2025 (`0` líneas, `0.00%`).
+
+- [x] **Preservación de la estructura y control contable:** se conservó la columna en `df` para mantener intactas las `37` columnas de la base consolidada (`df.shape == (3_481_156, 37)`) y el balance de ventas netas (`net_sales = $392,170,429.26 USD`).
+
+---
+
+### Fase 50: Complementos de Multicolinealidad (VIF), Control de Variable Confusora y Concentración de Pareto en el EDA (Aplicado por **gera**, 10/11/2026)
+
+- [x] **Diagnóstico de multicolinealidad mediante VIF en la sección 4.3 (celdas 52 y 53):** siguiendo la metodología de `Hospital_LOS_Prediction_CLASE1.ipynb` y `RegresionParte2.pdf` de la carpeta teórica de UTEC, se incorporó el cálculo del Factor de Inflación de la Varianza (VIF) sobre la serie agregada `semanal` (`2,242` observaciones), evidenciando multicolinealidad severa (`VIF > 5.0` en las 7 variables, lideradas por `23,420.1` en ventas netas, `8,895.2` en margen y `2,987.7` en costo) que justifica el uso de rezagos históricos y regularización Ridge en el Bloque 6.
+
+- [x] **Estratificación de devoluciones por rango de importe y canal en la sección 4.6 (celdas 71 y 72):** aplicando el análisis de variables confusoras de `Faltas_medicas.ipynb` (sección 4.5), se desglosó el panel `axes[1, 1]` en barras comparadas (`Procesada en tienda física` frente a `Procesada en canal web`) junto a la curva del total por tramo (`1.1%` a `9.6%`), verificando que la proporción de devoluciones sube con el precio dentro de ambos canales (`0.6%` a `4.6%` en web y `1.7%` a `20.1%` en tienda física).
+
+- [x] **Concentración de Pareto (80/20) en catálogo y marcas en la sección 4.7 (celdas 75 y 76):** siguiendo el criterio de Pareto de `Faltas_medicas.ipynb` (sección 3.4), se documentó el peso acumulado en los subtítulos de los paneles (`99.0%` en las 12 subclases principales, `99.7%` en las 7 clases líderes de joyería y `86.4%` en las 12 marcas principales de margen) y se desplegó la tabla de corte del 80% (`7/27` subclases reúnen el `84.0%` de la venta, `3/37` clases el `80.8%` y `7/210` marcas el `80.6%` del margen), preservando la anonimización (`Marca propia`) y el balance contable.
+
+---
+
+### Fase 51: Reubicación de Construcción de Variables y Partición Temporal al Bloque 5 (Aplicado por **gera**, 10/11/2026)
+
+- [x] **Alineación estructural con el índice general (`Bloque 0.2`) y la referencia de clase (`Faltas_medicas.ipynb`):** sin alterar la posición ni el número total de celdas del notebook (`95` celdas), se actualizaron los encabezados markdown de las celdas `79`, `80`, `82`, `84`, `86` y `90` para que el **Bloque 5 (`Ingeniería de variables`)** agrupe formalmente la construcción de la tabla semanal y las 18 variables de series temporales (`### 5.1 Construcción de la tabla semanal y variables de series temporales`, celdas 80 y 81) junto con la división cronológica (`### 5.2 Partición temporal (80% entrenamiento y 20% prueba)`, celdas 82 y 83).
+
+- [x] **Renumeración del Bloque 6 (`Modelado`) y limpieza de anclas duplicadas:** se eliminó el texto preliminar duplicado que permanecía al final de la celda `79`, se ubicó el inicio del `<a id="bloque-6"></a> ## Bloque 6. Modelado` en la celda `84` (`### 6.1 Regresión lineal base: entrenar y predecir`), y se renumeraron las subsecciones de evaluación comparativa (`### 6.2 Comparar los pronósticos y validación cruzada temporal` en la celda 86) y de proyección anual (`### 6.3 Probar una predicción puntual y proyectar un año completo (52 semanas)` en la celda 90).
+
+---
+
+### Fase 52: MAE en Porcentaje y Ejemplo Enriquecido de la Semana Minorista 6 (Aplicado por **gera**, 10/11/2026)
+
+- [x] **MAE relativo en las tablas de evaluación (celdas 87 y 92):** se agregaron las columnas `MAE (% media)` (MAE dividido por la venta media del período evaluado) y `MAPE (%)` a la evaluación en prueba, a la validación cruzada temporal (`MAE medio (% media)`) y a la proyección anual 2025; la celda 92 se simplificó con la función auxiliar `metricas_anuales`.
+
+- [x] **Resultados en prueba (69 semanas, venta media `$73,686.36`):** `SARX + Fourier` `14.02%` (`MAPE 14.56%`), regresión lineal `14.11%`, boosting `17.42%`, `Holt-Winters` `19.63%` y referencia anual `22.90%`; en validación cruzada `SARX + Fourier` promedia `13.56%`, y en la proyección 2025 alcanza `17.08%` semanal y `9.98%` mensual.
+
+- [x] **Ejemplo de la semana minorista 6 (San Valentín, celda 91):** la simulación (`1.a`) muestra para cada modelo su pronóstico, MAE histórico en USD y en %, y los rangos esperados `±MAE %` y `±MAE USD`; el contraste real (`1.b`) compara los cinco métodos con la semana del `15/02/2025` (venta real `$81,528.80`): regresión lineal `2.50%`, `SARX + Fourier` `10.48%`, referencia anual `21.22%`.
+
+- [x] **Textos actualizados (celdas 90 y 93):** la sección 6.3 describe las nuevas salidas y los bloques 7 y 8 incorporan las métricas porcentuales y la lectura del caso de San Valentín.
+
+- [x] **Incidencia corregida antes del commit:** un borrador del Bloque 7 citaba `17.28%` como MAE medio de la validación cruzada sin haberlo calculado; al ejecutar la celda se obtuvo `13.56%` y se corrigió el texto.
+
+---
+
+### Fase 53: MAE y RMSE Semanales en la Predicción Puntual de la Sección 6.3 (Aplicado por **gera**, 11/11/2026)
+
+- [x] **Tabla `1.a` (celda 91):** cada pronóstico simulado de la semana minorista 6 muestra ahora las métricas semanales del modelo en prueba: `MAE` (USD y % de la venta media), `RMSE` (USD y % de la venta media), `R²` y los rangos `±MAE` y `±RMSE`; por ejemplo, `SARX + Fourier` pronostica `$94,541` con `MAE = $10,333` (`14.02%`) y `RMSE = $13,692` (`18.58%`).
+
+- [x] **Tabla `1.b` (celda 91):** el contraste con la semana real del `15/02/2025` incorpora `MAE` y `RMSE` de prueba de cada modelo e indica si el error de esa semana quedó dentro de `±MAE` (sí para regresión lineal, `SARX + Fourier` y boosting; no para `Holt-Winters` y la referencia anual).
+
+- [x] **Texto de la sección 6.3 (celda 90)** actualizado para describir las nuevas métricas.
+
+---
+
+### Fase 54: Integración de Boxplot de Valores Extremos, Dispersión de Descuentos y Devoluciones de Enero y Tienda en el EDA (Aplicado por **gera**, 11/11/2026)
+
+- [x] **Boxplot de `net_sales` en escala lineal completa (celdas 46 y 47, sección 4.2.1):** se amplió la celda 46 a un panel `1x2` que combina la densidad en escala logarítmica con el boxplot horizontal en escala completa de `df_eda['net_sales']`, mostrando la caja intercuartílica comprimida entre `$25.00` (`p25`) y `$142.80` (`p75`), la mediana global de `$68.00` y los extremos desde `-$13,040.00 USD` hasta `+$55,440.00 USD`.
+
+- [x] **Pico post-navideño de devoluciones en semanas 1 a 5 y tasa por tienda física (celdas 70 y 72, sección 4.6):** se incorporó en la celda 70 un panel `1x2` con la curva semanal de devoluciones (`retail_week` `1 a 52`), destacando el tramo de enero (semanas `1 a 5`: `15.1%` en importe y `9.8%` de las líneas, con pico en la semana 1 de `23.0%` y `13.6%`, frente a `7.7%` y `5.4%` en las semanas `6 a 52`), junto con el desglose de tasa de devolución por tienda física operativa (`>= $1M` de venta bruta: desde `6.5%` en `BOSTON Newbury` hasta `15.2%` en `Williamsburg`) separando compras de tienda y compras originadas en `Web Warehouse` (`11.6%` a `25.8%` del importe devuelto en mostrador).
+
+- [x] **Dispersión de `discount_total` frente a `gross_sales` (celdas 75 y 76, sección 4.7):** se integró en la celda 75 el gráfico de dispersión sobre una muestra aleatoria de `5,000` líneas de venta (`random_state=42`) con guías de pendiente en `10%`, `15%`, `20%`, `30%` y `50%` y la base sin descuento en `$0 USD` (`68.2%` de las líneas), documentando su lectura en la celda 76 sin alterar la estructura de `95` celdas del notebook.
+
+---
+
+### Fase 55: Evaluación Incremental por Grupos de Variables, Verificación de 364 Días, Diagnóstico de Multicolinealidad (VIF) y Escalado Trimestral en los Bloques 5 a 9 (Aplicado por **gera**, 11/11/2026)
+
+- [x] **Grupos explícitos de variables y verificación `364 días` vs. `retail_week` (celdas 80 a 83, Bloque 5):** se estructuraron las variables en cuatro bloques (`G0 Base`, `G1 Calendario`, `G2 Historia y ventanas`, `G3 Armónicos de Fourier`) y se documentó en la celda 83 la tabla comparativa entre definir el año anterior por `retail_week` (`371` días en `2025` tras las `53` semanas de `2024`, `MAE = $19,640.93 USD` / `26.65%`) frente a `52` semanas exactas (`364` días, `shift(52)`, `MAE = $16,873.40 USD` / `22.90%`, mejora de `-14.1%`).
+
+- [x] **Diagnóstico de multicolinealidad (`VIF <= 5`) en entrenamiento (celda 83, sección 5.2):** se calculó el `VIF` sobre las `14` variables de historia y calendario en el conjunto de entrenamiento, identificando y podando iterativamente las tres medias móviles colineales (`media_movil_4s` con `VIF = inf`, `media_movil_12s` con `VIF = 45.0` y `media_movil_8s` con `VIF = 7.3`) para conformar el subconjunto libre de colinealidad `VARIABLES_SIN_VIF_RL` (`11` variables).
+
+- [x] **Trazabilidad incremental de grupos de variables e importancia de predictores (celdas 84 y 85, sección 6.1):** se compararon las `6` etapas de variables (`G0 Base`, `G0+G1 Calendario`, `G0+G2 Historia`, `G0+G1+G2 Completo sin Fourier`, `Reducido sin VIF > 5` y `Series Temp. + Fourier`) en `Regresión lineal (OLS)`, `Regresión Ridge` y `Boosting de árboles`, junto con un panel gráfico `1x2` del `MAE (% media)` por etapa y la importancia de variables en `Boosting` (`venta_semana_anterior` `68.6%`, `media_movil_4s` `14.8%`, `es_previa_navidad` `7.5%`, `venta_hace_52_semanas` `7.1%`).
+
+- [x] **Escalado por horizonte temporal en 2025 y actualización de conclusiones (celdas 90, 92 y 93):** se incorporó en la celda 92 la agregación trimestral (`4 trimestres`, `resample('QE')`) junto a la semanal (`52 semanas`) y mensual (`12 meses`), mostrando cómo el `MAE (% media)` de `SARX + Fourier` desciende de `17.08%` (semanal) a `9.98%` (mensual), `7.85%` (trimestral) y `+0.97%` en el cierre anual de `2025`, y se actualizaron los `Bloques 7, 8 y 9` en la celda 93.
+
+---
+
+### Fase 56: Reestructuración del Modelado Iterativo Paso a Paso siguiendo el Planteamiento de Camilo y la Reunión (Aplicado por **gera**, 12/11/2026)
+
+- [x] **Bloque 5 limpio con únicamente rezagos base (`celdas 80 a 83`):** se eliminó la creación anticipada de las `18` variables al inicio del modelado. La celda 81 construye la serie semanal de `Williamsburg` (`344` semanas continuas entre `12/01/2019` y `27/12/2025`, `275` entrenamiento / `69` prueba) con solo **`2` rezagos elementales** (`venta_semana_anterior` y `venta_hace_52_semanas`), y la celda 83 centraliza los ayudantes compartidos de evaluación y gráficos para comparar exactamente el mismo universo temporal en todas las iteraciones.
+
+- [x] **Ensayo 1 — Modelos Base e identificación visual de errores (`celdas 84 y 85`, sección 6.1):** se entrenaron `Regresión lineal (OLS)` (`MAE = $13,308.92 USD` / `18.06%`, `R² = 0.39`) y `Boosting de árboles` (`$13,896.05 USD` / `18.86%`, `R² = 0.33`) frente a ambas referencias ingenuas (`$16,873.40` anual y `$14,925.77` semana previa), mostrando el panel de `4` métricas (`MAE`, `RMSE`, `R²`, `Sesgo`) y las `5` semanas de mayor desvío (`-$86,861.44` en previa de Navidad y `+$48,068.80` el `04/01/2025`).
+
+- [x] **Ensayo 2 — Incorporación paso a paso del Calendario comercial (`celdas 86 y 87`, sección 6.2):** se crearon directamente en este paso los `6` indicadores conocidos de antemano (`es_black_friday`, `es_previa_navidad`, `es_cierre_navidad`, `es_san_valentin`, `es_dia_madre`, `es_post_evento`) y se reentrenaron todos los modelos, reduciendo el `MAE` lineal un **`20.27%`** hasta `$10,611.67 USD` (`14.40%`, `R² = 0.64`) y el de `Boosting` un `9.07%` (`$12,635.63 USD`), con efecto marginal visible en dólares por evento.
+
+- [x] **Ensayo 3 — Historia extendida de ventas (`celdas 88 y 89`, sección 6.3):** se agregaron `t-2`, medias móviles (`4s`, `8s`, `12s`), `volatilidad_4s` e `impulso_4s_12s` en dos sub-ensayos (`3a Base + Historia sin cal.` con `17.42%` y `3b Base + Cal. + Historia` con `13.86%`), evidenciando los cambios de signo en `OLS` causados por la colinealidad entre ventanas.
+
+- [x] **Ensayo 4 — Multicolinealidad (`VIF`), Modelo Reducido, `Ridge` (+ Fourier) y control de sobreajuste (`celdas 90 y 91`, sección 6.4):** se ejecutó la poda `VIF <= 5` (`11` variables tras descartar `media_movil_4s`, `media_movil_12s` y `media_movil_8s`) y se añadieron los `4` armónicos estacionales de Fourier para evaluar `Regresión Ridge (alpha=15.0)`, alcanzando el menor error en prueba (`MAE = $10,332.94 USD` / `14.02%`, `R² = 0.69`, razón `Prueba/Entreno = 0.90x`). Se excluyó `Holt-Winters` del flujo principal conforme a lo acordado en reunión para priorizar modelos interpretables (`OLS`, `Ridge` y `Boosting`).
+
+- [x] **Verificación `364 días` vs. `retail_week`, `TimeSeriesSplit` y escalamiento por horizontes (`celdas 92 a 98`, secciones 6.5, 6.6 y Bloques 7 a 10):** se demostró el impacto de `364 días` (`-14.1%` en referencia ingenua y `-1.5%` en `OLS`), se validó la estabilidad en `5` pliegues expansivos (`SARX + Fourier Ridge` líder con `MAE medio = $12,379.86 USD` / `13.56%`, `R² medio = 0.36`), se contrastó la semana puntual `6` de `2025` (`San Valentín`: `0.59%` en Lineal y `10.48%` en `SARX+Fourier` dentro de `±MAE`) y se escaló `2025` de `52 semanas` (`17.08%`) a `12 meses` (`9.98%`, `R² = 0.73`), `4 trimestres` (`7.85%`) y `Total anual` (`+2.26%`), conservando `3,481,156` filas y `$392,170,429.26 USD` (`$287,699,163.91 USD` 2022–2026) intactos en el Bloque 10.
+
+---
+
+### Fase 57: Reestructuración Didáctica de las Secciones 5 y 6 con Esquema Antes, Código y Análisis en Cada Paso (Aplicado por **gera**, 17/11/2026)
+
+- [x] **Esquema uniforme `Antes -> Código y gráficos -> Análisis de resultados` en todas las subsecciones (`celdas 80 a 109`):** se reordenaron los **Bloques 5 y 6** conservando intactas las celdas `0` a `79` para que cada etapa presente primero el objetivo y variables del ensayo sin adelantar hallazgos, luego el código ejecutable con tablas y gráficos, y inmediatamente después su lectura crítica con la decisión que enlaza con la etapa siguiente.
+
+- [x] **Separación limpia del Bloque 5 (`5.1` celdas `80–82` y `5.2` celdas `83–86`):** se separó la tabla semanal base (`344` semanas operativas continuas de `Williamsburg`) de la partición cronológica `80/20` (`275` entrenamiento / `69` prueba, venta media `$73,686.36 USD`) y de la definición de funciones auxiliares compartidas (`celda 85`), cerrando cada parte con su propio análisis escrito.
+
+- [x] **Lectura posterior paso a paso en los ensayos `6.1` a `6.5` (`celdas 87 a 101`):** se incorporaron secciones específicas de análisis tras cada ensayo (`6.1 Base`: `MAE OLS = $13,308.92` / `18.06%`; `6.2 +Calendario`: caída de `-20.27%` hasta `$10,611.67` / `14.40%`; `6.3 +Historia`: colinealidad e inversión de signos en `OLS`; `6.4 VIF, Ridge + Fourier y sobreajuste`: `SARX + Fourier Ridge` líder con `$10,332.94` / `14.02%`, `R² = 0.69` y razón `Prueba/Entreno = 0.90x`; `6.5 Verificación 364 días`: mejora de `-14.1%` en referencia anual y `-1.5%` en `OLS`).
+
+- [x] **División de `6.6` (`TimeSeriesSplit`) y `6.7` (Predicción puntual y escalamiento `2025`) más síntesis de Bloques `7–10` (`celdas 102 a 109`):** se separó la validación cruzada de `5` pliegues (`SARX + Fourier Ridge` con `MAE medio = $12,379.86 USD` / `13.56%`) de la aplicación puntual en Semana `6` (`0.59%` en Lineal `Base+Cal.` frente a `21.22%` en referencia anual) y de la proyección anual `2025` escalada por horizonte (`17.08%` semanal $\rightarrow$ `9.98%` mensual $\rightarrow$ `7.85%` trimestral $\rightarrow$ `+2.26%` anual), verificando en `.venv` las `110` celdas totales sin errores ni alteración contable (`3,481,156` filas y `$392,170,429.26 USD`).
+
+---
+
+### Fase 58: Retiro Completo de Ridge, Separación de 6.4a/6.4b y 6.7/6.8, Validación Multi-Ubicación y Actualización del Índice (Aplicado por **gera**, 17/11/2026)
+
+- [x] **Eliminación total de `Ridge` en los Bloques 5 a 10:** se retiró `Regresión Ridge` de las funciones compartidas (`celda 85`), del cuarto ensayo (`celdas 96–101`), de `TimeSeriesSplit` (`celda 106`) y de la proyección anual `2025` (`celda 113`), demostrando que podar la colinealidad por `VIF <= 5` deja lista la `Regresión lineal (OLS)` sin penalización adicional (`OLS Reducido + Fourier`: `MAE = $10,488.87 USD` / `14.23%`, `R² = 0.66`).
+
+- [x] **Subsecciones desdobladas (`6.4a`, `6.4b`, `6.7` y `6.8`):** se separó `6.4` en **`6.4a` (`VIF` y `Modelo Reducido`, celdas `96–98`)** y **`6.4b` (`Fourier`, trazabilidad global y control de sobreajuste, celdas `99–101`)**, y se desdobló la antigua celda `106` en **`6.7` (`Predicción semanal puntual` con detección calendario exacta por fecha objetivo `FECHA_OBJETIVO_SIMULADA`, celdas `109–111`)** y **`6.8` (`Escalamiento por horizontes 2025` con `OLS + Fourier`, celdas `112–114`)**.
+
+- [x] **Panel visual de `4` métricas y validación multi-ubicación (`celdas 105 a 108`):** se reutilizó `graficar_panel_4_metricas` sobre la comparativa final de prueba (`celda 106`) y se añadió la evaluación cruzada por sucursal operativa (`>= 100` semanas continuas tras `t-52`, `celda 107`), confirmando que el enfoque supera a la referencia anual en las cuatro sedes maduras (`Web Warehouse` `18.5%` vs. `21.3%` con `R² = 0.85`, `Williamsburg` `14.2%` vs. `22.9%`, `SOHO` `15.3%` vs. `18.8%` y `Wedding Annex` `45.5%` vs. `61.7%`).
+
+- [x] **Mejora de resultados en uso puntual y anual `2025` sin `Ridge` (`celdas 110 a 116`):** en San Valentín `2025`, `OLS Reducido + Fourier` redujo su desvío puntual a **`1.80%`** (`-$1,467.30 USD`), y en la proyección ciega de `2025` bajó el error a **`17.21%`** semanal (`R² = 0.61`), **`9.75%`** mensual (`R² = 0.75`), **`7.46%`** trimestral (`R² = 0.72`) y **`+0.60%`** anual (`$3,701,829.27` vs. `$3,679,704.43 USD`).
+
+- [x] **Coherencia documental y verificación final:** se actualizó la tabla de estados del índice en la `celda 0` (`Bloques 7 a 9` marcados como `Desarrollado`), se añadió salida explícita en `celda 85` y referencia explícita a `Williamsburg` en cada análisis, ejecutando las `117` celdas en `.venv` sin errores y conservando `3,481,156` filas y `$392,170,429.26 USD`.
+
+---
+
+### Fase 59: Resolución de Conflictos del Merge de `main` en `gera_playground` (Aplicado por **gera**, 18/11/2026)
+
+- [x] **Conflictos en `sales-revenue-jewery.ipynb` y `process/process.md`:** se resolvieron adoptando íntegramente la versión de `main` por indicación del usuario; el notebook queda idéntico al de `main` (`119` celdas).
+
+- [x] **Incidencia:** la entrada previa de la rama (`Fase 49: Pronóstico por Trimestre Minorista en la Sección 6.6`, commit `5616291`) quedó reemplazada por el código y el registro de `main`; puede recuperarse desde ese commit si se necesita.
 
 ---
 
@@ -1248,6 +1361,7 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
 | Textos y etiquetas con alcances ambiguos o desactualizados | Persistían referencias a 39 semanas y las etiquetas no distinguían importes por línea, tickets sin devoluciones, rezagos informados o envíos con ZIP válido. | (Por **gera**, Fase 8) Se revisaron títulos, descripciones, leyendas y conclusiones para declarar el período y la población de cada resultado, conservando los cálculos. |
 | Nombre de la empresa visible en textos, código y resultados | Las columnas de marca y ubicación conservaban directamente las etiquetas de origen. | (Por **gera**, Fase 11) Se aplica anonimización al cargar, antes de cualquier salida, y se verificó que el notebook no contenga referencias visibles al nombre. |
 | El bosque aleatorio mejora validación pero empeora en prueba | La ventana final contiene un patrón distinto al período de validación y el candidato no generaliza mejor que la referencia estacional. | (Por **gera**, Fase 12) Se aplicó una compuerta de promoción sobre prueba; la referencia conserva el estado de campeón y el candidato queda registrado para el análisis de errores. |
+| `SyntaxError: unterminated string literal` en línea 73 de la celda 78 | Al serializar la celda 78 a JSON en disco, la secuencia `\n` dentro de `f'{etiq}\n({pct:.1f}%)'` se expandió como salto de línea literal partiéndola en dos elementos de `source`. | (Por **gera**, Fase 48) Se restauró la secuencia escapada `\n` en una única línea dentro de la celda 78 y se verificó con `ast.parse` la totalidad de las celdas de código del notebook. |
 
 ---
 
@@ -1262,7 +1376,7 @@ Se confirmaron nuevamente **2.103.340 líneas y USD 242.277.286,76** en 2022–2
   - Analizar los errores de regresión lineal y boosting por ubicación, semana y evento comercial.
   - [x] Evaluar validación temporal con ventanas sucesivas antes de ampliar la búsqueda de modelos (`TimeSeriesSplit` de 5 pliegues en Fase 46).
   - [x] Comparar los modelos con la referencia estacional en ventanas temporales adicionales.
-- [ ] **Análisis del EDA aún no realizados:** cohortes de clientes y Pareto de artículos (crecimiento interanual con `ly_date_key` y descomposición/autocorrelación semanal completados en Fase 46).
+- [ ] **Análisis del EDA aún no realizados:** cohortes de clientes (crecimiento interanual con `ly_date_key` y descomposición/autocorrelación semanal completados en Fase 46; concentración de Pareto 80/20 de subclases, clases y marcas completada en Fase 50).
 - [ ] **Decisiones pendientes:**
   - Corregir o no `retail_calendar_guide.md` (el año minorista de este dataset comienza en enero).
   - Tratamiento de las líneas con costo cero antes de analizar margen.
