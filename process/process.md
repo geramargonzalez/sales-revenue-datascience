@@ -1343,6 +1343,14 @@ Próximo paso: ensayar la exposición con las notas y contrastar las especificac
 
 ---
 
+### Fase 61: Incorporación de Subsección Previa sobre Origen, Extracción y Preparación del Dataset en Bloque 0 (Aplicado por **gera**, 19/11/2026)
+
+- [x] **Subsección `Origen, extracción y preparación del dataset` en la celda `2` (entre `0.1` y `0.2` de [`sales-revenue-jewery.ipynb`](file:///Users/gerardo/Library/CloudStorage/GoogleDrive-gerardo.gonzalez@estudiantes.utec.edu.uy/My%20Drive/SalesRevenueDataScience%20-%20Proyect/sales-revenue-jewery.ipynb#L36-L50)):** se redactó y corrigió el resumen ejecutivo de extracción en BigQuery (`2/01/2018` al `30/09/2026`, `3,512,042` líneas y `40` columnas sin duplicados de `line_id`), anonimización de ubicación/marca, validación del contrato de carga, exclusiones contables (`30,622` líneas con `rpt_ignored == True` y `264` anulaciones `Reversal`/`Reversed`), tratamiento de nulos, descarte de tres columnas vacías (`item_season`, `promo_name` y `promo_amt`) y balance contable final (`3,481,156` líneas, `37` columnas y `$392,170,429.26 USD`).
+
+- [x] **Sincronización y verificación:** se limpiaron los saltos iniciales residuales de la celda `2` tanto en el buffer abierto del editor como en disco (`120` celdas totales, sintaxis `AST` verificada); no se modificó código ni se requirió reejecución del modelo.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
