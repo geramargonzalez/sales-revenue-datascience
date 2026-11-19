@@ -1395,6 +1395,34 @@ Próximo paso: ensayar la exposición con las notas y contrastar las especificac
 
 ---
 
+### Fase 64: Corrección de Textos y Consistencia Numérica en Bloques 4, 5 y 6 (Aplicado por **gera**, 19/11/2026)
+
+- [x] **Bloque 4 — Análisis exploratorio:**
+  - En `4.0` (`eda_vistas_md`), se incorporaron las proporciones exactas excluidas de `2026` (`9.55%` de las líneas y `11.58%` de `net_sales`).
+
+  - En `4.2.1` (`eda_univariado_sintesis`), se corrigió el percentil 75 de `return_lag_days` original (`41` días en lugar de `42`).
+
+  - En `4.3` (`eda_correlacion_sintesis`), se retiró la mención obsoleta a la regularización `Ridge` en el Bloque 6 (sustituida por poda `VIF <= 5` en `OLS`) y se añadió la línea en blanco faltante antes de `### 4.4 Evolución temporal y estacionalidad`.
+
+  - En `4.4` (`eda_temporal_sintesis`), se actualizó el rango anual de participación de las cinco semanas pico (`20.8%` en 2018 a `29.4%` en 2020, en lugar de `22.7%` a `28.1%`).
+
+  - En `4.5` (`eda_canal_sintesis`), se ajustó la comparación de ticket promedio de `Wedding Annex` frente al resto de tiendas físicas (`$1,330.3` frente a `$199.6`).
+
+  - En `4.7` (`eda_producto_sintesis`), se corrigieron los precios netos por unidad y márgenes por departamento del período `2018–2025` (`Jewelry`: `$151.7` y `63.8%`; `Home & Gifts`: `$14.9` y `49.9%`; `Beauty`: `$18.5` y `52.3%`).
+
+- [x] **Bloques 5 y 6 — Ingeniería de variables base y modelado iterativo:**
+  - Se eliminaron saltos iniciales residuales en `5f7b55ca` (`5.1`) y `17ec73a9` (`6.1`) y se dividió la oración extensa de agregación semanal en `5.1` respetando el espaciado Markdown.
+
+  - En `1966be3a` (`5.1`), se precisaron las `20` semanas descontadas tras `t-52` por el cierre de `2020` y su ventana de continuidad (`416 - 52 - 20 = 344` semanas).
+
+  - En `c71ca552` (`6.3`), `f714fa72` (`6.6`) y `0c32c0c8` (`6.7`), se reemplazó `"modelos complejos"` por `"penalizaciones adicionales"`, se corrigió el umbral de sucursales recientes (`< 100` semanas en lugar de `< 80`) y se homogeneizó el formato de porcentaje/moneda de `OLS Reducido + Fourier`.
+
+- [x] **Verificación y control contable:** ejecución íntegra de las `121` celdas en `.venv` (`sales-revenue-env`) con `0` errores, manteniendo intactos `3,481,156` filas, `37` columnas y `net_sales = $392,170,429.26 USD`.
+
+**Próximos pasos:** mantener sincronizadas las métricas narrativas con las salidas del notebook y evaluar si se ejecuta el **Paso B** del plan de limpieza en una fase posterior.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
