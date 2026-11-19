@@ -1351,6 +1351,33 @@ Próximo paso: ensayar la exposición con las notas y contrastar las especificac
 
 ---
 
+### Fase 62: Revisión y Mejora de Textos y Consistencia en Bloques 0, 1 y 3 (Aplicado por **gera**, 19/11/2026)
+
+- [x] **Bloque 0 — Presentación (celdas `2` y `3`):**
+  - Se corrigió la numeración duplicada de `### 0.2` y la jerarquía de `Etapa 2` (`####`), ordenando el bloque de `0.1` a `0.4`.
+
+  - En `0.1` y `0.2`, se precisó el alcance completo actual (incluyendo generalización multi-ubicación en `6.6` y horizontes agregados en `6.8`) y el período superpuesto entre extracciones (`1 de enero de 2023 al 31 de agosto de 2026`).
+
+  - En `0.3` (`Alcance e índice`), se actualizó el resumen general y la fila 10 para enlazar a `10. Control de cierre` (`Desarrollado`) en lugar de `Próximos pasos`; en `0.4` (`Entorno de trabajo`), se retiró la referencia obsoleta a `scipy` para suavizamiento exponencial.
+
+- [x] **Bloque 1 — Carga de datos (celdas `5` y `7`):**
+  - Se documentó la anonimización por confidencialidad ejecutada antes de `df.head()`, la falta de orden cronológico en `df.tail()` (muestra diciembre de 2023 aunque el rango validado alcanza septiembre de 2026), la confirmación de dimensiones iniciales (`3,512,042 x 40`) y se corrigió la tilde en el comentario `# Mostrar las últimas filas`.
+
+- [x] **Bloque 3 — Limpieza (celdas `15`, `16`, `18`, `21`, `22`, `23`, `25` y `30`):**
+  - En `3.1` y celda `16`, se aclaró la permanencia de las `59` líneas válidas de `Deposit` (`rpt_ignored == False`), la diferencia entre `txn_type == 'Return'` (`101,851`) e `is_return == True` (`206,480` por tickets `Mixed`) y la verificación del balance contable al cierre de `3.4`.
+
+  - En `3.2` y `3.2.1`, se incorporaron `206,480` devoluciones totales, `43,384` sin rezago informado (`21.01%`), `13,547` ceros explícitos, `Percentil 90` (`239` $\rightarrow$ `90` días) e interpretación de la caída del `62.4%` en la media.
+
+  - En `3.3`, se clasificaron las `14` columnas con nulos en tres categorías y se añadieron `item_season`, `promo_name` y `promo_amt` al diccionario `clasificacion_negocio` de la celda `23`, eliminando los `NaN` de la tabla desplegada.
+
+  - En `3.4` y `3.5`, se resumió la evidencia de nulos condicionales (`94.69%` vs. `0.95%` en `ship_to_postal`; `100.00%` vs. `2.07%` en `return_reason`), se explicitaron todas las etiquetas aplicadas y el signo negativo de `markdown`, y se cerró con `0` filas eliminadas, `0` nulos no estructurales y `$0.00` de variación sobre `$392,170,429.26 USD`.
+
+- [x] **Verificación y control contable:** se ejecutó el notebook completo (`120` celdas en `.venv`, kernel `sales-revenue-env`) con `0` errores, conservando intactos la estructura de celdas, `3,481,156` filas, `37` columnas y `net_sales = $392,170,429.26 USD`.
+
+**Próximos pasos:** evaluar la limpieza de importaciones en desuso de la celda `4` (`minimize`, `Ridge`, `make_pipeline`, `StandardScaler`, `Markdown`) si se busca simplificar aún más el arranque del notebook.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
