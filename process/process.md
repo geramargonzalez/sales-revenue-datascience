@@ -1378,6 +1378,23 @@ Próximo paso: ensayar la exposición con las notas y contrastar las especificac
 
 ---
 
+### Fase 63: Auditoría de Tickets `Mixed`, Signos Contables e Invariantes en Bloque 3 (Paso A) (Aplicado por **gera**, 19/11/2026)
+
+- [x] **Separación explícita de tickets `Mixed` con rezago heredado (`3.3`, `3.4` y `3.5`):**
+  - Se actualizó la clasificación de negocio en `781dfe0a` y la lectura en `b4c6d669`, `17acda30` y `9e505ba6` para distinguir dentro de los `245,097` valores informados de `return_lag_days` las `163,096` devoluciones (`is_return == True`) de las **`82,001` líneas de venta por cambio en tickets `Mixed`** (`is_return == False`), corrigiendo la descripción previa de `3.5` sin alterar filas ni imputaciones.
+
+- [x] **Aserciones de invariantes de rango y consistencia temporal (`e1b6d29c`):**
+  - Se incorporó `validar_invariantes_limpieza(datos)` junto a `validar_nulos` comprobando `return_lag_days >= 0`, `markdown <= 0.0`, `hour` en `[0, 23]` y coincidencia `100%` de `date_key` con `date`, sin modificar el DataFrame `df`.
+
+- [x] **Tabla de auditoría cuantitativa sin exclusión de filas (`e1b6d29c`):**
+  - Se cuantificaron `82,001` ventas `Mixed` con `return_lag_days` informado, `780` ventas (`~is_return`) con `net_sales < 0`, `9` devoluciones (`is_return`) con `net_sales > 0`, `159` líneas con `qty` fraccionaria (`±0.5` en `Jewelry`), `18,244` líneas con `discount_total < 0`, `63,868` líneas con `|margin - (net_sales - cogs)| > $0.01`, `284,279` ventas con `cogs == 0` y `0` filas verdaderas en `is_employee_sale`.
+
+- [x] **Verificación y control contable:** ejecución completa del notebook (`121` celdas en `.venv`, kernel `sales-revenue-env`) con `0` errores, conservando intactos `3,481,156` filas, `37` columnas y `net_sales = $392,170,429.26 USD` (`Delta: $0.00`).
+
+**Próximos pasos:** evaluar el **Paso B** del plan de limpieza (parseo único de `date`, decisión sobre `is_employee_sale` y centralización de `ship_to_postal`, `return_reason` y banderas de calidad de margen/2022).
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
