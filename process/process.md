@@ -1423,6 +1423,30 @@ Próximo paso: ensayar la exposición con las notas y contrastar las especificac
 
 ---
 
+### Fase 65: Reorganización del Bloque 4 Orientado a Modelos y Creación de Guía de Ayuda para Sección 6 (Aplicado por **gera**, 19/11/2026)
+
+- [x] **Reestructuración del Bloque 4 en dos partes (`4.0`–`4.5` y `4.6`–`4.8`):**
+  - **Parte I — EDA orientado al modelado (`4.0`–`4.5`):** se centró el análisis en la unidad semanal cerrada (`W-SAT`) y se retiraron los paneles redundantes (`4.1.2` de hipótesis repetidas, las `10` distribuciones por línea de ticket, las `8` matrices de correlación de importes contemporáneos, el gráfico por hora `hour`, ventas por estado y tabla de `Wedding Annex` en `4.5`).
+
+  - **Nuevas vistas agregadas al servicio de `OLS`, `GradientBoostingRegressor` y Series Temporales:**
+    - **`4.2` Madurez de ubicaciones (`eda_canal_aperturas`):** gráfico visual de ventas acumuladas y meses observados frente al umbral `>= 100` semanas tras `t-52`.
+
+    - **`4.3` Univariado del objetivo semanal (`eda_obj_univariado_code`):** `boxplot` + histograma alineados con media y mediana (`Williamsburg`: media `$78,793`, mediana `$79,906`, asimetría `0.48`; `Empresa`: media `$831,096`, mediana `$723,512`, asimetría `2.54`).
+
+    - **`4.4` Dinámica temporal multi-horizonte (`eda_temporal_quarter_ive`):** **`IVE` por Quarter (`Q1–Q4`, suma `= 4.000`: `Q4 = 1.461` vs. `Q1 = 0.776` empresa; `1.215` vs. `0.851` `Williamsburg`)**, serie original vs. desestacionalizada, dispersión anual y caída del `CV %` desestacionalizado al agregar horizontes (`28.76%` semanal $\rightarrow$ `27.62%` mensual $\rightarrow$ `25.47%` *quarter* $\rightarrow$ `23.13%` anual), conservando `ly_date_key`, descomposición ($F_T = 0.664$, $F_S = 0.721$) y `ACF`/`PACF`.
+
+    - **`4.5` Bivariado `X -> y` (`eda_bivariado_code`):** *lag plots* (`t-1` con `r = 0.773` y `t-52` con `r = 0.337`) coloreados por campaña comercial, `barplot` por tipo de semana (`Previa Navidad = $161,205` vs. `Semana normal = $74,914`) y `Quarter`, y correlación con los antecedentes reales.
+
+  - **Parte II — Contexto comercial y negocio (`4.6`–`4.8`):** se conservaron íntegras las secciones de devoluciones, productos/Pareto/descuentos y clientes/mapas geográficos, asegurando `TIENDAS_FISICAS` y `tickets_venta` desde `4.0`.
+
+- [x] **Documento resumen y guía para el entrenamiento en Sección 6:** se creó [`guia_eda_y_modelado_bloque6.md`](guia_eda_y_modelado_bloque6.md) detallando la tabla comparativa Antes vs. Después y cómo cada pieza del EDA orienta la especificación, poda `VIF`, límites de extrapolación en `Boosting`, `364` días y escalamiento `Semanal -> Mensual -> Quarter -> Anual`.
+
+- [x] **Verificación y control contable:** se actualizó el índice del Bloque `0.3` y se ejecutaron las `107` celdas totales del notebook en `.venv` (`sales-revenue-env`) con `0` errores, manteniendo intactos `3,481,156` filas, `37` columnas y `net_sales = $392,170,429.26 USD`.
+
+**Próximos pasos:** mantener sincronizadas las métricas del EDA con futuras iteraciones de la Sección 6 y consultar `process/guia_eda_y_modelado_bloque6.md` al probar nuevas ubicaciones o transformaciones.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
