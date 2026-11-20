@@ -1447,6 +1447,28 @@ Próximo paso: ensayar la exposición con las notas y contrastar las especificac
 
 ---
 
+### Fase 66: Desacoplamiento de Parte I del EDA respecto de Ubicación Específica (Aplicado por **gera**, 19/11/2026)
+
+- [x] **Refactorización agnóstica de ubicación en Bloque 4 Parte I (`4.0`–`4.5`):**
+  - **`4.0` Base de análisis (`eda_vistas_code`):** se reemplazó la serie específica `semanal_eda_wbg` por series generales del negocio (`semanal_eda_empresa`, `semanal_eda_fisicas` para el agregado de tiendas físicas y `panel_semanal_eda` con `2,226` observaciones ubicación-semana operativas en `2018–2025`), dejando `UBICACION_RL` exclusivamente como ejemplo configurable desde el Bloque 5.
+
+  - **`4.2` Madurez de ubicaciones (`eda_canal_aperturas` y `eda_madurez_sintesis`):** ranking y meses observados de las `13` sedes operativas con registro `2018–2025` frente al umbral `>= 100` semanas continuas (`Web Warehouse`, `Williamsburg`, `Wedding Annex` y `SOHO`), sin privilegiar una sucursal particular en la narrativa.
+
+  - **`4.3` Univariado del objetivo (`eda_obj_univariado_code` y `eda_obj_univariado_sintesis`):** `boxplot` + histograma sobre `Total empresa` (`media = $831,096 USD`, `mediana = $723,512 USD`, `asimetría = 2.54`) y `Tiendas físicas agregadas` (`media = $252,273 USD`, `mediana = $215,844 USD`, `asimetría = 0.88`), más tabla resumen incluyendo `Web Warehouse` (`media = $569,387 USD`, `mediana = $470,120 USD`, `asimetría = 3.10`) y el `Panel ubicación-semana` (`media = $153,440 USD`, `mediana = $61,084 USD`, `asimetría = 5.39`).
+
+  - **`4.4` Dinámica temporal multi-horizonte (`eda_temporal_quarter_ive` y `eda_temporal_sintesis`):** cálculo del `IVE` trimestral por canal (`Q4` empresa `1.461` frente a `Q1` `0.776`; `Web Warehouse` `Q4 = 1.587` frente a `0.745`; `Tiendas físicas` `Q4 = 1.225` frente a `0.896`), dispersión anual creciente del total empresa y `CV (%)` desestacionalizado `2021–2025` por horizonte (`23.39%` semanal $\rightarrow$ `23.37%` mensual $\rightarrow$ `21.52%` *quarter* $\rightarrow$ `23.06%` anual dominado por el crecimiento de escala `$38.1M` $\rightarrow$ `$72.5M`).
+
+  - **`4.5` Bivariado `X -> y` (`eda_bivariado_code` y `eda_bivariado_sintesis`):** *lag plots* (`t-1` y `t-52`) y comparación por evento y `Quarter` sobre las `364` semanas del total empresa (`2019–2025`, con `Previa Navidad = $2,610,251 USD` y `Black Friday = $1,993,580 USD` frente a `Semana normal = $787,280 USD`), acompañados de la tabla comparativa entre `Empresa` (`t-1` `r = 0.814`, `t-52` `r = 0.932`) y `Mediana sedes maduras` (`t-1` `r = 0.767`, `t-52` `r = 0.332`).
+
+- [x] **Sincronización de documentación y verificación contable:**
+  - Se actualizó [`guia_eda_y_modelado_bloque6.md`](guia_eda_y_modelado_bloque6.md) para reflejar el EDA generalizado y separar claramente el diagnóstico del negocio de su instancia aplicada sobre `UBICACION_RL` en la Sección 6.
+
+  - Ejecución íntegra del notebook (`107` celdas) en `.venv` (`sales-revenue-env`) sin errores y con verificación visual de los cuatro gráficos modificados, manteniendo intactos `3,481,156` filas, `37` columnas y `net_sales = $392,170,429.26 USD`.
+
+**Próximos pasos:** mantener sincronizadas las métricas narrativas con futuras iteraciones de la Sección 6 al cambiar la ubicación objetivo o incorporar variables de tendencia.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
