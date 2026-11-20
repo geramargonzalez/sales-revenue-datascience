@@ -1506,6 +1506,20 @@ Próximo paso: ensayar la exposición con las notas y contrastar las especificac
 
 ---
 
+### Fase 69: Centralización de `COLORES_ANIO` y Documentación en Bloque 0 (Aplicado por **gera**, 20/11/2026)
+
+- [x] **Promoción de `COLORES_ANIO` al Bloque 0 (`sales-revenue-jewery.ipynb`):**
+  - **`0.4` Entorno de trabajo (`75b1fe7e` y `b97d8434`):** se movió la definición de **`COLORES_ANIO` (`2018–2025`)** junto a `ETIQUETAS_VARIABLES` al inicio del notebook, añadiendo una nota en el Markdown de `0.4` y comentarios en el código para explicar al lector que reserva colores fijos para comparaciones entre años mientras las demás gráficas conservan sus paletas por categoría, canal, métrica o modelo.
+
+  - **Eliminación de duplicados (`eda_temporal_serie`):** se retiró el bloque de definición local en `4.7`, manteniendo una única fuente global reutilizable en cualquier gráfico comparativo anual futuro.
+
+- [x] **Verificación y control contable:**
+  - Ejecución íntegra de las `110` celdas en `.venv` (`sales-revenue-env`) con `0` errores, manteniendo intactos `3,481,156` filas, `37` columnas y `net_sales = $392,170,429.26 USD`.
+
+**Próximos pasos:** reutilizar `COLORES_ANIO` en cualquier nueva visualización comparativa anual sin alterar las paletas semánticas de los modelos ni de las métricas.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
