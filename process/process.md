@@ -1469,6 +1469,27 @@ Próximo paso: ensayar la exposición con las notas y contrastar las especificac
 
 ---
 
+### Fase 67: Reordenamiento del EDA (`Negocio` $\rightarrow$ `Previo al Modelado`) y Eliminación de Datos del Modelo en Bloque 4 (Aplicado por **gera**, 20/11/2026)
+
+- [x] **Reordenamiento cronológico y narrativo del Bloque 4 (`sales-revenue-jewery.ipynb`):**
+  - **`4.0` Base común (`eda_vistas_md`, `eda_vistas_code`, `eda_vistas_sintesis`):** se ubicó el encabezado `Bloque 4. Análisis exploratorio` al inicio y se dejó `4.0` como infraestructura analítica compartida (`2018–2025`, `tickets_venta`, `devoluciones_fin` y series semanales `W-SAT`).
+
+  - **Parte I — Comprensión del negocio y operación comercial (`4.1`–`4.4`):** se trasladó primero el diagnóstico comercial del negocio en orden lógico: `4.1` Huella comercial, canales y madurez de ubicaciones, `4.2` Productos, descuentos y rentabilidad (definiendo `es_joyeria` explícitamente en `eda_producto_graficos` para independencia de ejecución), `4.3` Comportamiento de las devoluciones y `4.4` Clientes y geografía de envíos.
+
+  - **Parte II — Diagnóstico estadístico y temporal previo al modelado (`4.5`–`4.8`):** a continuación se ordenó la caracterización técnica para modelado: `4.5` Consistencia contable y calendario minorista `4-5-4`, `4.6` Distribución univariada de la venta neta semanal, `4.7` Dinámica temporal multi-horizonte (`Semana`, `Mes`, `Quarter`, `Año` y `ACF`/`PACF`) y `4.8` Relación bivariada entre antecedentes temporales, calendario y venta semanal.
+
+- [x] **Eliminación de fugas del modelado dentro del Bloque 4:**
+  - Se limpiaron todas las menciones a subsecciones (`6.1`–`6.8`), métricas de error (`MAE`, `R²`), hiperparámetros (`max_depth=2`) y nombres de algoritmos evaluados posteriormente (`OLS`, `GradientBoostingRegressor`, `VIF`), y se renombró `"Recta OLS"` a `"Tendencia lineal"` en los diagramas de dispersión de `4.8`.
+
+- [x] **Sincronización documental y verificación contable:**
+  - Se actualizó el índice `0.3` del notebook y [`guia_eda_y_modelado_bloque6.md`](guia_eda_y_modelado_bloque6.md) al nuevo orden (`4.0` base, Parte I `4.1`–`4.4` Negocio, Parte II `4.5`–`4.8` Diagnóstico previo al modelado).
+
+  - Ejecución íntegra de las `110` celdas del notebook en `.venv` (`sales-revenue-env`) con `0` errores, manteniendo intactos `3,481,156` filas, `37` columnas y `net_sales = $392,170,429.26 USD`.
+
+**Próximos pasos:** consultar la Parte II (`4.5`–`4.8`) como fundamento empírico antes de avanzar a los Bloques 5 y 6, manteniendo la separación cronológica entre exploración y resultados del modelado.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
