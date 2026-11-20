@@ -1490,6 +1490,22 @@ Próximo paso: ensayar la exposición con las notas y contrastar las especificac
 
 ---
 
+### Fase 68: Paleta Cromática Consistente por Año (`COLORES_ANIO`) en Sección `4.7` (Aplicado por **gera**, 20/11/2026)
+
+- [x] **Unificación visual aislada por año en `4.7` (`sales-revenue-jewery.ipynb`):**
+  - **`eda_temporal_serie`:** se definió el diccionario único **`COLORES_ANIO`** (`2018`: `#64748B`, `2019`: `#8B5A2B`, `2020`: `#DC2626`, `2021`: `#059669`, `2022`: `#7C3AED`, `2023`: `#D97706`, `2024`: `#0284C7`, `2025`: `#1E3A8A`) reemplazando `tonos`, y se pasó la línea punteada `Reparto uniforme (8.3%)` a gris carbón (`#334155`) para evitar cruces con `2023`.
+
+  - **`eda_temporal_semanas`:** se reemplazó `tonos_semana` por `COLORES_ANIO` manteniendo trazo destacado para `2025` (`2.3` frente a `1.6`) y sombreado neutro en el cuarto trimestre minorista (`COLOR_NEUTRO_CLARO`).
+
+  - **`eda_temporal_interanual`:** se aplicó `COLORES_ANIO` a las barras anuales de `Evolución interanual de las ventas netas (2018-2025)` para enlazar visualmente cada año en las tres gráficas comparativas sin afectar el resto de las figuras del notebook.
+
+- [x] **Verificación y control contable:**
+  - Ejecución íntegra de las `110` celdas en `.venv` (`sales-revenue-env`) con `0` errores, inspección visual de los gráficos actualizados e integridad intacta (`3,481,156` filas, `37` columnas y `net_sales = $392,170,429.26 USD`).
+
+**Próximos pasos:** consultar la Parte II (`4.5`–`4.8`) como fundamento empírico antes de avanzar a los Bloques 5 y 6, manteniendo la separación cronológica entre exploración y resultados del modelado.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
