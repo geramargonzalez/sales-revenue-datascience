@@ -1520,6 +1520,23 @@ Próximo paso: ensayar la exposición con las notas y contrastar las especificac
 
 ---
 
+### Fase 70: Estandarización de Bloques 5, 6 y 4 (`Venta real` vs. `Pronosticado` y Secuencia `Tabla/Gráfico` $\rightarrow$ `Explicación` $\rightarrow$ `Resumen`) (Aplicado por **gera**, 20/11/2026)
+
+- [x] **Reestructuración comparativa de los Bloques 5 y 6 (y síntesis de Bloques 7–9):**
+  - **Comparación anclada en la `Venta real`:** todas las tablas de métricas (`5.1`, `5.2` y `6.1` a `6.8`) y cuadros resumen colocan siempre en primer lugar la **`Venta real media (USD)`** (`$73,686.36 USD/semana` en las `69` semanas de prueba, `$81,528.80 USD` en San Valentín `2025` y `$3,679,704.43 USD` en el acumulado anual `2025`), seguida inmediatamente por el **`Pronóstico medio (USD)`** (o `Pronosticado`), `Sesgo / Diferencia (USD)`, `MAE (USD)`, `MAE (% media)`, `RMSE (USD)`, `R²` y `Prueba / Entreno`.
+
+  - **Claridad por sección y etiquetas en español:** se añadió una ficha inicial en cada sección (`Objetivo`, `Variables activas`, `Pregunta a responder`), se mapearon las variables técnicas a etiquetas legibles en español (`ETIQUETAS_MODELADO_ES`), se eliminaron los paneles de 4 barras que duplicaban tablas (`6.1` y `6.6`), se incorporaron los rangos de fechas reales en el gráfico de `TimeSeriesSplit` (`6.6`) y se incluyeron las tres barras (`Venta real 2025`, `OLS Base + Calendario` y `OLS + Fourier`) en el gráfico mensual de `6.8`.
+
+- [x] **Secuencia estricta `Gráfico o tabla` $\rightarrow$ `Texto explicativo` $\rightarrow$ `Resumen` en Bloques 5, 6 y 4:**
+  - En los **Bloques 5 y 6 (`5.1`–`6.8`)** y en el **Bloque 4 (`4.0`–`4.8`)**, se separaron todas las celdas que producían múltiples salidas visuales para que cada celda de código genere como máximo **`1 Tabla` o `1 Gráfico`**, seguida de inmediato por su celda Markdown de explicación y cerrando cada sección con un resumen.
+
+- [x] **Verificación y control contable:**
+  - Ejecución completa de las `171` celdas en `.venv` (`sales-revenue-env`) con `0` errores, `0` celdas con salidas visuales múltiples y `0` celdas visuales consecutivas sin explicación intermedia, manteniendo intactos `3,481,156` filas, `37` columnas y `net_sales = $392,170,429.26 USD`.
+
+**Próximos pasos:** mantener la estructura `Gráfico o tabla` $\rightarrow$ `Texto explicativo` $\rightarrow$ `Resumen` y el orden `Venta real` $\rightarrow$ `Pronosticado` en cualquier ensayo futuro.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
