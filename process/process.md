@@ -1561,6 +1561,24 @@ Próximo paso: ensayar la exposición con las notas y contrastar las especificac
 
 ---
 
+### Fase 73: Incorporación de la Síntesis del EDA y Tablas de Mejores Resultados en Guía PDF de Defensa (Aplicado por **gera**, 25/11/2026)
+
+- [x] **Incorporación del Análisis Exploratorio de Datos (`Bloque 4: 2018–2025`) en [`guia_defensa_modelo_y_coeficientes.pdf`](guia_defensa_modelo_y_coeficientes.pdf):**
+  - **Parte I — Comprensión comercial del negocio (`4.1` a `4.4`):** tarjetas ejecutivas con las cifras verificadas de canales y madurez operativa (`$237.55M USD` en `Web Warehouse`, `4` de `13` sedes con `>= 100` semanas tras `t-52`), concentración de Pareto `80/20` y descuentos (`Jewelry` `$151.7 USD/u.`, margen `63.8%`, `68.2%` sin descuento), devoluciones omnicanal (`42.6%` de devoluciones web recibidas en tienda física y salto a `15.1%` en enero) y recurrencia de clientes (`38.6%` recurrentes generan el `71.4%` del ingreso).
+
+  - **Parte II — Puente entre diagnóstico estadístico (`4.5` a `4.8`) y decisiones de modelado:** tabla trazable que vincula cada hallazgo del EDA (`53` semanas minoristas de `2024`, asimetría positiva `2.54`–`5.39`, `IVE Q4 = 1.461`, reducción del `CV (%)` a `21.52%` en *quarter*, `PACF` en `t-1 = 0.823` y `t-52 = 0.320`, y caída de correlación de `t-52` de `0.932` en empresa a `0.332` en sedes maduras) con las decisiones adoptadas en los Bloques 5 y 6 (`shift(52)` a `364` días, `MAE` como métrica rectora, `6` dummies comerciales, poda `VIF <= 5` y armónicos de Fourier).
+
+- [x] **Tablas consolidadas de los mejores resultados por dimensión evaluada (`Venta real` $\rightarrow$ `Pronosticado`):**
+  - **Por familia de modelo (`4.1`):** comparativa directa en las `69` semanas de prueba (`Venta real media = $73,686.36 USD`) entre `OLS Reducido + Fourier` (`$74,361.04 USD`, `MAE = 14.23%`, `R² = 0.66`), `OLS Base + Calendario` (`$74,557.95 USD`, `14.40%`), `GradientBoostingRegressor` (`$77,188.21 USD`, `17.15%`) y `Referencia semana anterior` (`$72,432.14 USD`, `20.26%`).
+
+  - **Por esquema de validación y por horizonte temporal en `2025` (`4.2`):** consolidación de los modelos ganadores en prueba fija `80/20` (`14.23%`), `TimeSeriesSplit` de `5` pliegues (`$90,765.44 USD` real frente a `$89,745.12 USD` pronosticado, `MAE = 13.92%`), semana puntual de San Valentín (`$81,528.80 USD` frente a `$82,009.93 USD`, `0.59%`) y proyección `2025` semanal (`17.21%`), mensual (`9.75%`, `R² = 0.75`), trimestral (`7.46%`, `R² = 0.72`) y anual (`$3,679,704.43 USD` frente a `$3,673,815.65 USD`, `-0.16%`, y `$3,701,829.27 USD`, `+0.60%` en `OLS + Fourier`).
+
+  - **Por ubicación operativa madura (`4.3`):** resultados ganadores en `Web Warehouse` (`OLS Base + Calendario`, `18.47%` vs. `21.32%`, `R² Fourier = 0.85`), `SOHO` (`Boosting de árboles`, `14.21%` vs. `18.80%`), `Williamsburg` (`OLS Reducido + Fourier`, `14.23%` vs. `22.90%`) y `Wedding Annex` (`OLS Reducido + Fourier`, `45.48%` vs. `61.69%`).
+
+**Próximos pasos:** emplear la guía actualizada de extremo a extremo (`EDA` $\rightarrow$ `Modelado` $\rightarrow$ `Mejores Resultados` $\rightarrow$ `Coeficientes` $\rightarrow$ `Diccionario`) para la defensa oral del proyecto.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
