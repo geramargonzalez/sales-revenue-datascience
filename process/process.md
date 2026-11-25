@@ -1579,6 +1579,17 @@ Próximo paso: ensayar la exposición con las notas y contrastar las especificac
 
 ---
 
+### Fase 74: Incorporación del Análisis en Profundidad de `6.3`, `6.4`, Multicolinealidad y Elección de `VIF` en Guía PDF (Aplicado por **gera**, 25/11/2026)
+
+- [x] **Ampliación de la Sección 3 (`Subsección 3.1`) en [`guia_defensa_modelo_y_coeficientes.pdf`](guia_defensa_modelo_y_coeficientes.pdf):**
+  - **Distinción conceptual y aplicada (`Colinealidad` frente a `Multicolinealidad`):** tarjetas comparativas contrastando la redundancia de pares (`t-1` con `media_movil_4s`) frente a la combinación lineal exacta de tres variables en `Ensayo 3b` (`impulso_4s_12s = media_movil_4s - media_movil_12s`, `VIF = inf`), explicando cómo esa identidad invertía artificialmente `Cierre de Navidad` (`+$22,501 USD`) y `t-2` (`-0.219`).
+
+  - **Justificación metodológica de `VIF <= 5.0` y tablas de recuperación (`6.3b` $\rightarrow$ `6.4a` $\rightarrow$ `6.4b`):** defensa técnica frente a la matriz de correlación de Pearson (que solo evalúa pares) y frente a `Ridge`/`Lasso` (que encogerían hacia cero los saltos reales en dólares de Navidad y Día de la Madre), cuadro completo del `VIF` inicial (`14` var.) frente al depurado (`11` var., `VIF <= 3.47` calculado solo en entrenamiento), aporte ortogonal de los armónicos de Fourier en `6.4b` (`Sesgo = +$674.68 USD`, `MAE = 14.23%`) y frase síntesis lista para el tribunal.
+
+**Próximos pasos:** utilizar `process/guia_defensa_modelo_y_coeficientes.pdf` como guía completa de defensa técnica y de negocio.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
