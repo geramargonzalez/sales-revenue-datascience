@@ -1537,6 +1537,17 @@ Próximo paso: ensayar la exposición con las notas y contrastar las especificac
 
 ---
 
+### Fase 71: Generación en PDF de la Guía de Defensa del Modelo y Explicación de Coeficientes (Aplicado por **gera**, 24/11/2026)
+
+- [x] **Elaboración de documento PDF de defensa ([`guia_defensa_modelo_y_coeficientes.pdf`](guia_defensa_modelo_y_coeficientes.pdf)):**
+  - **Recorrido completo de pruebas (`6.1` a `6.8`):** síntesis ejecutiva de 2 minutos, diagrama de flujo experimental y tabla maestra comparando siempre la **`Venta real media ($73,686.36 USD)`** frente al pronóstico medio, sesgo, `MAE`, `R²` y ratio `Prueba / Entreno` desde los modelos base hasta `OLS Reducido + Fourier`, junto con las verificaciones de `364` días (`6.5`), `TimeSeriesSplit` y `4` sedes maduras (`6.6`), caso puntual San Valentín (`6.7`) y presupuesto `2025` multi-horizonte (`6.8`).
+
+  - **Explicación integral de coeficientes y preguntas de tribunal:** cuadro comparativo de todos los interceptos y coeficientes `OLS` (`Ensayos 1, 2, 3b, 4a y 4b`), explicación matemática de la inversión de signos por colinealidad y su corrección mediante `VIF <= 5`, lectura condicional de los eventos negativos en el modelo semanal frente al modelo anual sin `t-1`, comparación técnica frente a `GradientBoostingRegressor` y respuestas breves para defensa oral.
+
+**Próximos pasos:** utilizar `process/guia_defensa_modelo_y_coeficientes.pdf` como soporte para la defensa oral y ajustar eventuales láminas de presentación según el tiempo disponible.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
