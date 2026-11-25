@@ -1548,6 +1548,19 @@ Próximo paso: ensayar la exposición con las notas y contrastar las especificac
 
 ---
 
+### Fase 72: Incorporación del Diccionario Técnico Completo para Defensa en Guía PDF (Aplicado por **gera**, 24/11/2026)
+
+- [x] **Ampliación de [`guia_defensa_modelo_y_coeficientes.pdf`](guia_defensa_modelo_y_coeficientes.pdf) con diccionario integral de defensa:**
+  - **Modelos y conceptos de ecuación (`5.1`):** definiciones directas y aplicación en el proyecto de `OLS` (*Ordinary Least Squares*), `GradientBoostingRegressor`, modelos ingenuos (*naive baselines*), intercepto ($\beta_0$), principio *ceteris paribus* y variables binarias (*dummies*).
+
+  - **Métricas de error, ajuste y validación (`5.2`):** fórmulas intuitivas y lectura exacta sobre resultados del proyecto para `MAE` (`USD`), `MAE (% media)` (*WMAPE*), `RMSE`, `MAPE (%)`, `R²`, sesgo medio (*bias*), ratio `Prueba / Entreno` (*overfitting*), *data leakage* y `TimeSeriesSplit`.
+
+  - **Diagnóstico estadístico y series temporales (`5.3`):** definiciones aplicadas de multicolinealidad y `VIF`, rezagos (`t-1`, `t-2`, `t-52`) y reversión a la media, calendario minorista `4-5-4` (`364` frente a `371` días), `IVE`, heterocedasticidad, `CV (%)`, `ACF`/`PACF` y armónicos de Fourier.
+
+**Próximos pasos:** utilizar `process/guia_defensa_modelo_y_coeficientes.pdf` como referencia integral de métricas, pruebas y coeficientes durante la defensa oral.
+
+---
+
 ## 3. Problemas Encontrados y Resoluciones
 
 | Problema / Incidencia | Causa Raíz | Resolución |
